@@ -1,0 +1,107 @@
+import * as React from "react";
+import Image from "next/image";
+import { Phone, MapPin, ExternalLink, ShieldCheck, Mail } from "lucide-react";
+import { Container } from "@/components/ui/container";
+import { siteConfig } from "@/config/site";
+
+export function Footer() {
+  return (
+    <footer className="border-t border-border bg-surface-elevated/40 pt-16 pb-12">
+      <Container>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-border-subtle">
+          {/* Brand Info */}
+          <div className="space-y-4 md:col-span-2">
+            <div className="relative h-10 w-48">
+              <Image
+                src="/images/logo-pinciara.svg"
+                alt={siteConfig.name}
+                fill
+                className="object-contain object-left"
+              />
+            </div>
+            <p className="text-sm text-foreground-muted leading-relaxed max-w-md">
+              Especialistas em locação de imóveis comerciais de alto padrão em São Francisco, Niterói. Conectando marcas consolidadas e franquias em expansão aos melhores pontos da Avenida Presidente Roosevelt.
+            </p>
+            <div className="flex items-center gap-2 text-xs text-foreground-dim font-mono">
+              <ShieldCheck className="h-4 w-4 text-primary" />
+              <span>Intermediação imobiliária com credibilidade e segurança jurídica</span>
+            </div>
+          </div>
+
+          {/* Quick Navigation */}
+          <div className="space-y-3">
+            <p className="text-xs font-bold uppercase tracking-widest text-foreground font-mono">
+              Navegação
+            </p>
+            <ul className="space-y-2 text-sm text-foreground-muted">
+              <li>
+                <a href="#regiao" className="hover:text-primary transition-colors">
+                  A Região de São Francisco
+                </a>
+              </li>
+              <li>
+                <a href="#imoveis" className="hover:text-primary transition-colors">
+                  5 Imóveis Disponíveis
+                </a>
+              </li>
+              <li>
+                <a href="#diferenciais" className="hover:text-primary transition-colors">
+                  Diferenciais Pinciara
+                </a>
+              </li>
+              <li>
+                <a href="#faq" className="hover:text-primary transition-colors">
+                  Dúvidas Frequentes (FAQ)
+                </a>
+              </li>
+              <li>
+                <a
+                  href={siteConfig.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-primary hover:underline"
+                >
+                  Portal da Imobiliária
+                  <ExternalLink className="h-3 w-3" />
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Contact Direct */}
+          <div className="space-y-3">
+            <p className="text-xs font-bold uppercase tracking-widest text-foreground font-mono">
+              Atendimento Direto
+            </p>
+            <div className="space-y-2.5 text-sm text-foreground-muted">
+              <p className="font-semibold text-foreground">
+                {siteConfig.broker.name}
+              </p>
+              <p className="text-xs text-foreground-dim">
+                {siteConfig.broker.role}
+              </p>
+              <div className="flex items-center gap-2 pt-1 text-primary font-mono text-sm">
+                <Phone className="h-4 w-4" />
+                <span>{siteConfig.broker.phoneDisplay}</span>
+              </div>
+              <div className="flex items-start gap-2 pt-1 text-xs text-foreground-dim">
+                <MapPin className="h-4 w-4 shrink-0 text-primary mt-0.5" />
+                <span>{siteConfig.location.fullAddress}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Legal and Rights */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-foreground-dim">
+          <p>
+            © {new Date().getFullYear()} {siteConfig.name}. Todos os direitos reservados.
+          </p>
+          <p className="text-center sm:text-right">
+            Valores, disponibilidade e condições comerciais sujeitos a confirmação.
+          </p>
+        </div>
+      </Container>
+    </footer>
+  );
+}
