@@ -4,17 +4,17 @@ export const commercialProperties: CommercialProperty[] = [
   {
     id: "LO0222-PINC",
     slug: "loja-comercial-225m-roosevelt",
-    title: "Loja Comercial de 225 m² em Ponto Nobre",
+    title: "Loja Comercial de 225 m² — Rua Guaianazes, 46 (Esquina com Roosevelt)",
     category: "Loja Comercial",
-    badge: "225 m² • Vitrine Ativa",
+    badge: "225 m² • Esquina com Roosevelt",
     shortDescription:
-      "Loja comercial espaçosa em trecho nobre da Avenida Presidente Roosevelt, com ampla fachada em vão livre, ideal para redes e operações de alto padrão.",
+      "Loja comercial com 225 m² na Rua Guaianazes, 46, na esquina com a Av. Presidente Roosevelt. Ampla fachada com vitrine ativa no coração do polo comercial e gastronômico de São Francisco.",
     fullDescription: [
-      "Excelente ponto comercial com 225 m² de área útil no eixo principal de São Francisco. O imóvel oferece salão amplo em vão livre com piso de fácil manutenção, instalações sanitárias adaptadas e grande visibilidade para pedestres e veículos.",
-      "A localização estratégica na Av. Presidente Roosevelt garante fluxo contínuo de moradores da Zona Sul de Niterói e rápida conexão com os bairros de Icaraí, Charitas e Região Oceânica.",
+      "Excelente ponto comercial com 225 m² de área útil localizado na Rua Guaianazes, nº 46, exatamente na esquina com a Avenida Presidente Roosevelt, em São Francisco. O imóvel oferece salão amplo em vão livre com piso de fácil manutenção, instalações sanitárias adaptadas e dupla visibilidade de vitrine para pedestres e veículos.",
+      "A localização estratégica de esquina na confluência da Rua Guaianazes com a Av. Presidente Roosevelt garante fluxo contínuo e máxima exposição visual no polo gastronômico de São Francisco, a apenas uma quadra da orla.",
       "Espaço perfeito para drogarias de rede, franquias de alimentação sofisticada, clínicas médicas, estúdios ou comércio especializado."
     ],
-    address: "Av. Presidente Roosevelt — São Francisco, Niterói/RJ",
+    address: "Rua Guaianazes, 46 (Esquina com Av. Pres. Roosevelt) — São Francisco, Niterói/RJ",
     specs: {
       totalArea: 225,
       builtArea: 225,
@@ -29,10 +29,10 @@ export const commercialProperties: CommercialProperty[] = [
       note: "Condições e carência para adaptação sob consulta",
     },
     highlights: [
+      "Localização de esquina nobre: Rua Guaianazes, 46 x Av. Pres. Roosevelt",
       "Salão amplo em vão livre de 225 m²",
-      "Fachada com alta visibilidade na avenida",
-      "Próximo ao polo gastronômico e orla",
-      "Fácil embarque e desembarque frontal",
+      "Fachada com vitrine ativa e dupla exposição visual",
+      "A apenas 1 quadra da praia e do polo gastronômico",
     ],
     idealFor: [
       "Franquias Gastronômicas & Cafés Premium",
