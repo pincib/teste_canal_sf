@@ -64,12 +64,19 @@ export function PropertyCarousel({
 
   React.useEffect(() => {
     if (!emblaApi) return;
-    setScrollSnaps(emblaApi.scrollSnapList());
+
+    const syncEmblaState = () => {
+      setScrollSnaps(emblaApi.scrollSnapList());
+      setSelectedIndex(emblaApi.selectedScrollSnap());
+    };
+
+    queueMicrotask(syncEmblaState);
     emblaApi.on("select", onSelect);
-    emblaApi.on("reInit", onSelect);
+    emblaApi.on("reInit", syncEmblaState);
+
     return () => {
       emblaApi.off("select", onSelect);
-      emblaApi.off("reInit", onSelect);
+      emblaApi.off("reInit", syncEmblaState);
     };
   }, [emblaApi, onSelect]);
 

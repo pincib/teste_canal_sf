@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ChevronDown, HelpCircle, CheckCircle2 } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { Section, SectionHeader } from "@/components/ui/section";
 import { cn } from "@/lib/utils";

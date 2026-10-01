@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { MapPin, TrendingUp, Briefcase, Check, ArrowRight } from "lucide-react";
+import { MapPin, TrendingUp, Briefcase, Check } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { Section, SectionHeader } from "@/components/ui/section";
 import { regionTopics } from "@/data/region";

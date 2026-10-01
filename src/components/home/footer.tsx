@@ -1,6 +1,7 @@
 import * as React from "react";
 import Image from "next/image";
-import { Phone, MapPin, ExternalLink, ShieldCheck, Mail } from "lucide-react";
+import Link from "next/link";
+import { Phone, MapPin, ExternalLink, ShieldCheck } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/config/site";
 
@@ -35,24 +36,24 @@ export function Footer() {
             </p>
             <ul className="space-y-2 text-sm text-[#b8b4aa]">
               <li>
-                <a href="#regiao" className="hover:text-[#FFBB00] transition-colors">
+                <Link href="/#regiao" className="hover:text-[#FFBB00] transition-colors">
                   A Região de São Francisco
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#imoveis" className="hover:text-[#FFBB00] transition-colors">
+                <Link href="/#imoveis" className="hover:text-[#FFBB00] transition-colors">
                   5 Imóveis Disponíveis
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#diferenciais" className="hover:text-[#FFBB00] transition-colors">
+                <Link href="/#diferenciais" className="hover:text-[#FFBB00] transition-colors">
                   Diferenciais Pinciara
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#faq" className="hover:text-[#FFBB00] transition-colors">
+                <Link href="/#faq" className="hover:text-[#FFBB00] transition-colors">
                   Dúvidas Frequentes (FAQ)
-                </a>
+                </Link>
               </li>
               <li>
                 <a

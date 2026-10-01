@@ -23,10 +23,10 @@ export function Navbar({ onContactClick }: NavbarProps) {
   });
 
   const navLinks = [
-    { label: "A Região", href: "#regiao" },
-    { label: "5 Imóveis", href: "#imoveis" },
-    { label: "Diferenciais", href: "#diferenciais" },
-    { label: "FAQ", href: "#faq" },
+    { label: "A Região", href: "/#regiao" },
+    { label: "5 Imóveis", href: "/#imoveis" },
+    { label: "Diferenciais", href: "/#diferenciais" },
+    { label: "FAQ", href: "/#faq" },
   ];
 
   return (

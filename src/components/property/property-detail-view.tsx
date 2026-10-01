@@ -13,16 +13,16 @@ import {
   MessageCircle,
   ExternalLink,
   ShieldCheck,
-  Phone,
   Briefcase,
 } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { PropertyCarousel } from "@/components/property/property-carousel";
 import { WhatsAppFloat } from "@/components/ui/whatsapp-float";
 import { LeadModal } from "@/components/conversion/lead-modal";
+import { Footer } from "@/components/home/footer";
 import { CommercialProperty } from "@/types/property";
 import { siteConfig } from "@/config/site";
 
@@ -340,6 +340,9 @@ export function PropertyDetailView({ property }: PropertyDetailViewProps) {
           </div>
         </Container>
       </main>
+
+      {/* Footer */}
+      <Footer />
 
       {/* Global WhatsApp Floating Button */}
       <WhatsAppFloat

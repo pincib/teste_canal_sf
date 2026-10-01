@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ShieldCheck, Award, Handshake, Sparkles, CheckCircle2 } from "lucide-react";
+import { ShieldCheck, Award, Handshake, CheckCircle2 } from "lucide-react";
 import { motion } from "motion/react";
 import { Section, SectionHeader } from "@/components/ui/section";
 import { siteConfig } from "@/config/site";

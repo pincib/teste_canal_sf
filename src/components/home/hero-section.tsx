@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { MessageCircle, ArrowDown, MapPin, Building, TrendingUp } from "lucide-react";
+import { MessageCircle, ArrowDown } from "lucide-react";
 import { motion } from "motion/react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
