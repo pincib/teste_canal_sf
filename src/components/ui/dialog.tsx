@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { X } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";
 
 interface DialogProps {
@@ -14,8 +15,9 @@ interface DialogProps {
 }
 
 /**
- * Headless accessible Dialog component inspired by shadcn/ui and 21st.dev Dialog specs
+ * Headless accessible Dialog component powered by Motion for React
  * Supports backdrop dismissal, Escape listener, focus trap, and body scroll locking
+ * Uses AnimatePresence for fluid backdrop fade and modal scale expansion/exit
  */
 export function Dialog({
   isOpen,
@@ -43,8 +45,6 @@ export function Dialog({
     };
 
     window.addEventListener("keydown", handleKeyDown);
-
-    // Initial focus on dialog container
     dialogRef.current?.focus();
 
     return () => {
@@ -54,63 +54,75 @@ export function Dialog({
     };
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
-
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby={title ? "dialog-title" : undefined}
-      aria-describedby={description ? "dialog-description" : undefined}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
-    >
-      {/* Backdrop with blur */}
-      <div
-        className="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity duration-300 animate-in fade-in"
-        onClick={onClose}
-        aria-hidden="true"
-      />
-
-      {/* Modal Surface */}
-      <div
-        ref={dialogRef}
-        tabIndex={-1}
-        className={cn(
-          "relative z-10 w-full max-w-lg rounded-2xl border border-border bg-surface-elevated p-6 sm:p-8 shadow-[0_24px_64px_rgba(0,0,0,0.9)] outline-none transition-all duration-300 animate-in fade-in zoom-in-95",
-          className
-        )}
-      >
-        {/* Close Button */}
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="Fechar janela"
-          className="absolute right-4 top-4 rounded-lg p-2 text-foreground-muted transition-colors hover:bg-surface-hover hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-pointer"
+    <AnimatePresence>
+      {isOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={title ? "dialog-title" : undefined}
+          aria-describedby={description ? "dialog-description" : undefined}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
         >
-          <X className="h-5 w-5" />
-        </button>
+          {/* Backdrop with blur & motion */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 bg-black/80 backdrop-blur-md"
+            onClick={onClose}
+            aria-hidden="true"
+          />
 
-        {title && (
-          <div className="mb-6 pr-6">
-            <h3
-              id="dialog-title"
-              className="text-xl sm:text-2xl font-bold tracking-tight text-foreground font-heading"
-            >
-              {title}
-            </h3>
-            {description && (
-              <p
-                id="dialog-description"
-                className="mt-2 text-sm text-foreground-muted leading-relaxed"
-              >
-                {description}
-              </p>
+          {/* Modal Surface with motion spring */}
+          <motion.div
+            ref={dialogRef}
+            tabIndex={-1}
+            initial={{ opacity: 0, scale: 0.95, y: 14 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96, y: 10 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className={cn(
+              "relative z-10 w-full max-w-lg rounded-2xl border border-white/15 bg-[#262626] p-6 sm:p-8 shadow-[0_24px_70px_rgba(0,0,0,0.95)] outline-none text-[#faf9f6]",
+              className
             )}
-          </div>
-        )}
+          >
+            {/* Close Button */}
+            <motion.button
+              type="button"
+              onClick={onClose}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              aria-label="Fechar janela"
+              className="absolute right-4 top-4 rounded-xl p-2 text-white/60 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFBB00] cursor-pointer"
+            >
+              <X className="h-5 w-5" />
+            </motion.button>
 
-        {children}
-      </div>
-    </div>
+            {title && (
+              <div className="mb-6 pr-6">
+                <h3
+                  id="dialog-title"
+                  className="text-xl sm:text-2xl font-bold tracking-tight text-[#faf9f6] font-heading"
+                >
+                  {title}
+                </h3>
+                {description && (
+                  <p
+                    id="dialog-description"
+                    className="mt-2 text-sm text-[#b2aca0] leading-relaxed"
+                  >
+                    {description}
+                  </p>
+                )}
+              </div>
+            )}
+
+            {children}
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
   );
 }

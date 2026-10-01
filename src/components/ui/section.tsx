@@ -3,17 +3,19 @@ import { cn } from "@/lib/utils";
 import { Container } from "./container";
 
 interface SectionProps extends React.HTMLAttributes<HTMLElement> {
-  variant?: "default" | "surface" | "gradient";
+  variant?: "charcoal" | "alabaster" | "charcoal-dark";
   containerSize?: "default" | "narrow" | "wide";
   id?: string;
 }
 
 /**
- * Section component inspired by Awwwards Corporate & Promotional sites
- * Enforces generous vertical breathing room and unified typography hierarchy
+ * Section component with alternating luxury backgrounds:
+ * - charcoal (#333333): Deep warm charcoal with light text and gold accents
+ * - alabaster (#FAF9F6): Warm off-white with dark charcoal text and gold accents
+ * - charcoal-dark (#222222): Deep contrast footer/hero surface
  */
 export function Section({
-  variant = "default",
+  variant = "charcoal",
   containerSize = "default",
   id,
   className,
@@ -21,16 +23,15 @@ export function Section({
   ...props
 }: SectionProps) {
   const variantClasses = {
-    default: "bg-background",
-    surface: "bg-surface/50 border-y border-border-subtle",
-    gradient:
-      "bg-gradient-to-b from-background via-surface/40 to-background border-y border-border-subtle/60",
+    charcoal: "bg-[#333333] text-[#FAF9F6] border-y border-[#444444]/60",
+    alabaster: "bg-[#FAF9F6] text-[#1a1a1a] border-y border-[#e6e3da]",
+    "charcoal-dark": "bg-[#222222] text-[#FAF9F6] border-y border-[#3a3a3a]",
   };
 
   return (
     <section
       id={id}
-      className={cn("py-16 sm:py-24 lg:py-28 relative overflow-hidden", variantClasses[variant], className)}
+      className={cn("py-20 sm:py-28 relative overflow-hidden transition-colors duration-300", variantClasses[variant], className)}
       {...props}
     >
       <Container size={containerSize}>{children}</Container>
@@ -43,6 +44,7 @@ interface SectionHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
   description?: string;
   align?: "left" | "center";
+  theme?: "dark" | "light";
 }
 
 export function SectionHeader({
@@ -50,9 +52,12 @@ export function SectionHeader({
   title,
   description,
   align = "left",
+  theme = "dark",
   className,
   ...props
 }: SectionHeaderProps) {
+  const isLight = theme === "light";
+
   return (
     <div
       className={cn(
@@ -65,16 +70,31 @@ export function SectionHeader({
       {badge && (
         <div className="mb-4 inline-flex items-center gap-2">
           <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-          <span className="font-mono text-xs uppercase tracking-[0.2em] text-primary font-medium">
+          <span
+            className={cn(
+              "font-mono text-xs uppercase tracking-[0.2em] font-semibold",
+              isLight ? "text-primary-dark" : "text-primary"
+            )}
+          >
             {badge}
           </span>
         </div>
       )}
-      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground leading-[1.15] font-heading">
+      <h2
+        className={cn(
+          "text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.15] font-heading",
+          isLight ? "text-[#1a1a1a]" : "text-foreground"
+        )}
+      >
         {title}
       </h2>
       {description && (
-        <p className="mt-4 text-base sm:text-lg leading-relaxed text-foreground-muted">
+        <p
+          className={cn(
+            "mt-4 text-base sm:text-lg leading-relaxed",
+            isLight ? "text-[#555555]" : "text-foreground-muted"
+          )}
+        >
           {description}
         </p>
       )}

@@ -1,16 +1,23 @@
+"use client";
+
 import * as React from "react";
+import { motion, HTMLMotionProps } from "motion/react";
 import { cn } from "@/lib/utils";
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "outline" | "ghost" | "whatsapp";
+  extends Omit<HTMLMotionProps<"button">, "children"> {
+  variant?: "primary" | "secondary" | "outline" | "ghost" | "whatsapp" | "charcoal";
   size?: "sm" | "md" | "lg";
   isLoading?: boolean;
+  children?: React.ReactNode;
 }
 
 /**
- * Button component inspired by 21st.dev interactive UI components
- * Includes micro-interactions, hardware-accelerated transitions, and luminous gold glows
+ * Button component powered by Motion for React
+ * Implements tactile spring micro-interactions:
+ * whileHover={{ scale: 1.02, y: -1 }}
+ * whileTap={{ scale: 0.98 }}
+ * Uses official Pinciara Gold (#FFBB00) for primary & WhatsApp conversion
  */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -26,31 +33,37 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const baseStyles =
-      "relative inline-flex items-center justify-center font-heading font-semibold transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 active:scale-[0.985] cursor-pointer select-none";
+      "relative inline-flex items-center justify-center font-heading font-semibold transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 cursor-pointer select-none";
 
     const variantStyles = {
+      // Signature Pinciara Gold (Pilar 1: Replaces green buttons with official gold)
       primary:
-        "bg-primary text-black hover:bg-primary-hover shadow-[0_4px_20px_rgba(255,187,0,0.2)] hover:shadow-[0_6px_28px_rgba(255,187,0,0.35)] hover:-translate-y-0.5",
-      secondary:
-        "bg-surface-elevated text-foreground border border-border hover:bg-surface-hover hover:border-border-gold/50",
-      outline:
-        "border border-primary/50 text-primary bg-transparent hover:bg-primary/10 hover:border-primary",
-      ghost:
-        "text-foreground-muted hover:text-foreground hover:bg-surface-hover/80",
+        "bg-primary text-black font-bold shadow-[0_4px_20px_rgba(255,187,0,0.25)] hover:bg-primary-hover hover:shadow-[0_6px_28px_rgba(255,187,0,0.4)]",
       whatsapp:
-        "bg-[#25D366] text-black hover:bg-[#22bf5b] shadow-[0_4px_20px_rgba(37,211,102,0.22)] hover:shadow-[0_6px_28px_rgba(37,211,102,0.38)] hover:-translate-y-0.5",
+        "bg-primary text-black font-bold shadow-[0_4px_22px_rgba(255,187,0,0.28)] hover:bg-primary-hover hover:shadow-[0_6px_30px_rgba(255,187,0,0.45)] border border-primary-hover/40",
+      secondary:
+        "bg-charcoal text-foreground border border-charcoal-border hover:bg-charcoal-surface hover:border-primary/50",
+      charcoal:
+        "bg-charcoal text-foreground hover:bg-charcoal-surface border border-charcoal-border shadow-sm",
+      outline:
+        "border border-primary/60 text-primary bg-transparent hover:bg-primary/10 hover:border-primary shadow-sm",
+      ghost:
+        "text-foreground-muted hover:text-foreground hover:bg-charcoal-surface/60",
     };
 
     const sizeStyles = {
       sm: "h-9 px-4 text-xs rounded-lg gap-1.5",
       md: "h-11 px-5 text-sm rounded-xl gap-2",
-      lg: "h-13 px-7 text-base rounded-xl gap-2.5",
+      lg: "h-12 px-7 text-base rounded-xl gap-2.5",
     };
 
     return (
-      <button
+      <motion.button
         ref={ref}
         disabled={disabled || isLoading}
+        whileHover={{ scale: 1.02, y: -1 }}
+        whileTap={{ scale: 0.98 }}
+        transition={{ type: "spring", stiffness: 400, damping: 25 }}
         className={cn(baseStyles, variantStyles[variant], sizeStyles[size], className)}
         {...props}
       >
@@ -77,7 +90,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           </svg>
         )}
         {children}
-      </button>
+      </motion.button>
     );
   }
 );

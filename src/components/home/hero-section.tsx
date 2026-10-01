@@ -1,66 +1,84 @@
 "use client";
 
 import * as React from "react";
-import { MessageCircle, ArrowDown, MapPin, Building, Sparkles } from "lucide-react";
+import Image from "next/image";
+import { MessageCircle, ArrowDown, MapPin, Building, TrendingUp } from "lucide-react";
+import { motion } from "motion/react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 
 interface HeroSectionProps {
   onContactClick: () => void;
 }
 
 /**
- * HeroSection component strictly following the taste-skill Hero Discipline & Awwwards Promotional layout:
- * - Headline max 2 lines on desktop
- * - Subtext max 20 words
- * - Visible CTA without scroll
- * - Dark Luxury ambient edge-lighting with official gold tones
+ * HeroSection (Clean, Sophisticated & De-cluttered)
+ * - Fundo sereno em #333333 com imagem arquitetônica em baixa opacidade e fusão limpa
+ * - Sem poluição visual, sem manchas amarelas de blur artificial ou sombras pesadas
+ * - Métricas autênticas dos estudos realizados (R$ 13,1M em obras, 21,6% comercial, 1 quadra da praia, 5 imóveis)
+ * - Botão em Dourado Pinciara oficial (#FFBB00) com alta conversão
  */
 export function HeroSection({ onContactClick }: HeroSectionProps) {
   return (
-    <section className="relative pt-32 pb-20 sm:pt-40 sm:pb-28 lg:pt-44 lg:pb-32 overflow-hidden">
-      {/* Background Ambient Radial Gold Glow */}
-      <div
-        className="pointer-events-none absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-        aria-hidden="true"
-      >
-        <div
-          className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-primary/20 to-primary-dark/10 opacity-40 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-          style={{
-            clipPath:
-              "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
-          }}
+    <section className="relative pt-36 pb-20 sm:pt-44 sm:pb-28 lg:pt-48 lg:pb-32 overflow-hidden bg-[#333333]">
+      {/* Background Architectural Image - Clean, subtle and elegant */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/hero-coastal-avenue.jpg"
+          alt="Avenida Presidente Roosevelt, São Francisco, Niterói"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center opacity-15 grayscale"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#333333] via-[#333333]/90 to-[#333333]/60" />
       </div>
 
-      <Container>
+      <Container className="relative z-10">
         <div className="mx-auto max-w-4xl text-center">
-          {/* Eyebrow Badge */}
-          <div className="mb-6 inline-flex items-center gap-2">
-            <Badge variant="gold" className="px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em]">
-              <Sparkles className="h-3.5 w-3.5 text-primary" />
-              Locação Comercial Exclusiva em São Francisco, Niterói
-            </Badge>
-          </div>
+          {/* Eyebrow Label - Clean & Crisp */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-mono uppercase tracking-widest text-[#d8d4ca]"
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-[#FFBB00]" />
+            Av. Presidente Roosevelt • São Francisco, Niterói
+          </motion.div>
 
-          {/* H1 Headline (Desktop max 2 lines) */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.1] font-heading">
-            Pontos Comerciais Nobres para Franquias na Avenida de São Francisco
-          </h1>
+          {/* H1 Headline */}
+          <motion.h1
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#faf9f6] leading-[1.12] font-heading"
+          >
+            Pontos Comerciais Nobres na Principal Avenida de São Francisco
+          </motion.h1>
 
-          {/* Subtext (Strictly under 20 words) */}
-          <p className="mt-6 text-lg sm:text-xl text-foreground-muted leading-relaxed max-w-2xl mx-auto">
-            Visibilidade máxima, alto poder aquisitivo e 5 imóveis exclusivos prontos para receber sua operação em Niterói.
-          </p>
+          {/* Subtext */}
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-6 text-base sm:text-lg text-[#ccc8bf] leading-relaxed max-w-2xl mx-auto font-sans"
+          >
+            Visibilidade contínua, infraestrutura viária renovada e 5 imóveis exclusivos de 225 m² a 500 m² prontos para receber sua operação comercial.
+          </motion.p>
 
-          {/* Primary Action Buttons (Above the fold) */}
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+          {/* Action CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3.5"
+          >
             <Button
               variant="whatsapp"
               size="lg"
               onClick={onContactClick}
-              className="w-full sm:w-auto shadow-[0_6px_30px_rgba(37,211,102,0.3)]"
+              className="w-full sm:w-auto text-sm sm:text-base font-bold shadow-[0_4px_20px_rgba(255,187,0,0.3)]"
             >
               <MessageCircle className="h-5 w-5" />
               Falar com Luiz Pinciara no WhatsApp
@@ -70,52 +88,57 @@ export function HeroSection({ onContactClick }: HeroSectionProps) {
               <Button
                 variant="outline"
                 size="lg"
-                className="w-full sm:w-auto"
+                className="w-full sm:w-auto text-sm sm:text-base border-white/20 text-[#faf9f6] hover:bg-white/5 hover:border-white/40"
               >
                 <ArrowDown className="h-4 w-4" />
-                Explorar os 5 Imóveis Disponíveis
+                Explorar os 5 Imóveis
               </Button>
             </a>
-          </div>
+          </motion.div>
 
-          {/* Verified Regional Highlights Strip */}
-          <div className="mt-16 pt-10 border-t border-border grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-left">
-            <div className="rounded-xl border border-border-subtle bg-surface/50 p-4">
-              <div className="flex items-center gap-2 text-primary mb-1">
-                <Building className="h-4 w-4" />
-                <span className="text-xs uppercase font-mono tracking-wider font-semibold">Portfólio</span>
-              </div>
-              <p className="text-lg font-bold text-foreground font-heading">5 Imóveis</p>
-              <p className="text-xs text-foreground-muted">225 m² a 500 m²</p>
+          {/* Clean Horizontal Metrics Strip - Grounded in Real Research */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="mt-14 pt-8 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-6 text-left"
+          >
+            <div className="space-y-1">
+              <p className="text-2xl sm:text-3xl font-bold text-[#faf9f6] font-heading tracking-tight">
+                R$ 13,1M
+              </p>
+              <p className="text-xs text-[#a8a396] font-medium leading-snug">
+                Obras de mobilidade no Túnel Roberto Silveira (4 faixas)
+              </p>
             </div>
 
-            <div className="rounded-xl border border-border-subtle bg-surface/50 p-4">
-              <div className="flex items-center gap-2 text-primary mb-1">
-                <MapPin className="h-4 w-4" />
-                <span className="text-xs uppercase font-mono tracking-wider font-semibold">Localização</span>
-              </div>
-              <p className="text-lg font-bold text-foreground font-heading">Av. Pres. Roosevelt</p>
-              <p className="text-xs text-foreground-muted">Eixo central de São Francisco</p>
+            <div className="space-y-1">
+              <p className="text-2xl sm:text-3xl font-bold text-[#faf9f6] font-heading tracking-tight">
+                21,6%
+              </p>
+              <p className="text-xs text-[#a8a396] font-medium leading-snug">
+                Dos imóveis da avenida são comerciais ativos
+              </p>
             </div>
 
-            <div className="rounded-xl border border-border-subtle bg-surface/50 p-4">
-              <div className="flex items-center gap-2 text-primary mb-1">
-                <Sparkles className="h-4 w-4" />
-                <span className="text-xs uppercase font-mono tracking-wider font-semibold">Público</span>
-              </div>
-              <p className="text-lg font-bold text-foreground font-heading">Classe A / B</p>
-              <p className="text-xs text-foreground-muted">Alto poder de consumo</p>
+            <div className="space-y-1">
+              <p className="text-2xl sm:text-3xl font-bold text-[#faf9f6] font-heading tracking-tight">
+                1 Quadra
+              </p>
+              <p className="text-xs text-[#a8a396] font-medium leading-snug">
+                Da orla e do maior polo gastronômico de Niterói
+              </p>
             </div>
 
-            <div className="rounded-xl border border-border-subtle bg-surface/50 p-4">
-              <div className="flex items-center gap-2 text-primary mb-1">
-                <Building className="h-4 w-4" />
-                <span className="text-xs uppercase font-mono tracking-wider font-semibold">Orla</span>
-              </div>
-              <p className="text-lg font-bold text-foreground font-heading">A 1 Quadra</p>
-              <p className="text-xs text-foreground-muted">Maior polo gastronômico</p>
+            <div className="space-y-1">
+              <p className="text-2xl sm:text-3xl font-bold text-[#FFBB00] font-heading tracking-tight">
+                5 Imóveis
+              </p>
+              <p className="text-xs text-[#a8a396] font-medium leading-snug">
+                Exclusivos com metragens de 225 m² a 500 m²
+              </p>
             </div>
-          </div>
+          </motion.div>
         </div>
       </Container>
     </section>

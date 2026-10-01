@@ -1,9 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { ChevronDown, HelpCircle } from "lucide-react";
+import { ChevronDown, HelpCircle, CheckCircle2 } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 import { Section, SectionHeader } from "@/components/ui/section";
-import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 interface FAQItem {
@@ -20,7 +20,7 @@ const faqs: FAQItem[] = [
   {
     question: "É possível negociar período de carência para obras e adequação?",
     answer:
-      "Sim. É padrão nas locações comerciais da Avenida Presidente Roosevelt a concessão de carência proporcional ao escopo de obras, projetos e instalações necessárias para o início da operação da sua marca.",
+      "Sim. É praxe comum nas locações comerciais da Avenida Presidente Roosevelt a concessão de carência proporcional ao escopo de obras, projetos e instalações necessárias para o início da operação da sua marca.",
   },
   {
     question: "Franquias ou empresas em fase de constituição podem locar?",
@@ -40,7 +40,7 @@ const faqs: FAQItem[] = [
 ];
 
 /**
- * FAQSection component with accessible accordion pattern
+ * FAQSection component with fluid AnimatePresence accordion and luxury charcoal #333333 styling
  */
 export function FAQSection() {
   const [openIndex, setOpenIndex] = React.useState<number | null>(0);
@@ -50,52 +50,71 @@ export function FAQSection() {
   };
 
   return (
-    <Section id="faq" variant="default">
+    <Section id="faq" variant="charcoal">
       <SectionHeader
         badge="Dúvidas Frequentes"
         title="Perguntas comuns sobre a locação comercial"
         description="Informações transparentes sobre prazos contratuais, garantias aceitas e carência para implantação da sua operação."
       />
 
-      <div className="mx-auto max-w-3xl space-y-3">
+      <div className="mx-auto max-w-3xl space-y-3.5">
         {faqs.map((faq, idx) => {
           const isOpen = openIndex === idx;
 
           return (
-            <div
+            <motion.div
               key={idx}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.45, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
               className={cn(
-                "rounded-2xl border transition-all duration-200 overflow-hidden",
+                "rounded-2xl border transition-colors duration-300 overflow-hidden",
                 isOpen
-                  ? "border-primary/40 bg-surface-elevated/90 shadow-lg"
-                  : "border-border-subtle bg-surface/60 hover:border-border"
+                  ? "border-[#FFBB00]/40 bg-[#282828] shadow-[0_10px_30px_rgba(0,0,0,0.25)]"
+                  : "border-white/10 bg-[#242424]/80 hover:border-white/20 hover:bg-[#282828]/80"
               )}
             >
               <button
                 type="button"
                 onClick={() => toggle(idx)}
                 aria-expanded={isOpen}
-                className="flex w-full items-center justify-between p-5 sm:p-6 text-left focus:outline-none cursor-pointer"
+                className="flex w-full items-center justify-between p-5 sm:p-6 text-left focus:outline-none cursor-pointer group"
               >
-                <span className="text-base sm:text-lg font-bold text-foreground font-heading pr-4">
+                <span className="text-base sm:text-lg font-bold text-[#faf9f6] font-heading pr-4 group-hover:text-[#FFBB00] transition-colors duration-200">
                   {faq.question}
                 </span>
-                <span
+                <motion.span
+                  animate={{ rotate: isOpen ? 180 : 0 }}
+                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                   className={cn(
-                    "flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-surface border border-border text-foreground-muted transition-transform duration-300",
-                    isOpen && "rotate-180 text-primary border-primary/40 bg-primary/10"
+                    "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-colors duration-300",
+                    isOpen
+                      ? "text-[#FFBB00] border-[#FFBB00]/40 bg-[#FFBB00]/10"
+                      : "text-[#999] border-white/10 bg-white/5 group-hover:text-white group-hover:border-white/25"
                   )}
                 >
                   <ChevronDown className="h-4 w-4" />
-                </span>
+                </motion.span>
               </button>
 
-              {isOpen && (
-                <div className="px-5 sm:px-6 pb-6 pt-1 text-sm text-foreground-muted leading-relaxed border-t border-border-subtle/60 animate-in fade-in slide-in-from-top-1">
-                  {faq.answer}
-                </div>
-              )}
-            </div>
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.div
+                    key="content"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-5 sm:px-6 pb-6 pt-1 text-sm text-[#d0cbc1] leading-relaxed border-t border-white/8">
+                      {faq.answer}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
           );
         })}
       </div>

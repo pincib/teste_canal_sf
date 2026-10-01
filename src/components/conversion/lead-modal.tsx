@@ -84,25 +84,25 @@ export function LeadModal({ isOpen, onClose, property }: LeadModalProps) {
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Contextual Property Card (if triggered from a specific property) */}
         {property && (
-          <div className="rounded-xl border border-primary/20 bg-primary/5 p-3.5 flex items-start gap-3">
-            <div className="rounded-lg bg-primary/10 p-2 text-primary mt-0.5">
+          <div className="rounded-xl border border-[#FFBB00]/30 bg-[#FFBB00]/10 p-3.5 flex items-start gap-3">
+            <div className="rounded-lg bg-[#FFBB00]/20 p-2 text-[#FFBB00] mt-0.5">
               <Building2 className="h-5 w-5" />
             </div>
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2">
-                <span className="text-[11px] font-mono uppercase tracking-wider text-primary font-semibold">
+                <span className="text-[11px] font-mono uppercase tracking-wider text-[#FFBB00] font-bold">
                   Imóvel Selecionado
                 </span>
                 {property.badge && (
-                  <span className="rounded-full bg-surface px-2 py-0.5 text-[10px] text-foreground-muted border border-border">
+                  <span className="rounded-full bg-black/40 px-2 py-0.5 text-[10px] text-[#faf9f6] border border-white/10">
                     {property.badge}
                   </span>
                 )}
               </div>
-              <p className="text-sm font-semibold text-foreground truncate mt-0.5">
+              <p className="text-sm font-semibold text-[#faf9f6] truncate mt-0.5">
                 {property.title}
               </p>
-              <p className="text-xs text-foreground-muted font-mono">
+              <p className="text-xs text-[#b8b3a8] font-mono">
                 Cód: {property.id}
               </p>
             </div>
@@ -113,12 +113,12 @@ export function LeadModal({ isOpen, onClose, property }: LeadModalProps) {
         <div>
           <label
             htmlFor="lead-name"
-            className="block text-xs font-semibold uppercase tracking-wider text-foreground-muted mb-1.5"
+            className="block text-xs font-semibold uppercase tracking-wider text-[#b8b3a8] mb-1.5"
           >
-            Seu Nome Completo <span className="text-primary">*</span>
+            Seu Nome Completo <span className="text-[#FFBB00]">*</span>
           </label>
           <div className="relative">
-            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-foreground-muted">
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-[#888]">
               <User className="h-4 w-4" />
             </div>
             <input
@@ -130,7 +130,7 @@ export function LeadModal({ isOpen, onClose, property }: LeadModalProps) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               onBlur={() => setTouchedName(true)}
-              className="w-full rounded-xl border border-border bg-surface py-3 pl-10 pr-4 text-sm text-foreground placeholder:text-foreground-dim focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
+              className="w-full rounded-xl border border-white/15 bg-[#1b1b1b] py-3 pl-10 pr-4 text-sm text-[#faf9f6] placeholder:text-white/30 focus:border-[#FFBB00] focus:outline-none focus:ring-1 focus:ring-[#FFBB00] transition-colors"
             />
           </div>
           {touchedName && !isNameValid && (
@@ -144,12 +144,12 @@ export function LeadModal({ isOpen, onClose, property }: LeadModalProps) {
         <div>
           <label
             htmlFor="lead-phone"
-            className="block text-xs font-semibold uppercase tracking-wider text-foreground-muted mb-1.5"
+            className="block text-xs font-semibold uppercase tracking-wider text-[#b8b3a8] mb-1.5"
           >
-            Seu Telefone / WhatsApp <span className="text-primary">*</span>
+            Seu Telefone / WhatsApp <span className="text-[#FFBB00]">*</span>
           </label>
           <div className="relative">
-            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-foreground-muted">
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-[#888]">
               <Phone className="h-4 w-4" />
             </div>
             <input
@@ -160,7 +160,7 @@ export function LeadModal({ isOpen, onClose, property }: LeadModalProps) {
               value={phone}
               onChange={handlePhoneChange}
               onBlur={() => setTouchedPhone(true)}
-              className="w-full rounded-xl border border-border bg-surface py-3 pl-10 pr-4 text-sm text-foreground placeholder:text-foreground-dim focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary font-mono transition-colors"
+              className="w-full rounded-xl border border-white/15 bg-[#1b1b1b] py-3 pl-10 pr-4 text-sm text-[#faf9f6] placeholder:text-white/30 focus:border-[#FFBB00] focus:outline-none focus:ring-1 focus:ring-[#FFBB00] font-mono transition-colors"
             />
           </div>
           {touchedPhone && !isPhoneValid && (
@@ -171,8 +171,8 @@ export function LeadModal({ isOpen, onClose, property }: LeadModalProps) {
         </div>
 
         {/* Short LGPD Notice */}
-        <div className="flex items-start gap-2 pt-1 text-[11px] text-foreground-dim leading-relaxed">
-          <ShieldCheck className="h-4 w-4 shrink-0 text-primary/70 mt-0.5" />
+        <div className="flex items-start gap-2 pt-1 text-[11px] text-[#9c978d] leading-relaxed">
+          <ShieldCheck className="h-4 w-4 shrink-0 text-[#FFBB00]/80 mt-0.5" />
           <span>
             Ao enviar, você será redirecionado ao WhatsApp de {siteConfig.broker.name} com seus dados preenchidos. Seus dados não são armazenados em servidor.
           </span>

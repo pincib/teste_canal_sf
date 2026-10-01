@@ -5,75 +5,52 @@
   --color-primary-hover: #E6A800;
   --color-primary-dark: #D46E00;
   
-  --color-background: #050505;
-  --color-surface: #0e0e0e;
-  --color-surface-elevated: #161616;
-  --color-surface-hover: #1f1f1f;
-  
-  --color-border: #242424;
-  --color-border-subtle: #181818;
-  --color-border-gold: rgba(255, 187, 0, 0.28);
-  
-  --color-foreground: #f4f4f5;
-  --color-foreground-muted: #a1a1aa;
-  --color-foreground-dim: #71717a;
-  
+  --color-background: #333333;
   --color-charcoal: #333333;
+  --color-charcoal-dark: #222222;
+  --color-charcoal-deep: #161616;
+  --color-charcoal-surface: #2b2b2b;
+  --color-charcoal-border: #444444;
+
+  --color-alabaster: #FAF9F6;
+  --color-alabaster-surface: #ffffff;
+  --color-alabaster-muted: #f4f2ec;
+  --color-alabaster-border: #e6e3da;
+  --color-alabaster-text: #1a1a1a;
+  --color-alabaster-text-muted: #555555;
+  
+  --color-border: #444444;
+  --color-border-subtle: #2d2d2d;
+  --color-border-gold: rgba(255, 187, 0, 0.35);
+  
+  --color-foreground: #faf9f6;
+  --color-foreground-muted: #d1cfc9;
+  --color-foreground-dim: #999790;
 
   --font-heading: var(--font-montserrat), sans-serif;
   --font-sans: var(--font-inter), sans-serif;
 }
 
 :root {
-  --background: #050505;
-  --foreground: #f4f4f5;
+  --background: #333333;
+  --foreground: #faf9f6;
 }
 
 * {
-  border-color: #242424;
+  border-color: #444444;
 }
 
 html {
   scroll-behavior: smooth;
-  color-scheme: dark;
 }
 
 body {
-  background-color: #050505;
-  color: #f4f4f5;
+  background-color: #333333;
+  color: #faf9f6;
   font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-/* Discrete hardware-accelerated animations (Section 9) */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.4s ease-out forwards;
-}
-
-.animate-slide-up {
-  animation: slideUp 0.5s ease-out forwards;
 }
 
 /* Accessibility: Respect user motion preferences */
@@ -88,21 +65,21 @@ body {
   }
 }
 
-/* Scrollbar styling for dark luxury feel */
+/* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: #222222;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #262626;
+  background: #555555;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3a3a3a;
+  background: #FFBB00;
 }
