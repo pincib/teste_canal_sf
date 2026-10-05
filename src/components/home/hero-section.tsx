@@ -2,11 +2,9 @@
 
 import * as React from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { MessageCircle, MapPin, ExternalLink, ArrowDown, ChevronRight } from "lucide-react";
-import { motion } from "motion/react";
+import { ArrowDownRight, ExternalLink, MessageCircle } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 import { Container } from "@/components/ui/container";
-import { Button } from "@/components/ui/button";
 import { commercialProperties } from "@/data/properties";
 
 interface HeroSectionProps {
@@ -16,70 +14,61 @@ interface HeroSectionProps {
 interface PropertyPoint {
   id: string;
   number: number;
+  numStr: string;
   label: string;
   addressShort: string;
   fullAddress: string;
   mapQuery: string;
   zoom: number;
+  specs: string;
+  rent: string;
+  image: string;
 }
 
-const PROPERTY_POINTS: PropertyPoint[] = [
-  {
-    id: "CA0339-PINC",
-    number: 1,
-    label: "Nº 102",
-    addressShort: "Av. Pres. Roosevelt, 102",
-    fullAddress: "Av. Presidente Roosevelt, 102 — São Francisco, Niterói/RJ",
-    mapQuery: "Av. Presidente Roosevelt, 102, São Francisco, Niterói - RJ",
-    zoom: 17,
-  },
-  {
-    id: "CA0176-PINC",
-    number: 2,
-    label: "Nº 132",
-    addressShort: "Av. Pres. Roosevelt, 132",
-    fullAddress: "Av. Presidente Roosevelt, 132 — São Francisco, Niterói/RJ",
-    mapQuery: "Av. Presidente Roosevelt, 132, São Francisco, Niterói - RJ",
-    zoom: 17,
-  },
-  {
-    id: "CA0324-PINC",
-    number: 3,
-    label: "Nº 133",
-    addressShort: "Av. Pres. Roosevelt, 133",
-    fullAddress: "Av. Presidente Roosevelt, 133 — São Francisco, Niterói/RJ",
-    mapQuery: "Av. Presidente Roosevelt, 133, São Francisco, Niterói - RJ",
-    zoom: 17,
-  },
-  {
-    id: "LO0222-PINC",
-    number: 4,
-    label: "Guaianazes, 46",
-    addressShort: "R. Guaianazes, 46 (Esq. Roosevelt)",
-    fullAddress: "Rua Guaianazes, 46 (Esquina com Av. Pres. Roosevelt) — São Francisco, Niterói/RJ",
-    mapQuery: "Rua Guaianazes, 46, São Francisco, Niterói - RJ",
-    zoom: 17,
-  },
-  {
-    id: "CA0318-PINC",
-    number: 5,
-    label: "Nº 1027",
-    addressShort: "Av. Pres. Roosevelt, 1027",
-    fullAddress: "Av. Presidente Roosevelt, 1027 — São Francisco, Niterói/RJ",
-    mapQuery: "Av. Presidente Roosevelt, 1027, São Francisco, Niterói - RJ",
-    zoom: 17,
-  },
-];
+// Dynamically generated from commercialProperties so future properties added automatically appear
+const PROPERTY_POINTS: PropertyPoint[] = commercialProperties.map((prop, idx) => {
+  const number = idx + 1;
+  const numStr = String(number).padStart(2, "0");
 
-const CORRIDOR_QUERY = "Av. Presidente Roosevelt, São Francisco, Niterói - RJ";
-const CORRIDOR_ZOOM = 15;
+  let label = `Nº ${number}`;
+  let addressShort = prop.address.split("—")[0].trim();
 
-/**
- * HeroSection (Clean, Direct & Map-Centric)
- * - Textos desnecessários eliminados: foco direto na oportunidade comercial e localização
- * - Google Maps interativo exibindo a posição dos 5 imóveis ao longo da Av. Presidente Roosevelt
- * - Alternância harmoniosa de fundo #333333 e acentos Dourado Pinciara (#FFBB00)
- */
+  if (prop.address.includes("Guaianazes")) {
+    label = "Guaianazes, 46";
+    addressShort = "R. Guaianazes, 46";
+  } else {
+    const match = prop.address.match(/(\d+)/);
+    if (match) {
+      label = `Nº ${match[1]}`;
+    }
+  }
+
+  const mapQuery = prop.address.includes("Niterói")
+    ? prop.address.split("—")[0].trim() + ", São Francisco, Niterói - RJ"
+    : `${prop.address}, Niterói - RJ`;
+
+  const specs = `${prop.specs.totalArea} m² · ${prop.specs.parkingSpaces} ${prop.specs.parkingSpaces === 1 ? "vaga" : "vagas"}`;
+
+  return {
+    id: prop.id,
+    number,
+    numStr,
+    label,
+    addressShort,
+    fullAddress: prop.address,
+    mapQuery,
+    zoom: 17,
+    specs,
+    rent: prop.pricing.rent,
+    image: prop.images[0]?.src || "/images/properties/ca0339/01-fachada.jpg",
+  };
+});
+
+const CORRIDOR_QUERY = "-22.9143407, -43.0887021";
+const CORRIDOR_MAP_URL =
+  "https://www.google.com.br/maps/place/Av.+Pres.+Roosevelt,+Niter%C3%B3i+-+RJ,+24360-066/@-22.9143357,-43.0912824,1166m/data=!3m2!1e3!4b1!4m6!3m5!1s0x99840302f46225:0xae2b7f82fe938598!8m2!3d-22.9143407!4d-43.0887021!16s%2Fg%2F1ptw3768_?entry=ttu&g_ep=EgoyMDI2MDkzMC4wIKXMDSoASAFQAw%3D%3D";
+const CORRIDOR_ZOOM = 16;
+
 export function HeroSection({ onContactClick }: HeroSectionProps) {
   const [selectedPointId, setSelectedPointId] = React.useState<string | "all">("all");
 
@@ -95,330 +84,329 @@ export function HeroSection({ onContactClick }: HeroSectionProps) {
 
   const activeMapQuery = selectedPoint ? selectedPoint.mapQuery : CORRIDOR_QUERY;
   const activeMapZoom = selectedPoint ? selectedPoint.zoom : CORRIDOR_ZOOM;
-  const embedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(activeMapQuery)}&t=&z=${activeMapZoom}&ie=UTF8&iwloc=&output=embed`;
-  const externalMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(activeMapQuery)}`;
+  const embedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(activeMapQuery)}&t=m&z=${activeMapZoom}&ie=UTF8&iwloc=&output=embed`;
+  const externalMapUrl = selectedPoint
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(activeMapQuery)}`
+    : CORRIDOR_MAP_URL;
 
   return (
-    <section className="relative pt-32 pb-16 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-24 overflow-hidden bg-[#333333]">
-      {/* Background Architectural Texture */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <Image
-          src="/images/hero-coastal-avenue.jpg"
-          alt="Avenida Presidente Roosevelt, São Francisco, Niterói"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center opacity-10 grayscale"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#333333]/90 via-[#333333] to-[#333333]" />
-      </div>
+    <section className="relative pt-24 pb-14 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20 bg-[#121212] text-[#FAF9F6] overflow-hidden border-b border-white/10">
+      {/* Background Architectural Grid Accent */}
+      <div 
+        className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: `linear-gradient(to right, #FAF9F6 1px, transparent 1px), linear-gradient(to bottom, #FAF9F6 1px, transparent 1px)`,
+          backgroundSize: "80px 80px",
+        }}
+      />
 
-      <Container className="relative z-10">
-        {/* Concise Header - Zero Text Pollution */}
-        <div className="mx-auto max-w-3xl text-center mb-10 sm:mb-12">
-          {/* Eyebrow */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1 text-xs font-mono uppercase tracking-widest text-[#d8d4ca]"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-[#FFBB00]" />
-            São Francisco • Niterói/RJ
-          </motion.div>
-
-          {/* Title */}
-          <motion.h1
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.05 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#faf9f6] leading-[1.15] font-heading"
-          >
-            5 Imóveis Comerciais na Av. Presidente Roosevelt
-          </motion.h1>
-
-          {/* Direct Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.1 }}
-            className="mt-4 text-base sm:text-lg text-[#ccc8bf] max-w-xl mx-auto font-sans"
-          >
-            Pontos nobres de 225 m² a 500 m² no principal corredor comercial e gastronômico de São Francisco.
-          </motion.p>
-
-          {/* Quick CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.15 }}
-            className="mt-6 flex flex-wrap items-center justify-center gap-3"
-          >
-            <Button
-              variant="whatsapp"
-              size="md"
-              onClick={onContactClick}
-              className="text-sm font-bold shadow-[0_4px_16px_rgba(255,187,0,0.25)]"
-            >
-              <MessageCircle className="h-4 w-4" />
-              Falar no WhatsApp
-            </Button>
-
-            <a href="#imoveis">
-              <Button
-                variant="outline"
-                size="md"
-                className="text-sm border-white/20 text-[#faf9f6] hover:bg-white/5 hover:border-white/40"
-              >
-                <ArrowDown className="h-4 w-4" />
-                Explorar os 5 Imóveis
-              </Button>
-            </a>
-          </motion.div>
+      <Container size="wide" className="relative z-10">
+        {/* Top Territorial Micro-header — Thirdway Style (Clean Without Coordinates) */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 border-b border-white/10 font-mono text-[11px] sm:text-xs tracking-[0.25em] uppercase text-[#88857E]">
+          <div className="flex items-center gap-2.5">
+            <span className="h-2 w-2 rounded-full bg-[#FFBB00]" />
+            <span className="text-[#FAF9F6] font-semibold">SÃO FRANCISCO · NITERÓI/RJ</span>
+            <span className="text-white/20">/</span>
+            <span>EIXO COMERCIAL AV. PRES. ROOSEVELT</span>
+          </div>
+          <div className="flex items-center gap-3 text-[#88857E]">
+            <span className="text-[#FFBB00] font-semibold">CANAL DE SÃO FRANCISCO</span>
+            <span className="text-white/20 hidden md:inline">|</span>
+            <span className="text-[#FAF9F6] font-semibold">{commercialProperties.length} ATIVOS DISPONÍVEIS</span>
+          </div>
         </div>
 
-        {/* Google Maps Interactive Showcase in Hero */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mx-auto max-w-6xl rounded-2xl border border-white/10 bg-[#262626]/90 backdrop-blur-sm overflow-hidden shadow-2xl"
-        >
-          {/* Map Header Bar & Filter Tabs */}
-          <div className="border-b border-white/10 p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#2b2b2b]/60">
-            <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#FFBB00]/15 text-[#FFBB00] border border-[#FFBB00]/30">
-                <MapPin className="h-5 w-5" />
+        {/* Horizontal Split Layout on Desktop: Left Narrative (5 cols) + Right Map System (7 cols) */}
+        <div className="pt-8 sm:pt-10 lg:pt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-start">
+          
+          {/* Left Column (5 Cols): Editorial Title, Narrative, Value Drivers & CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5 flex flex-col justify-between space-y-6 lg:space-y-8"
+          >
+            <div className="space-y-4">
+              {/* Region Pre-title */}
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#FFBB00]/15 border border-[#FFBB00]/40 font-mono text-[11px] uppercase tracking-[0.2em] text-[#FFBB00] font-semibold">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#FFBB00]" />
+                <span>São Francisco · Corredor Nobre</span>
               </div>
+
+              {/* Giant Title */}
+              <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-[62px] xl:text-[72px] font-normal tracking-[-0.04em] leading-[0.96] text-[#FAF9F6]">
+                Canal de São Francisco
+              </h1>
+
+              {/* Positioning Narrative */}
+              <p className="font-heading text-lg sm:text-xl lg:text-2xl font-light tracking-[-0.02em] text-[#C7C4BC] leading-snug pt-2">
+                Imóveis comerciais de testada ampla e recuo frontal na principal artéria de fluxo e valorização da Zona Sul.
+              </p>
+
+              <p className="text-xs sm:text-sm text-[#88857E] font-light leading-relaxed">
+                Curadoria restrita de {commercialProperties.length} casas e lojas comerciais de 225 m² a 500 m² para clínicas, sedes corporativas, gastronomia e redes de varejo.
+              </p>
+            </div>
+
+            {/* Quick Metrics Bar */}
+            <div className="grid grid-cols-3 gap-3 py-4 border-y border-white/10 text-left">
               <div>
-                <h2 className="text-sm sm:text-base font-bold text-[#faf9f6] font-heading">
-                  Mapa do Corredor Presidente Roosevelt
-                </h2>
-                <p className="text-xs text-[#a8a396]">
-                  {selectedPoint
-                    ? `Foco: ${selectedPoint.addressShort}`
-                    : "Visão dos 5 imóveis ao longo da avenida"}
+                <span className="text-[10px] font-mono uppercase tracking-widest text-[#88857E] block">
+                  Trecho
+                </span>
+                <p className="font-heading text-xl sm:text-2xl font-normal text-[#FAF9F6] mt-0.5">
+                  1,4 km
                 </p>
+                <span className="text-[10px] font-mono text-[#88857E]">Av. Roosevelt</span>
+              </div>
+              <div className="border-x border-white/10 px-3">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-[#88857E] block">
+                  Obras
+                </span>
+                <p className="font-heading text-xl sm:text-2xl font-normal text-[#FFBB00] mt-0.5">
+                  R$ 13,1M
+                </p>
+                <span className="text-[10px] font-mono text-[#88857E]">Revitalização</span>
+              </div>
+              <div className="pl-3">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-[#88857E] block">
+                  Perfil
+                </span>
+                <p className="font-heading text-xl sm:text-2xl font-normal text-[#FAF9F6] mt-0.5">
+                  A / B
+                </p>
+                <span className="text-[10px] font-mono text-[#88857E]">Poder Aquisitivo</span>
               </div>
             </div>
 
-            {/* Quick Filter Buttons */}
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
-              <button
-                type="button"
-                onClick={() => setSelectedPointId("all")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
-                  selectedPointId === "all"
-                    ? "bg-[#FFBB00] text-[#1f1f1f] shadow-md font-bold"
-                    : "bg-white/5 text-[#d8d4ca] hover:bg-white/10 border border-white/10"
-                }`}
+            {/* CTA Buttons — Prominent, High-Contrast & Colored with Principal Brand Color (Clean Architectural Matte) */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+              <motion.a
+                href="#imoveis"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 450, damping: 22 }}
+                className="group inline-flex items-center justify-center gap-2.5 px-7 py-4 bg-[#FFBB00] hover:bg-[#FFC82C] active:bg-[#E6A800] text-[#121212] text-xs sm:text-sm font-mono uppercase tracking-widest font-bold border border-[#FFBB00] transition-colors cursor-pointer rounded-[2px]"
               >
-                Todos no Corredor
-              </button>
+                <span>Ver os {commercialProperties.length} Imóveis</span>
+                <ArrowDownRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5 text-[#121212]" />
+              </motion.a>
+              <motion.button
+                type="button"
+                onClick={onContactClick}
+                whileHover={{ scale: 1.03, backgroundColor: "rgba(255,187,0,0.18)" }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 450, damping: 22 }}
+                className="inline-flex items-center justify-center gap-2 px-6 py-4 bg-[#FFBB00]/10 text-[#FAF9F6] hover:text-[#FAF9F6] border-2 border-[#FFBB00] text-xs sm:text-sm font-mono uppercase tracking-widest font-semibold transition-all cursor-pointer rounded-[2px]"
+              >
+                <MessageCircle className="h-4 w-4 text-[#FFBB00]" />
+                <span>Consultar</span>
+              </motion.button>
+            </div>
+          </motion.div>
 
-              {PROPERTY_POINTS.map((pt) => {
-                const isSelected = selectedPointId === pt.id;
-                return (
-                  <button
-                    key={pt.id}
-                    type="button"
-                    onClick={() => setSelectedPointId(pt.id)}
-                    className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs whitespace-nowrap transition-all ${
-                      isSelected
-                        ? "bg-[#FFBB00] text-[#1f1f1f] shadow-md font-bold"
-                        : "bg-white/5 text-[#d8d4ca] hover:bg-white/10 border border-white/10"
-                    }`}
-                  >
-                    <span
-                      className={`flex h-4 w-4 items-center justify-center rounded-full text-[10px] font-bold ${
+          {/* Right Column (7 Cols): Architectural Interactive Map & Property Inspector */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7 border border-white/10 bg-[#161616] overflow-hidden"
+          >
+            {/* Architectural Index Header: Corridor Identity & Dynamic Active Count */}
+            <div className="p-3.5 sm:px-4 sm:py-3 border-b border-white/10 flex items-center justify-between gap-3 bg-[#191919]">
+              <div className="flex items-center gap-2 font-mono text-xs text-[#FAF9F6] min-w-0">
+                <span className="text-[#FFBB00] font-bold shrink-0">MAPA TERRITORIAL</span>
+                <span className="text-white/20">/</span>
+                <span className="text-[#FAF9F6] uppercase tracking-wider text-[11px] font-medium truncate">
+                  {selectedPoint ? selectedPoint.addressShort : "Av. Pres. Roosevelt · São Francisco"}
+                </span>
+              </div>
+              <div className="shrink-0 flex items-center gap-2 font-mono text-[11px] text-[#FFBB00] bg-[#FFBB00]/10 px-2.5 py-1 border border-[#FFBB00]/30 rounded-[2px]">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#FFBB00]" />
+                <span className="font-semibold">{PROPERTY_POINTS.length} ATIVOS DISPONÍVEIS</span>
+              </div>
+            </div>
+
+            {/* Dedicated Full-Width Property Selector Toolbar — Flex-Wrap ensures 100% of properties (5, 6, 8, etc.) are always visible & clickable */}
+            <div className="p-3 sm:p-3.5 bg-[#141414] border-b border-white/10">
+              <div className="text-[10px] font-mono uppercase tracking-widest text-[#88857E] mb-2 flex items-center justify-between">
+                <span>Navegar pelos imóveis no mapa:</span>
+                <span className="text-[#FFBB00]">
+                  {selectedPoint ? `Ativo ${selectedPoint.numStr} selecionado` : "Visão geral do corredor"}
+                </span>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2">
+                <motion.button
+                  type="button"
+                  onClick={() => setSelectedPointId("all")}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 500, damping: 25 }}
+                  className={`px-3 py-1.5 font-mono text-[11px] sm:text-xs uppercase tracking-wider transition-all cursor-pointer rounded-[2px] flex items-center gap-1.5 ${
+                    selectedPointId === "all"
+                      ? "bg-[#FFBB00] text-[#121212] font-bold border border-[#FFBB00]"
+                      : "bg-[#1f1f1f] text-[#88857E] hover:text-[#FAF9F6] hover:border-[#FFBB00]/50 border border-white/10"
+                  }`}
+                >
+                  <span className={selectedPointId === "all" ? "h-1.5 w-1.5 rounded-full bg-[#121212]" : "h-1.5 w-1.5 rounded-full bg-[#88857E]"} />
+                  <span>Visão do Corredor</span>
+                </motion.button>
+
+                {PROPERTY_POINTS.map((pt) => {
+                  const isSelected = selectedPointId === pt.id;
+                  return (
+                    <motion.button
+                      key={pt.id}
+                      type="button"
+                      onClick={() => setSelectedPointId(pt.id)}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      transition={{ type: "spring", stiffness: 500, damping: 25 }}
+                      className={`flex items-center gap-1.5 px-3 py-1.5 font-mono text-[11px] sm:text-xs uppercase tracking-wider transition-all cursor-pointer rounded-[2px] ${
                         isSelected
-                          ? "bg-[#1f1f1f] text-[#FFBB00]"
-                          : "bg-white/10 text-[#d8d4ca]"
+                          ? "bg-[#FFBB00] text-[#121212] font-bold border border-[#FFBB00]"
+                          : "bg-[#1f1f1f] text-[#FAF9F6] hover:text-[#FFBB00] hover:border-[#FFBB00]/50 border border-white/10"
                       }`}
                     >
-                      {pt.number}
-                    </span>
-                    <span>{pt.label}</span>
-                  </button>
-                );
-              })}
+                      <span className={isSelected ? "text-[#121212] font-black" : "text-[#FFBB00] font-bold"}>
+                        {pt.numStr}
+                      </span>
+                      <span className={isSelected ? "text-[#121212]/40" : "text-white/20"}>·</span>
+                      <span className={isSelected ? "text-[#121212] font-medium" : "text-[#C7C4BC]"}>
+                        {pt.label}
+                      </span>
+                    </motion.button>
+                  );
+                })}
+              </div>
             </div>
-          </div>
 
-          {/* Map & Property Preview Grid */}
-          <div className="grid lg:grid-cols-12 min-h-[460px] lg:min-h-[520px]">
-            {/* Google Maps Embed Frame */}
-            <div className="lg:col-span-8 relative h-[340px] sm:h-[400px] lg:h-full w-full bg-[#1e1e1e]">
+            {/* Stylized Google Maps Surface */}
+            <div className="relative h-[300px] sm:h-[340px] lg:h-[360px] bg-[#0e0e0e] overflow-hidden">
               <iframe
-                title="Google Maps - Imóveis Comerciais na Av. Presidente Roosevelt"
+                key={embedUrl}
+                title="Google Maps do Corredor São Francisco"
                 src={embedUrl}
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
+                className="w-full h-full border-0 opacity-90 transition-opacity"
+                style={{
+                  filter: "grayscale(90%) invert(90%) hue-rotate(180deg) contrast(115%) brightness(90%)",
+                }}
                 loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="w-full h-full grayscale-[0.1] contrast-[1.05]"
+                allowFullScreen
               />
 
-              {/* Floating Map Action Badge */}
-              <div className="absolute bottom-3 left-3 z-10">
+              {/* Minimalist Map Indicator & Satellite Link */}
+              <div className="absolute bottom-2.5 left-2.5 z-10 flex items-center gap-2 px-2.5 py-1 bg-[#121212]/95 backdrop-blur-sm border border-white/15 text-[10px] font-mono text-[#FAF9F6] uppercase tracking-wider">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#FFBB00]" />
+                <span>Eixo Canal de São Francisco</span>
+              </div>
+
+              <div className="absolute bottom-2.5 right-2.5 z-10">
                 <a
                   href={externalMapUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-black/20 bg-[#1f1f1f]/90 px-3 py-1.5 text-xs font-semibold text-[#faf9f6] backdrop-blur-md shadow-lg hover:bg-black transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#121212]/95 backdrop-blur-sm text-[#FFBB00] hover:text-[#121212] hover:bg-[#FFBB00] border border-[#FFBB00]/50 text-[10px] font-mono uppercase tracking-wider transition-all rounded-[2px]"
                 >
-                  <ExternalLink className="h-3.5 w-3.5 text-[#FFBB00]" />
-                  Abrir no Google Maps
+                  <span className="font-semibold">Abrir no Google Maps</span>
+                  <ExternalLink className="h-2.5 w-2.5" />
                 </a>
               </div>
             </div>
 
-            {/* Sidebar: Property Focus or Overview List */}
-            <div className="lg:col-span-4 p-4 sm:p-5 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-white/10 bg-[#242424]">
-              {selectedProperty && selectedPoint ? (
-                /* Focused Property Card */
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="inline-flex items-center gap-1.5 rounded-md bg-[#FFBB00]/15 px-2 py-0.5 text-xs font-bold text-[#FFBB00] border border-[#FFBB00]/30">
-                      Ponto {selectedPoint.number} de 5
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => setSelectedPointId("all")}
-                      className="text-xs text-[#a8a396] hover:text-[#faf9f6] transition-colors"
-                    >
-                      Ver todos
-                    </button>
-                  </div>
-
-                  {/* Thumbnail */}
-                  <div className="relative h-36 w-full rounded-xl overflow-hidden border border-white/10">
-                    <Image
-                      src={selectedProperty.images[0].src}
-                      alt={selectedProperty.title}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 320px"
-                      className="object-cover"
-                    />
-                    <div className="absolute bottom-2 left-2 rounded bg-black/70 px-2 py-0.5 text-[11px] font-semibold text-white backdrop-blur-sm">
-                      {selectedProperty.specs.totalArea} m²
+            {/* Active Property Ledger / Inspector Bar Beneath Map */}
+            <div className="p-4 sm:p-5 bg-[#171717] border-t border-white/10">
+              {selectedPoint && selectedProperty ? (
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={selectedPoint.id}
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                  >
+                    <div className="flex items-center gap-3.5">
+                      <div className="relative h-14 w-20 shrink-0 overflow-hidden bg-[#101010] border border-white/10 hidden sm:block">
+                        <Image
+                          src={selectedPoint.image}
+                          alt={selectedPoint.addressShort}
+                          fill
+                          sizes="80px"
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="space-y-0.5">
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono text-xs font-semibold text-[#FFBB00]">
+                            {selectedPoint.numStr} · {selectedPoint.addressShort}
+                          </span>
+                          <span className="font-mono text-[10px] text-[#88857E] border border-white/10 px-1.5 py-0.2">
+                            {selectedPoint.id}
+                          </span>
+                        </div>
+                        <p className="font-heading text-sm text-[#FAF9F6] font-medium truncate max-w-xs">
+                          {selectedProperty.title}
+                        </p>
+                        <p className="font-mono text-[11px] text-[#88857E]">
+                          {selectedPoint.specs} · <span className="text-[#FAF9F6] font-semibold">{selectedPoint.rent}</span>
+                        </p>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Info */}
-                  <div>
-                    <h3 className="text-base font-bold text-[#faf9f6] font-heading leading-snug">
-                      {selectedProperty.title}
-                    </h3>
-                    <p className="mt-1 text-xs text-[#a8a396] flex items-center gap-1">
-                      <MapPin className="h-3 w-3 text-[#FFBB00] shrink-0" />
-                      {selectedProperty.address}
+                    <div className="flex items-center gap-2.5 shrink-0">
+                      <motion.a
+                        href={`#imovel-${selectedPoint.id.toLowerCase()}`}
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.97 }}
+                        transition={{ type: "spring", stiffness: 450, damping: 22 }}
+                        className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#FFBB00] hover:bg-[#FFC82C] text-[#121212] text-xs font-mono uppercase tracking-wider font-bold transition-colors rounded-[2px]"
+                      >
+                        <span>Ver Ficha</span>
+                        <ArrowDownRight className="h-3.5 w-3.5 text-[#121212]" />
+                      </motion.a>
+                      <motion.button
+                        type="button"
+                        onClick={onContactClick}
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.97 }}
+                        transition={{ type: "spring", stiffness: 450, damping: 22 }}
+                        className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-transparent text-[#FFBB00] hover:bg-[#FFBB00] hover:text-[#121212] border-2 border-[#FFBB00] text-xs font-mono uppercase tracking-wider font-semibold transition-all cursor-pointer rounded-[2px]"
+                      >
+                        <MessageCircle className="h-3.5 w-3.5" />
+                        <span className="hidden sm:inline">WhatsApp</span>
+                      </motion.button>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              ) : (
+                /* Corridor Overview Bar */
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                  <div className="space-y-0.5">
+                    <p className="font-mono text-[11px] text-[#FAF9F6] font-semibold flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#FFBB00]" />
+                      {PROPERTY_POINTS.length} Ativos Disponíveis para Locação no Canal
+                    </p>
+                    <p className="text-[11px] text-[#88857E] font-light">
+                      Selecione um dos botões numerados acima para visualizar o ponto exato no mapa e a ficha do imóvel.
                     </p>
                   </div>
-
-                  {/* Pricing & Key Spec */}
-                  <div className="p-3 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
-                    <div>
-                      <span className="text-[11px] text-[#a8a396] block uppercase tracking-wide">
-                        Locação
-                      </span>
-                      <span className="text-sm font-bold text-[#FFBB00]">
-                        {selectedProperty.pricing.rent}
-                      </span>
-                    </div>
-                    <div className="text-right">
-                      <span className="text-[11px] text-[#a8a396] block uppercase tracking-wide">
-                        Vagas
-                      </span>
-                      <span className="text-sm font-bold text-[#faf9f6]">
-                        {selectedProperty.specs.parkingSpaces} vagas
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Actions */}
-                  <div className="pt-2 space-y-2">
-                    <Link
-                      href={`/imoveis/${selectedProperty.slug}`}
-                      className="flex items-center justify-center gap-1.5 w-full rounded-lg bg-[#FFBB00] px-4 py-2.5 text-xs font-bold text-[#1f1f1f] hover:bg-[#e5a800] transition-colors shadow-sm"
-                    >
-                      Ver Ficha Completa deste Imóvel
-                      <ChevronRight className="h-3.5 w-3.5" />
-                    </Link>
-
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={onContactClick}
-                      className="w-full text-xs border-white/15 text-[#faf9f6] hover:bg-white/5"
-                    >
-                      <MessageCircle className="h-3.5 w-3.5 text-[#FFBB00]" />
-                      Consultar Luiz Pinciara
-                    </Button>
-                  </div>
-                </div>
-              ) : (
-                /* Overview List of 5 Properties along the Avenue */
-                <div className="flex flex-col h-full justify-between space-y-4">
-                  <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-xs font-mono uppercase tracking-wider text-[#a8a396]">
-                        5 Imóveis no Eixo
-                      </span>
-                      <span className="text-[11px] text-[#FFBB00] font-semibold">
-                        Clique para focar no mapa
-                      </span>
-                    </div>
-
-                    <div className="space-y-2">
-                      {PROPERTY_POINTS.map((pt) => {
-                        const prop = commercialProperties.find((p) => p.id === pt.id);
-                        if (!prop) return null;
-
-                        return (
-                          <button
-                            key={pt.id}
-                            type="button"
-                            onClick={() => setSelectedPointId(pt.id)}
-                            className="w-full text-left p-2.5 rounded-xl border border-white/5 bg-white/[0.03] hover:bg-white/[0.08] hover:border-[#FFBB00]/40 transition-all flex items-center justify-between group"
-                          >
-                            <div className="flex items-center gap-2.5 min-w-0">
-                              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#FFBB00]/20 text-[#FFBB00] font-bold text-xs group-hover:bg-[#FFBB00] group-hover:text-[#1f1f1f] transition-colors">
-                                {pt.number}
-                              </span>
-                              <div className="truncate">
-                                <p className="text-xs font-bold text-[#faf9f6] truncate group-hover:text-[#FFBB00] transition-colors">
-                                  {pt.addressShort}
-                                </p>
-                                <p className="text-[11px] text-[#a8a396] truncate">
-                                  {prop.specs.totalArea} m² • {prop.pricing.rent}
-                                </p>
-                              </div>
-                            </div>
-                            <ChevronRight className="h-3.5 w-3.5 text-[#a8a396] group-hover:text-[#faf9f6] shrink-0 transition-colors" />
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  <div className="pt-3 border-t border-white/10">
-                    <Button
-                      variant="whatsapp"
-                      size="sm"
-                      onClick={onContactClick}
-                      className="w-full text-xs font-bold"
-                    >
-                      <MessageCircle className="h-3.5 w-3.5" />
-                      Agendar Visita no Corredor
-                    </Button>
-                  </div>
+                  <motion.a
+                    href="#imoveis"
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{ type: "spring", stiffness: 450, damping: 22 }}
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-[#FFBB00] hover:bg-[#FFC82C] text-[#121212] text-xs font-mono uppercase tracking-wider font-bold transition-colors shrink-0 rounded-[2px]"
+                  >
+                    <span>Ver no Portfólio</span>
+                    <ArrowDownRight className="h-3.5 w-3.5 text-[#121212]" />
+                  </motion.a>
                 </div>
               )}
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </Container>
     </section>
   );

@@ -288,7 +288,7 @@ export function PropertyDetailView({ property }: PropertyDetailViewProps) {
                       variant="whatsapp"
                       size="lg"
                       onClick={() => setIsModalOpen(true)}
-                      className="w-full text-sm font-bold shadow-[0_6px_25px_rgba(255,187,0,0.35)]"
+                      className="w-full text-sm font-bold"
                     >
                       <MessageCircle className="h-5 w-5" />
                       Falar no WhatsApp

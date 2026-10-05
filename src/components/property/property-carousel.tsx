@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight, Image as ImageIcon } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PropertyImage } from "@/types/property";
 
@@ -96,7 +96,7 @@ export function PropertyCarousel({
   return (
     <div
       className={cn(
-        "group/carousel relative overflow-hidden rounded-xl bg-surface-elevated select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+        "group/carousel relative overflow-hidden rounded-[2px] bg-[#141414] select-none focus:outline-none",
         isExpanded
           ? "aspect-[16/10] sm:aspect-[16/9] w-full max-h-[560px]"
           : "aspect-[16/10] w-full",
@@ -116,7 +116,7 @@ export function PropertyCarousel({
           {images.map((img, idx) => (
             <div
               key={idx}
-              className="relative min-w-0 flex-[0_0_100%] h-full bg-[#111111]"
+              className="relative min-w-0 flex-[0_0_100%] h-full bg-[#141414]"
               role="group"
               aria-roledescription="slide"
               aria-label={`Foto ${idx + 1} de ${images.length}`}
@@ -129,27 +129,26 @@ export function PropertyCarousel({
                 sizes={
                   isExpanded
                     ? "(max-width: 1024px) 100vw, 1200px"
-                    : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+                    : "(max-width: 640px) 100vw, (max-width: 1024px) 60vw, 800px"
                 }
-                className="object-cover transition-transform duration-500 ease-out group-hover/carousel:scale-[1.02]"
+                className="object-cover transition-transform duration-700 ease-out group-hover/carousel:scale-[1.02]"
               />
 
-              {/* Subtle gradient overlay at bottom for controls legibility */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
+              {/* Minimal vignette */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20 pointer-events-none" />
             </div>
           ))}
         </div>
       </div>
 
-      {/* Top Floating Badge: Counter ("1 / 5") */}
-      <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 rounded-full border border-white/10 bg-black/70 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-md shadow-md">
-        <ImageIcon className="h-3 w-3 text-primary" />
-        <span>
-          {selectedIndex + 1} / {images.length}
-        </span>
+      {/* Top Floating Badge: Architectural Counter ("01 / 05") */}
+      <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-mono text-[#FAF9F6] bg-[#141414]/80 backdrop-blur-sm border border-white/10">
+        <span className="text-[#FFBB00] font-semibold">{String(selectedIndex + 1).padStart(2, "0")}</span>
+        <span className="text-white/30">/</span>
+        <span className="text-white/60">{String(images.length).padStart(2, "0")}</span>
       </div>
 
-      {/* Desktop Navigation Arrows */}
+      {/* Desktop Navigation Arrows — Minimalist Rectangular */}
       <button
         type="button"
         onClick={(e) => {
@@ -158,11 +157,11 @@ export function PropertyCarousel({
         }}
         aria-label="Foto anterior"
         className={cn(
-          "absolute left-3 top-1/2 -translate-y-1/2 z-20 flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full border border-white/15 bg-black/60 text-white backdrop-blur-md transition-all duration-200 hover:bg-black/90 hover:border-primary/60 hover:text-primary active:scale-90 cursor-pointer shadow-lg",
+          "absolute left-3 top-1/2 -translate-y-1/2 z-20 flex h-9 w-9 items-center justify-center border border-white/20 bg-[#141414]/70 text-white backdrop-blur-sm transition-all duration-200 hover:bg-[#141414] hover:border-white/50 active:scale-95 cursor-pointer",
           isHovered ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2 pointer-events-none sm:opacity-80 sm:translate-x-0"
         )}
       >
-        <ChevronLeft className="h-5 w-5" />
+        <ChevronLeft className="h-4 w-4" />
       </button>
 
       <button
@@ -173,34 +172,30 @@ export function PropertyCarousel({
         }}
         aria-label="Próxima foto"
         className={cn(
-          "absolute right-3 top-1/2 -translate-y-1/2 z-20 flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full border border-white/15 bg-black/60 text-white backdrop-blur-md transition-all duration-200 hover:bg-black/90 hover:border-primary/60 hover:text-primary active:scale-90 cursor-pointer shadow-lg",
+          "absolute right-3 top-1/2 -translate-y-1/2 z-20 flex h-9 w-9 items-center justify-center border border-white/20 bg-[#141414]/70 text-white backdrop-blur-sm transition-all duration-200 hover:bg-[#141414] hover:border-white/50 active:scale-95 cursor-pointer",
           isHovered ? "opacity-100 translate-x-0" : "opacity-0 translate-x-2 pointer-events-none sm:opacity-80 sm:translate-x-0"
         )}
       >
-        <ChevronRight className="h-5 w-5" />
+        <ChevronRight className="h-4 w-4" />
       </button>
 
-      {/* Bottom Floating Dots Pagination */}
-      <div className="absolute bottom-3 left-0 right-0 z-10 flex items-center justify-center gap-1.5 pointer-events-auto">
-        <div className="flex items-center gap-1.5 rounded-full border border-white/10 bg-black/60 px-2.5 py-1 backdrop-blur-md shadow-md">
-          {scrollSnaps.map((_, idx) => (
-            <button
-              key={idx}
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                scrollTo(idx);
-              }}
-              aria-label={`Ir para a foto ${idx + 1}`}
-              className={cn(
-                "h-1.5 rounded-full transition-all duration-300 cursor-pointer",
-                idx === selectedIndex
-                  ? "w-5 bg-primary"
-                  : "w-1.5 bg-white/40 hover:bg-white/70"
-              )}
-            />
-          ))}
-        </div>
+      {/* Bottom Architectural Bar Pagination */}
+      <div className="absolute bottom-3 left-3 right-3 z-10 flex items-center gap-1 pointer-events-auto">
+        {scrollSnaps.map((_, idx) => (
+          <button
+            key={idx}
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              scrollTo(idx);
+            }}
+            aria-label={`Ir para a foto ${idx + 1}`}
+            className={cn(
+              "h-0.5 flex-1 transition-all duration-300 cursor-pointer",
+              idx === selectedIndex ? "bg-[#FFBB00]" : "bg-white/30 hover:bg-white/60"
+            )}
+          />
+        ))}
       </div>
     </div>
   );

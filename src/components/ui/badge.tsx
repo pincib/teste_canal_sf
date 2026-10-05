@@ -19,7 +19,7 @@ export function Badge({
     gold: "bg-primary/10 text-primary border border-primary/25",
     outline: "bg-transparent text-foreground-muted border border-border",
     surface: "bg-surface-elevated text-foreground border border-border-subtle",
-    accent: "bg-primary text-black font-semibold shadow-[0_2px_10px_rgba(255,187,0,0.25)]",
+    accent: "bg-primary text-black font-semibold",
   };
 
   return (

@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pinciara Imóveis Exclusivos — Padrão Oficial (21st.dev & Watermelon UI)</title>
+  
+  <!-- Tipografia Oficial do Manual Pinciara:
+       - Títulos: Montserrat
+       - Textos: Calibri / Lucida Sans Unicode / Sans-serif
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* -------------------------------------------------------------
+       TOKENS E CORES SÓLIDAS DO MANUAL PINCIARA
+       - Dourado Oficial Sólido: #FFBB00
+       - Hover Dourado: #E5A800
+       - Fundo Escuro Sólido: #333333 (Charcoal)
+       - Fundo Claro Sólido: #FAF9F6 (Alabaster Off-White)
+       - Superfícies: #262626, #1E1E1E e #FFFFFF
+       - Bordas: #444444 e rgba(255, 255, 255, 0.12)
+       - Tipografia: Montserrat (Títulos) + Calibri / Lucida Sans (Textos)
+       - ZERO EMOJIS: Apenas ícones vetoriais SVG de traço fino
+       - ZERO GRADIENTES: Cores sólidas institucionais
+       ------------------------------------------------------------- */
+    :root {
+      --gold-primary: #FFBB00;
+      --gold-hover: #E5A800;
+      --bg-charcoal: #333333;
+      --bg-charcoal-card: #262626;
+      --bg-charcoal-surface: #1E1E1E;
+      --bg-alabaster: #FAF9F6;
+      --bg-alabaster-card: #FFFFFF;
+      --border-dark: rgba(255, 255, 255, 0.12);
+      --border-dark-hover: rgba(255, 255, 255, 0.25);
+      --font-heading: 'Montserrat', sans-serif;
+      --font-body: 'Calibri', 'Lucida Sans Unicode', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg-charcoal);
+      color: #FAF9F6;
+      font-family: var(--font-body);
+      line-height: 1.55;
+      font-size: 16px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      letter-spacing: -0.02em;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* -------------------------------------------------------------
+       BOTÕES PROFISSIONAIS (Padrão Retangular 21st.dev / Watermelon UI)
+       ------------------------------------------------------------- */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background-color: var(--gold-primary);
+      color: #111111;
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 10px;
+      border: 1px solid var(--gold-hover);
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(255, 187, 0, 0.2);
+      transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--gold-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(255, 187, 0, 0.3);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background-color: transparent;
+      color: #FAF9F6;
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 22px;
+      border-radius: 10px;
+      border: 1px solid var(--border-dark-hover);
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* -------------------------------------------------------------
+       HERO BLOCK (Watermelon UI Style)
+       ------------------------------------------------------------- */
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 14px;
+      border-radius: 6px;
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-dark);
+      font-family: var(--font-heading);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #dcd7ce;
+      margin-bottom: 22px;
+    }
+
+    .hero-eyebrow .gold-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--gold-primary);
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(32px, 4.8vw, 54px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      color: #FAF9F6;
+      max-width: 920px;
+      margin: 0 auto 16px;
+    }
+
+    .hero-sub {
+      font-family: var(--font-body);
+      font-size: clamp(16px, 1.8vw, 19px);
+      font-weight: 400;
+      color: #ccc8bf;
+      max-width: 650px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+
+    /* -------------------------------------------------------------
+       MAP CONSOLE BLOCK (21st.dev Component)
+       ------------------------------------------------------------- */
+    .map-block {
+      background-color: var(--bg-charcoal-card);
+      border: 1px solid var(--border-dark);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+    }
+
+    .map-topbar {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-dark);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      background-color: var(--bg-charcoal-surface);
+    }
+
+    .map-topbar-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .map-icon-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background-color: rgba(255, 187, 0, 0.12);
+      border: 1px solid rgba(255, 187, 0, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold-primary);
+    }
+
+    .map-tabs {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+
+    .map-tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-family: var(--font-heading);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border-dark);
+      background-color: rgba(255, 255, 255, 0.04);
+      color: #c4bfb5;
+      white-space: nowrap;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .map-tab-btn:hover {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #FAF9F6;
+    }
+
+    .map-tab-btn.active {
+      background-color: var(--gold-primary);
+      color: #111111;
+      border-color: var(--gold-primary);
+      font-weight: 700;
+    }
+
+    .map-tab-btn .badge-num {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .map-tab-btn.active .badge-num {
+      background-color: #111111;
+      color: var(--gold-primary);
+    }
+
+    /* -------------------------------------------------------------
+       ESTRUTURA SPLIT (Iframe + Sidebar)
+       ------------------------------------------------------------- */
+    .map-split {
+      display: grid;
+      grid-template-columns: 1fr;
+      min-height: 480px;
+    }
+
+    @media (min-width: 992px) {
+      .map-split {
+        grid-template-columns: 7fr 5fr;
+      }
+    }
+
+    .map-frame-wrap {
+      position: relative;
+      min-height: 360px;
+      background-color: #141414;
+    }
+
+    .map-frame-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .map-floating-btn {
+      position: absolute;
+      bottom: 14px;
+      left: 14px;
+      z-index: 10;
+      background-color: rgba(20, 20, 20, 0.92);
+      border: 1px solid var(--border-dark-hover);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-family: var(--font-heading);
+      font-size: 11px;
+      font-weight: 600;
+      color: #FAF9F6;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .map-floating-btn:hover {
+      background-color: #000;
+      border-color: var(--gold-primary);
+      color: var(--gold-primary);
+    }
+
+    .map-drawer {
+      background-color: var(--bg-charcoal-card);
+      border-left: 1px solid var(--border-dark);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Card de Detalhe na Sidebar */
+    .drawer-thumb {
+      width: 100%;
+      height: 170px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border-dark);
+      margin-bottom: 14px;
+      position: relative;
+    }
+
+    .drawer-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .drawer-thumb-pill {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      background-color: rgba(0, 0, 0, 0.85);
+      border: 1px solid var(--border-dark);
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .drawer-specs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin: 14px 0;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-dark);
+    }
+
+    .spec-item span {
+      display: block;
+      font-size: 10px;
+      color: #999;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .spec-item strong {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gold-primary);
+      font-family: var(--font-heading);
+    }
+
+    .corridor-item {
+      padding: 10px 12px;
+      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.025);
+      border: 1px solid var(--border-dark);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .corridor-item:hover {
+      background-color: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 187, 0, 0.4);
+    }
+
+    /* -------------------------------------------------------------
+       STATS STRIP BLOCK (Watermelon UI Stats Pattern)
+       ------------------------------------------------------------- */
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 40px;
+      padding: 24px;
+      border-radius: 14px;
+      background-color: var(--bg-charcoal-card);
+      border: 1px solid var(--border-dark);
+    }
+
+    .stat-box {
+      border-left: 2px solid var(--gold-primary);
+      padding-left: 14px;
+    }
+
+    .stat-number {
+      font-family: var(--font-heading);
+      font-size: 26px;
+      font-weight: 800;
+      color: #FAF9F6;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: #a8a396;
+      margin-top: 2px;
+    }
+
+    /* -------------------------------------------------------------
+       SEÇÃO 2: FUNDO ALABASTER (#FAF9F6) SÓLIDO
+       Cards da Vitrine (Watermelon UI Feature Grid)
+       ------------------------------------------------------------- */
+    .section-light {
+      background-color: var(--bg-alabaster);
+      color: #1a1a1a;
+      padding: 80px 0;
+      border-top: 1px solid #e2ded5;
+    }
+
+    .section-light .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 6px;
+      background-color: rgba(0, 0, 0, 0.05);
+      border: 1px solid #dcd7cc;
+      font-family: var(--font-heading);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 14px;
+    }
+
+    .section-light h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(26px, 3.5vw, 38px);
+      font-weight: 800;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+    }
+
+    .section-light p.subtitle {
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: #555;
+      max-width: 620px;
+      margin-bottom: 36px;
+    }
+
+    .card-light {
+      background-color: var(--bg-alabaster-card);
+      border: 1px solid #e6e2d8;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card-light:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+      border-color: #d1cbbd;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =============================================================
+       HERO SECTION (Watermelon UI Block Pattern)
+       Fundo Charcoal #333333 Sólido Oficial
+       ============================================================= -->
+  <section style="padding: 80px 0 70px;">
+    <div class="container">
+      
+      <!-- Cabeçalho Institucional com Montserrat Oficial -->
+      <div style="text-align: center; margin-bottom: 40px;">
+        <div class="hero-eyebrow">
+          <span class="gold-dot"></span>
+          São Francisco • Niterói / RJ
+        </div>
+        
+        <h1 class="hero-title">
+          5 Imóveis Comerciais na Av. Presidente Roosevelt
+        </h1>
+        
+        <p class="hero-sub">
+          Lojas e casas comerciais de 225 m² a 500 m² no principal polo gastronômico e de serviços da Zona Sul de Niterói.
+        </p>
+
+        <!-- Botões com Ícones Vetoriais SVG (Zero Emojis) -->
+        <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+          <a href="#contato" class="btn-primary">
+            <!-- SVG Message / Chat Icon -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>
+            </svg>
+            <span>Falar com Luiz Pinciara no WhatsApp</span>
+          </a>
+          
+          <a href="#vitrine" class="btn-secondary">
+            <span>Explorar os 5 Imóveis</span>
+            <!-- SVG Arrow Down Icon -->
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 5v14"/><path d="m19 12-7 7-7-7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- CONSOLE INTERATIVO DO GOOGLE MAPS (21st.dev Block) -->
+      <div class="map-block">
+        
+        <!-- Header Bar com Tabs Retangulares -->
+        <div class="map-topbar">
+          <div class="map-topbar-info">
+            <div class="map-icon-box">
+              <!-- SVG Map Pin Icon -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div>
+              <h3 style="font-size: 15px; font-weight: 700; color: #FAF9F6;" id="mapStatusTitle">
+                Mapa do Corredor Presidente Roosevelt
+              </h3>
+              <p style="font-size: 13px; color: #a8a396;" id="mapStatusSubtitle">
+                Visão dos 5 imóveis entre Charitas, Icaraí e o Polo Gastronômico
+              </p>
+            </div>
+          </div>
+
+          <!-- Tabs Retangulares com Numeração -->
+          <div class="map-tabs" id="mapTabs">
+            <button class="map-tab-btn active" onclick="selectProperty('all')">
+              Todos no Corredor
+            </button>
+            <button class="map-tab-btn" onclick="selectProperty('CA0339-PINC')">
+              <span class="badge-num">1</span>
+              Nº 102 (500m²)
+            </button>
+            <button class="map-tab-btn" onclick="selectProperty('CA0176-PINC')">
+              <span class="badge-num">2</span>
+              Nº 132 (250m²)
+            </button>
+            <button class="map-tab-btn" onclick="selectProperty('CA0324-PINC')">
+              <span class="badge-num">3</span>
+              Nº 133 (360m²)
+            </button>
+            <button class="map-tab-btn" onclick="selectProperty('LO0222-PINC')">
+              <span class="badge-num">4</span>
+              Guaianazes, 46 (225m²)
+            </button>
+            <button class="map-tab-btn" onclick="selectProperty('CA0318-PINC')">
+              <span class="badge-num">5</span>
+              Nº 1027 (370m²)
+            </button>
+          </div>
+        </div>
+
+        <!-- Estrutura Split (Iframe + Sidebar) -->
+        <div class="map-split">
+          
+          <!-- Iframe Google Maps -->
+          <div class="map-frame-wrap">
+            <iframe
+              id="gmapIframe"
+              title="Google Maps - Eixo Presidente Roosevelt"
+              src="https://maps.google.com/maps?q=Av.+Presidente+Roosevelt,+S%C3%A3o+Francisco,+Niter%C3%B3i+-+RJ&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              loading="lazy">
+            </iframe>
+
+            <a id="externalGmapLink" href="https://www.google.com/maps/search/?api=1&query=Av.+Presidente+Roosevelt,+S%C3%A3o+Francisco,+Niter%C3%B3i+-+RJ" target="_blank" class="map-floating-btn">
+              <span>Abrir no Google Maps</span>
+              <!-- SVG External Link -->
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+              </svg>
+            </a>
+          </div>
+
+          <!-- Sidebar Dinâmica -->
+          <div class="map-drawer" id="mapSidebar">
+            <!-- Preenchido via JavaScript com SVG Icons -->
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- STATS STRIP BLOCK (Watermelon UI Pattern) -->
+      <div class="stats-strip">
+        <div class="stat-box">
+          <div class="stat-number">R$ 13,1M</div>
+          <div class="stat-label">Obras de mobilidade no Túnel Roberto Silveira</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">21,6%</div>
+          <div class="stat-label">Dos imóveis da avenida são comerciais ativos</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">1 Quadra</div>
+          <div class="stat-label">Da orla e do polo gastronômico de São Francisco</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number" style="color: var(--gold-primary);">5 Imóveis</div>
+          <div class="stat-label">Metragens exclusivas de 225 m² a 500 m²</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =============================================================
+       SEÇÃO 2: FUNDO ALABASTER (#FAF9F6) SÓLIDO
+       Cards da Vitrine (Watermelon UI Feature Grid)
+       ============================================================= -->
+  <section class="section-light" id="vitrine">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 40px;">
+        <div class="eyebrow">Curadoria Pinciara Imóveis Exclusivos</div>
+        <h2>Padrão Arquitetônico dos Imóveis</h2>
+        <p class="subtitle" style="margin-left: auto; margin-right: auto;">
+          Fachadas ativas, plantas em vão livre e testada comercial no polo de maior liquidez de São Francisco.
+        </p>
+      </div>
+
+      <!-- Feature Grid -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+        
+        <!-- Card 1: Guaianazes, 46 -->
+        <div class="card-light">
+          <div style="height: 180px; border-radius: 8px; overflow: hidden; margin-bottom: 16px; position: relative;">
+            <img src="https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu2lq099z1lJlosxIBvrmpgu8woax49uWhRiQ6IHsv+P1xO7EYPXMkYcI4K3zOwCoj598Z4Z7NR5kIsZgQCT2er2LOUAUggCinhSTceJaTUpN5Q5imQdu4HyVULmW-gRp2RyOKKzykSeeEfvhPmNjDrMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdxNnaoEiA2QTecc6B-vwIDAhPeoPk+FMwVpp7+a-PqwOfygSfj3OU-isNRRuI3WKIgXZ5qpHiQfEHU1bHAc+1Ku76vU.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="Loja Guaianazes">
+            <span style="position: absolute; top: 10px; left: 10px; background-color: rgba(0,0,0,0.85); color: #fff; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; font-family: var(--font-heading);">225 m² • Esquina com Roosevelt</span>
+          </div>
+          <h4 style="font-size: 18px; font-weight: 700; margin-bottom: 6px; color: #1a1a1a;">Loja Comercial na Esquina da Roosevelt</h4>
+          <p style="font-size: 14px; color: #666; margin-bottom: 16px;">Rua Guaianazes, 46 (Esquina com Av. Pres. Roosevelt)</p>
+          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; padding-top: 12px;">
+            <span style="font-size: 18px; font-weight: 700; color: #1a1a1a; font-family: var(--font-heading);">R$ 22.000 <span style="font-size: 12px; font-weight: 500; color: #777;">/mês</span></span>
+            <a href="#" class="btn-primary" style="padding: 8px 16px; font-size: 12px; border-radius: 8px;">
+              <span>Ver Ficha</span>
+              <!-- SVG Chevron Right -->
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m9 18 6-6-6-6"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 2: Roosevelt, 1027 -->
+        <div class="card-light">
+          <div style="height: 180px; border-radius: 8px; overflow: hidden; margin-bottom: 16px; position: relative;">
+            <img src="https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu31BzOtc7B0Xm9IwBOKjmXmO5YWl5dWYlWO3wYHzjZXDyfvDbZ-g+MU-wY7BCF-2ibB9Gc43OlhlO9VXSTvAYq2GZEV+nDi3kUOXeIodb1QJzyIUvAx69QGyXJep508hwiyVBKPWiBGsF--lHHlZNLMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdxNnaoEiA2QTecc6B-vwIDAhPeoPk+FMwVpp7+a-PqwOfygSfj3OU-isNRRuI3WKIgXZ5qpHiQfEHU1bHAc+1Ku76vU.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="Casa 1027">
+            <span style="position: absolute; top: 10px; left: 10px; background-color: rgba(0,0,0,0.85); color: #fff; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; font-family: var(--font-heading);">370 m² • 5 Vagas</span>
+          </div>
+          <h4 style="font-size: 18px; font-weight: 700; margin-bottom: 6px; color: #1a1a1a;">Sede Corporativa de 370 m²</h4>
+          <p style="font-size: 14px; color: #666; margin-bottom: 16px;">Av. Presidente Roosevelt, 1027 — São Francisco</p>
+          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; padding-top: 12px;">
+            <span style="font-size: 18px; font-weight: 700; color: #1a1a1a; font-family: var(--font-heading);">R$ 20.000 <span style="font-size: 12px; font-weight: 500; color: #777;">/mês</span></span>
+            <a href="#" class="btn-primary" style="padding: 8px 16px; font-size: 12px; border-radius: 8px;">
+              <span>Ver Ficha</span>
+              <!-- SVG Chevron Right -->
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m9 18 6-6-6-6"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================================
+       JAVASCRIPT COM ÍCONES SVG PURIFICADOS (Zero Emojis)
+       ============================================================= -->
+  <script>
+    const SVG_PIN = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFBB00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`;
+    const SVG_CHEVRON = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>`;
+
+    const PROPERTIES_DATA = {
+      "CA0339-PINC": {
+        num: 1,
+        title: "Casa Comercial de 500 m² — Nº 102",
+        addressShort: "Av. Pres. Roosevelt, 102",
+        fullAddress: "Av. Presidente Roosevelt, 102 — São Francisco, Niterói/RJ",
+        mapQuery: "Av. Presidente Roosevelt, 102, São Francisco, Niterói - RJ",
+        zoom: 17,
+        rent: "R$ 10.000 / mês",
+        area: 500,
+        parking: 6,
+        img: "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtuxZ4wf5h4h4et9pGdpyVpi29gqKvv-6Fl3mvx83hkLr12cOmZsjO74Mmw5C2L2OqoaE5RuY1LVxdULhzfyDvUZuaY3R6pgaDg1zsbJVNRWBcmigCnDNvzkqEcIP22ncp7GS8CeL5tTOMc4nfLlJsErMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdxNnaoEiA2QTecc6B-vwIDAhPeoPk+FMwVpp7+a-PqwOfygSfj3OU-isNRRuI3WKIgXZ5qpHiQfEHU1bHAc+1Ku76vU.jpg"
+      },
+      "CA0176-PINC": {
+        num: 2,
+        title: "Casa Comercial de 250 m² — Nº 132",
+        addressShort: "Av. Pres. Roosevelt, 132",
+        fullAddress: "Av. Presidente Roosevelt, 132 — São Francisco, Niterói/RJ",
+        mapQuery: "Av. Presidente Roosevelt, 132, São Francisco, Niterói - RJ",
+        zoom: 17,
+        rent: "R$ 15.000 / mês",
+        area: 250,
+        parking: 3,
+        img: "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtuwJs3PRttykBmdZEW5-v4yue0Zew6PCfvni8-o7EgLjd88zkf5uOwo5l07DjMVf9sZ9+X-MHDV8iRflefxrkZJi7M0Zroz3QlkPJTpxPZ3F21R0Ipypyzwe4W6meyFE70C+VLcnJkB+SYrHUWlAGF9FHR9ox7ltMqBezU0J8p0oF7J6yoS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdxNnaoEiA2QTecc6B-vwIDAhPeoPk+FMwVpp7+a-PqwOfygSfj3OU-isNRRuI3WKIgXZ5qpHiQfEHU1bHAc+1Ku76vU.jpg"
+      },
+      "CA0324-PINC": {
+        num: 3,
+        title: "Casa Comercial com Terreno de 360 m² — Nº 133",
+        addressShort: "Av. Pres. Roosevelt, 133",
+        fullAddress: "Av. Presidente Roosevelt, 133 — São Francisco, Niterói/RJ",
+        mapQuery: "Av. Presidente Roosevelt, 133, São Francisco, Niterói - RJ",
+        zoom: 17,
+        rent: "R$ 16.000 / mês",
+        area: 360,
+        parking: 4,
+        img: "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu2VWifAwzCtngOYBGZWvkhG+36CeyvKesU7NppiP4vba7d3AUMzwjbEB3ofIMGmyj7NPH+1iAhtaUNJ-Qh-ldqOcBXZ6sx6dkR+TTaB3anhi6DsxiiVo2lLgc6eDpkAh8AuFFe-K9hO8bKv4GAREOLMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdxNnaoEiA2QTecc6B-vwIDAhPeoPk+FMwVpp7+a-PqwOfygSfj3OU-isNRRuI3WKIgXZ5qpHiQfEHU1bHAc+1Ku76vU.jpg"
+      },
+      "LO0222-PINC": {
+        num: 4,
+        title: "Loja Comercial de 225 m² — Rua Guaianazes, 46",
+        addressShort: "R. Guaianazes, 46 (Esq. Roosevelt)",
+        fullAddress: "Rua Guaianazes, 46 (Esquina com Av. Pres. Roosevelt) — São Francisco, Niterói/RJ",
+        mapQuery: "Rua Guaianazes, 46, São Francisco, Niterói - RJ",
+        zoom: 17,
+        rent: "R$ 22.000 / mês",
+        area: 225,
+        parking: 3,
+        img: "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu2lq099z1lJlosxIBvrmpgu8woax49uWhRiQ6IHsv+P1xO7EYPXMkYcI4K3zOwCoj598Z4Z7NR5kIsZgQCT2er2LOUAUggCinhSTceJaTUpN5Q5imQdu4HyVULmW-gRp2RyOKKzykSeeEfvhPmNjDrMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdxNnaoEiA2QTecc6B-vwIDAhPeoPk+FMwVpp7+a-PqwOfygSfj3OU-isNRRuI3WKIgXZ5qpHiQfEHU1bHAc+1Ku76vU.jpg"
+      },
+      "CA0318-PINC": {
+        num: 5,
+        title: "Casa Comercial Corporativa de 370 m² — Nº 1027",
+        addressShort: "Av. Pres. Roosevelt, 1027",
+        fullAddress: "Av. Presidente Roosevelt, 1027 — São Francisco, Niterói/RJ",
+        mapQuery: "Av. Presidente Roosevelt, 1027, São Francisco, Niterói - RJ",
+        zoom: 17,
+        rent: "R$ 20.000 / mês",
+        area: 370,
+        parking: 5,
+        img: "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu31BzOtc7B0Xm9IwBOKjmXmO5YWl5dWYlWO3wYHzjZXDyfvDbZ-g+MU-wY7BCF-2ibB9Gc43OlhlO9VXSTvAYq2GZEV+nDi3kUOXeIodb1QJzyIUvAx69QGyXJep508hwiyVBKPWiBGsF--lHHlZNLMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdxNnaoEiA2QTecc6B-vwIDAhPeoPk+FMwVpp7+a-PqwOfygSfj3OU-isNRRuI3WKIgXZ5qpHiQfEHU1bHAc+1Ku76vU.jpg"
+      }
+    };
+
+    const CORRIDOR_QUERY = "Av. Presidente Roosevelt, São Francisco, Niterói - RJ";
+    const CORRIDOR_ZOOM = 15;
+
+    function renderSidebar(selectedId) {
+      const sidebar = document.getElementById("mapSidebar");
+      
+      if (selectedId === 'all') {
+        let html = `
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+              <span style="font-family: var(--font-heading); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #a8a396;">5 Imóveis no Eixo</span>
+              <span style="font-size: 12px; color: var(--gold-primary); font-weight: 700; font-family: var(--font-heading);">Clique para focar</span>
+            </div>
+            <div>
+        `;
+
+        Object.keys(PROPERTIES_DATA).forEach(key => {
+          const item = PROPERTIES_DATA[key];
+          html += `
+            <div class="corridor-item" onclick="selectProperty('${key}')">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="width: 24px; height: 24px; border-radius: 6px; background-color: rgba(255, 187, 0, 0.15); color: var(--gold-primary); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; font-family: var(--font-heading);">${item.num}</span>
+                <div>
+                  <div style="font-size: 13px; font-weight: 700; color: #FAF9F6; font-family: var(--font-heading);">${item.addressShort}</div>
+                  <div style="font-size: 12px; color: #a8a396;">${item.area} m² • ${item.rent}</div>
+                </div>
+              </div>
+              <span style="color: #888;">${SVG_CHEVRON}</span>
+            </div>
+          `;
+        });
+
+        html += `
+            </div>
+          </div>
+          <div style="padding-top: 14px; border-top: 1px solid var(--border-dark);">
+            <a href="#contato" class="btn-primary" style="width: 100%;">
+              <span>Agendar Visita no Corredor</span>
+            </a>
+          </div>
+        `;
+        sidebar.innerHTML = html;
+
+      } else {
+        const prop = PROPERTIES_DATA[selectedId];
+        sidebar.innerHTML = `
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <span style="background-color: rgba(255, 187, 0, 0.15); border: 1px solid rgba(255, 187, 0, 0.3); color: var(--gold-primary); padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; font-family: var(--font-heading);">
+                Ponto ${prop.num} de 5
+              </span>
+              <button onclick="selectProperty('all')" style="background: none; border: none; color: #a8a396; font-size: 12px; font-weight: 600; cursor: pointer; text-decoration: underline; font-family: var(--font-heading);">
+                Ver todos
+              </button>
+            </div>
+
+            <div class="drawer-thumb">
+              <img src="${prop.img}" alt="${prop.title}">
+              <div class="drawer-thumb-pill">${prop.area} m² Úteis</div>
+            </div>
+
+            <h4 style="font-family: var(--font-heading); font-size: 16px; font-weight: 700; line-height: 1.25; margin-bottom: 4px;">
+              ${prop.title}
+            </h4>
+            <p style="font-size: 13px; color: #a8a396; display: flex; align-items: center; gap: 5px;">
+              ${SVG_PIN}
+              <span>${prop.fullAddress}</span>
+            </p>
+
+            <div class="drawer-specs-grid">
+              <div class="spec-item">
+                <span>Locação</span>
+                <strong>${prop.rent}</strong>
+              </div>
+              <div class="spec-item" style="text-align: right;">
+                <span>Vagas</span>
+                <strong style="color: #FAF9F6;">${prop.parking} vagas</strong>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 10px;">
+            <a href="#" class="btn-primary" style="width: 100%;">
+              <span>Ver Ficha Completa</span>
+              ${SVG_CHEVRON}
+            </a>
+            
+            <a href="#" class="btn-secondary" style="width: 100%; justify-content: center; font-size: 12px; padding: 10px 14px;">
+              Consultar Luiz Pinciara
+            </a>
+          </div>
+        `;
+      }
+    }
+
+    function selectProperty(id) {
+      const buttons = document.querySelectorAll('.map-tab-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      let query = CORRIDOR_QUERY;
+      let zoom = CORRIDOR_ZOOM;
+
+      if (id === 'all') {
+        buttons[0].classList.add('active');
+        document.getElementById('mapStatusTitle').textContent = "Mapa do Corredor Presidente Roosevelt";
+        document.getElementById('mapStatusSubtitle').textContent = "Visão dos 5 imóveis entre Charitas, Icaraí e o Polo Gastronômico";
+      } else {
+        const prop = PROPERTIES_DATA[id];
+        query = prop.mapQuery;
+        zoom = prop.zoom;
+        buttons[prop.num].classList.add('active');
+        document.getElementById('mapStatusTitle').textContent = prop.addressShort;
+        document.getElementById('mapStatusSubtitle').textContent = prop.fullAddress;
+      }
+
+      const embedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(query)}&t=&z=${zoom}&ie=UTF8&iwloc=&output=embed`;
+      document.getElementById('gmapIframe').src = embedUrl;
+      document.getElementById('externalGmapLink').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+
+      renderSidebar(id);
+    }
+
+    // Inicializar
+    renderSidebar('all');
+  </script>
+
+</body>
+</html>

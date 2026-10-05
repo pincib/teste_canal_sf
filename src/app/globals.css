@@ -5,39 +5,42 @@
   --color-primary-hover: #E6A800;
   --color-primary-dark: #D46E00;
   
-  --color-background: #333333;
-  --color-charcoal: #333333;
-  --color-charcoal-dark: #222222;
-  --color-charcoal-deep: #161616;
-  --color-charcoal-surface: #2b2b2b;
-  --color-charcoal-border: #444444;
+  /* Escuro profundo arquitetônico (Thirdway / Hero / CTA / Footer) */
+  --color-background: #141414;
+  --color-dark-deep: #101010;
+  --color-dark-base: #141414;
+  --color-dark-surface: #1a1a1a;
+  --color-dark-surface-elevated: #222222;
+  --color-dark-border: rgba(255, 255, 255, 0.08);
+  --color-dark-border-subtle: rgba(255, 255, 255, 0.04);
+  --color-dark-border-active: rgba(255, 187, 0, 0.35);
 
-  --color-alabaster: #FAF9F6;
-  --color-alabaster-surface: #ffffff;
-  --color-alabaster-muted: #f4f2ec;
-  --color-alabaster-border: #e6e3da;
-  --color-alabaster-text: #1a1a1a;
-  --color-alabaster-text-muted: #555555;
+  /* Claro editorial arquitetônico (ERA / Driessen / Portfólio / Região / FAQ) */
+  --color-light-base: #FAF9F6;
+  --color-light-surface: #FFFFFF;
+  --color-light-muted: #F2EFE9;
+  --color-light-border: rgba(0, 0, 0, 0.08);
+  --color-light-border-subtle: rgba(0, 0, 0, 0.04);
+  --color-light-border-active: rgba(212, 110, 0, 0.25);
+  --color-light-text: #141414;
+  --color-light-text-muted: #66635d;
+  --color-light-text-dim: #949088;
   
-  --color-border: #444444;
-  --color-border-subtle: #2d2d2d;
-  --color-border-gold: rgba(255, 187, 0, 0.35);
-  
-  --color-foreground: #faf9f6;
-  --color-foreground-muted: #d1cfc9;
-  --color-foreground-dim: #999790;
+  --color-foreground: #FAF9F6;
+  --color-foreground-muted: #C7C4BC;
+  --color-foreground-dim: #88857E;
 
   --font-heading: var(--font-montserrat), sans-serif;
-  --font-sans: var(--font-inter), sans-serif;
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 :root {
-  --background: #333333;
-  --foreground: #faf9f6;
+  --background: #141414;
+  --foreground: #FAF9F6;
 }
 
 * {
-  border-color: #444444;
+  border-color: rgba(255, 255, 255, 0.08);
 }
 
 html {
@@ -45,12 +48,29 @@ html {
 }
 
 body {
-  background-color: #333333;
-  color: #faf9f6;
-  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #141414;
+  color: #FAF9F6;
+  font-family: var(--font-sans);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hairline utilities */
+.hairline-b-dark {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hairline-t-dark {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hairline-b-light {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.hairline-t-light {
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 /* Accessibility: Respect user motion preferences */
@@ -65,19 +85,19 @@ body {
   }
 }
 
-/* Scrollbar styling */
+/* Minimalist dark scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #222222;
+  background: #101010;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #555555;
-  border-radius: 4px;
+  background: #2c2c2c;
+  border-radius: 0px;
 }
 
 ::-webkit-scrollbar-thumb:hover {

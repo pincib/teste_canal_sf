@@ -3,35 +3,39 @@ import { cn } from "@/lib/utils";
 import { Container } from "./container";
 
 interface SectionProps extends React.HTMLAttributes<HTMLElement> {
-  variant?: "charcoal" | "alabaster" | "charcoal-dark";
+  variant?: "dark" | "light" | "dark-deep";
   containerSize?: "default" | "narrow" | "wide";
   id?: string;
 }
 
 /**
- * Section component with alternating luxury backgrounds:
- * - charcoal (#333333): Deep warm charcoal with light text and gold accents
- * - alabaster (#FAF9F6): Warm off-white with dark charcoal text and gold accents
- * - charcoal-dark (#222222): Deep contrast footer/hero surface
+ * Section component with alternating architectural backgrounds:
+ * - dark (#141414): Architectural deep black/charcoal with light text and gold accents
+ * - light (#FAF9F6): Warm alabaster off-white with dark charcoal text
+ * - dark-deep (#101010): Hero / CTA / Footer surface
  */
 export function Section({
-  variant = "charcoal",
-  containerSize = "default",
+  variant = "dark",
+  containerSize = "wide",
   id,
   className,
   children,
   ...props
 }: SectionProps) {
   const variantClasses = {
-    charcoal: "bg-[#333333] text-[#FAF9F6] border-y border-[#444444]/60",
-    alabaster: "bg-[#FAF9F6] text-[#1a1a1a] border-y border-[#e6e3da]",
-    "charcoal-dark": "bg-[#222222] text-[#FAF9F6] border-y border-[#3a3a3a]",
+    dark: "bg-[#141414] text-[#FAF9F6] border-y border-white/5",
+    light: "bg-[#FAF9F6] text-[#141414] border-y border-black/5",
+    "dark-deep": "bg-[#101010] text-[#FAF9F6] border-y border-white/5",
   };
 
   return (
     <section
       id={id}
-      className={cn("py-20 sm:py-28 relative overflow-hidden transition-colors duration-300", variantClasses[variant], className)}
+      className={cn(
+        "py-14 sm:py-18 lg:py-22 relative overflow-hidden transition-colors duration-300",
+        variantClasses[variant],
+        className
+      )}
       {...props}
     >
       <Container size={containerSize}>{children}</Container>
@@ -40,7 +44,8 @@ export function Section({
 }
 
 interface SectionHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
-  badge?: string;
+  sectionNumber?: string;
+  category?: string;
   title: string;
   description?: string;
   align?: "left" | "center";
@@ -48,7 +53,8 @@ interface SectionHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function SectionHeader({
-  badge,
+  sectionNumber,
+  category,
   title,
   description,
   align = "left",
@@ -61,29 +67,45 @@ export function SectionHeader({
   return (
     <div
       className={cn(
-        "mb-12 sm:mb-16",
-        align === "center" ? "text-center mx-auto max-w-3xl" : "max-w-3xl",
+        "mb-8 sm:mb-12",
+        align === "center" ? "text-center mx-auto max-w-4xl" : "max-w-4xl",
         className
       )}
       {...props}
     >
-      {badge && (
-        <div className="mb-4 inline-flex items-center gap-2">
-          <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-          <span
-            className={cn(
-              "font-mono text-xs uppercase tracking-[0.2em] font-semibold",
-              isLight ? "text-primary-dark" : "text-primary"
-            )}
-          >
-            {badge}
-          </span>
+      {(category || sectionNumber) && (
+        <div className="mb-4 sm:mb-6 flex items-center gap-3">
+          {sectionNumber && (
+            <span
+              className={cn(
+                "font-mono text-xs font-semibold tracking-wider",
+                isLight ? "text-[#FFBB00]" : "text-[#FFBB00]"
+              )}
+            >
+              {sectionNumber}
+            </span>
+          )}
+          {sectionNumber && category && (
+            <span className={cn("text-xs", isLight ? "text-black/20" : "text-white/20")}>
+              —
+            </span>
+          )}
+          {category && (
+            <span
+              className={cn(
+                "font-mono text-[11px] sm:text-xs uppercase tracking-[0.25em]",
+                isLight ? "text-[#66635d]" : "text-[#88857E]"
+              )}
+            >
+              {category}
+            </span>
+          )}
         </div>
       )}
       <h2
         className={cn(
-          "text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.15] font-heading",
-          isLight ? "text-[#1a1a1a]" : "text-foreground"
+          "text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal tracking-[-0.03em] leading-[1.12] font-heading",
+          isLight ? "text-[#141414]" : "text-[#FAF9F6]"
         )}
       >
         {title}
@@ -91,8 +113,8 @@ export function SectionHeader({
       {description && (
         <p
           className={cn(
-            "mt-4 text-base sm:text-lg leading-relaxed",
-            isLight ? "text-[#555555]" : "text-foreground-muted"
+            "mt-5 sm:mt-6 text-base sm:text-lg leading-relaxed max-w-2xl font-light",
+            isLight ? "text-[#66635d]" : "text-[#C7C4BC]"
           )}
         >
           {description}

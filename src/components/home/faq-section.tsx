@@ -1,47 +1,49 @@
 "use client";
 
 import * as React from "react";
-import { ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { Section, SectionHeader } from "@/components/ui/section";
-import { cn } from "@/lib/utils";
+import { Container } from "@/components/ui/container";
+import { SectionHeader } from "@/components/ui/section";
 
 interface FAQItem {
+  num: string;
   question: string;
   answer: string;
 }
 
 const faqs: FAQItem[] = [
   {
+    num: "01",
     question: "Quais as modalidades de garantia aceitas para locação comercial?",
     answer:
-      "Trabalhamos com Seguro Fiança (Porto Seguro, Too Seguros), Fiador idôneo com imóvel quitado no Estado do Rio de Janeiro, Título de Capitalização ou Fiança Bancária, garantindo agilidade na análise cadastral para Pessoa Jurídica.",
+      "Trabalhamos com Seguro Fiança (Porto Seguro, Too Seguros), Fiador idôneo com imóvel quitado no Estado do Rio de Janeiro, Título de Capitalização ou Fiança Bancária, garantindo agilidade e segurança jurídica na aprovação cadastral para Pessoa Jurídica.",
   },
   {
-    question: "É possível negociar período de carência para obras e adequação?",
+    num: "02",
+    question: "É possível negociar período de carência para obras e adequação de fachada?",
     answer:
-      "Sim. É praxe comum nas locações comerciais da Avenida Presidente Roosevelt a concessão de carência proporcional ao escopo de obras, projetos e instalações necessárias para o início da operação da sua marca.",
+      "Sim. É prática comum nas locações comerciais da Avenida Presidente Roosevelt a concessão de carência proporcional ao cronograma de obras, adequação estrutural e reformas necessárias para a inauguração da sua marca.",
   },
   {
-    question: "Franquias ou empresas em fase de constituição podem locar?",
+    num: "03",
+    question: "Franquias ou empresas em fase de abertura podem locar?",
     answer:
-      "Sim. Realizamos a análise combinada do plano de negócio da franquia e dos dados dos sócios/garantidores, facilitando a reserva e aprovação da locação antes da emissão definitiva do CNPJ local.",
+      "Sim. Realizamos a análise combinada do plano de negócio da franquia e dos dados dos sócios/garantidores, permitindo a reserva e validação da locação antes da emissão definitiva do CNPJ local.",
   },
   {
-    question: "Qual é o prazo habitual dos contratos de locação comercial?",
+    num: "04",
+    question: "Qual é o prazo habitual dos contratos de locação comercial na região?",
     answer:
-      "Os contratos costumam ser formalizados por prazos de 36 a 60 meses (3 a 5 anos), proporcionando a estabilidade necessária para amortização dos investimentos e segurança jurídica do ponto comercial conforme a Lei do Inquilinato.",
+      "Os contratos são habitualmente formalizados por prazos de 36 a 60 meses (3 a 5 anos), proporcionando a amortização do investimento de implantação e a segurança jurídica assegurada pela Lei do Inquilinato.",
   },
   {
+    num: "05",
     question: "Como funciona o agendamento de visita técnica aos imóveis?",
     answer:
-      "O agendamento é feito diretamente pelo WhatsApp com Luiz Pinciara. As visitas são acompanhadas e você poderá levar arquitetos e engenheiros para avaliar as instalações e projetos no local.",
+      "O agendamento é realizado diretamente com Luiz Pinciara via WhatsApp. As visitas são acompanhadas e os imóveis estão disponíveis para avaliação de arquitetos, decoradores e engenheiros da sua empresa.",
   },
 ];
 
-/**
- * FAQSection component with fluid AnimatePresence accordion and luxury charcoal #333333 styling
- */
 export function FAQSection() {
   const [openIndex, setOpenIndex] = React.useState<number | null>(0);
 
@@ -50,74 +52,71 @@ export function FAQSection() {
   };
 
   return (
-    <Section id="faq" variant="charcoal">
-      <SectionHeader
-        badge="Dúvidas Frequentes"
-        title="Perguntas comuns sobre a locação comercial"
-        description="Informações transparentes sobre prazos contratuais, garantias aceitas e carência para implantação da sua operação."
-      />
+    <section id="faq" className="py-14 sm:py-18 lg:py-22 bg-[#FAF9F6] text-[#141414] border-b border-black/10">
+      <Container size="wide">
+        {/* Editorial Section Header */}
+        <SectionHeader
+          theme="light"
+          sectionNumber="04"
+          category="Esclarecimentos"
+          title="Perguntas Frequentes sobre a Locação"
+          description="Diretrizes objetivas sobre garantias contratuais, prazos de carência e etapas de implantação da sua empresa no Canal de São Francisco."
+        />
 
-      <div className="mx-auto max-w-3xl space-y-3.5">
-        {faqs.map((faq, idx) => {
-          const isOpen = openIndex === idx;
+        {/* Ultra-Dry Minimalist Linear Accordion (Item 5) */}
+        <div className="border-t border-black/15 max-w-4xl">
+          {faqs.map((faq, idx) => {
+            const isOpen = openIndex === idx;
 
-          return (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.45, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className={cn(
-                "rounded-2xl border transition-colors duration-300 overflow-hidden",
-                isOpen
-                  ? "border-[#FFBB00]/40 bg-[#282828] shadow-[0_10px_30px_rgba(0,0,0,0.25)]"
-                  : "border-white/10 bg-[#242424]/80 hover:border-white/20 hover:bg-[#282828]/80"
-              )}
-            >
-              <button
-                type="button"
-                onClick={() => toggle(idx)}
-                aria-expanded={isOpen}
-                className="flex w-full items-center justify-between p-5 sm:p-6 text-left focus:outline-none cursor-pointer group"
-              >
-                <span className="text-base sm:text-lg font-bold text-[#faf9f6] font-heading pr-4 group-hover:text-[#FFBB00] transition-colors duration-200">
-                  {faq.question}
-                </span>
-                <motion.span
-                  animate={{ rotate: isOpen ? 180 : 0 }}
-                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                  className={cn(
-                    "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-colors duration-300",
-                    isOpen
-                      ? "text-[#FFBB00] border-[#FFBB00]/40 bg-[#FFBB00]/10"
-                      : "text-[#999] border-white/10 bg-white/5 group-hover:text-white group-hover:border-white/25"
-                  )}
+            return (
+              <div key={idx} className="border-b border-black/15">
+                <button
+                  type="button"
+                  onClick={() => toggle(idx)}
+                  aria-expanded={isOpen}
+                  className="flex w-full items-baseline justify-between py-4 sm:py-5 text-left cursor-pointer group focus:outline-none"
                 >
-                  <ChevronDown className="h-4 w-4" />
-                </motion.span>
-              </button>
+                  <div className="flex items-baseline gap-4 sm:gap-6 pr-6">
+                    <span className="font-mono text-xs sm:text-sm text-[#88857E] font-medium shrink-0">
+                      {faq.num}
+                    </span>
+                    <span className="font-heading text-base sm:text-lg md:text-xl font-normal text-[#141414] transition-opacity group-hover:opacity-75">
+                      {faq.question}
+                    </span>
+                  </div>
 
-              <AnimatePresence initial={false}>
-                {isOpen && (
-                  <motion.div
-                    key="content"
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className="overflow-hidden"
+                  {/* Dry Minimalist Hairline Cross Icon */}
+                  <motion.span
+                    animate={{ rotate: isOpen ? 45 : 0 }}
+                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    className="shrink-0 text-[#141414]/60 group-hover:text-[#141414] mt-0.5 text-lg font-light select-none font-mono"
                   >
-                    <div className="px-5 sm:px-6 pb-6 pt-1 text-sm text-[#d0cbc1] leading-relaxed border-t border-white/8">
-                      {faq.answer}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
-          );
-        })}
-      </div>
-    </Section>
+                    +
+                  </motion.span>
+                </button>
+
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="pl-8 sm:pl-12 pb-5 pt-0.5 max-w-2xl">
+                        <p className="text-xs sm:text-sm text-[#55524A] leading-relaxed font-light">
+                          {faq.answer}
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </div>
+      </Container>
+    </section>
   );
 }

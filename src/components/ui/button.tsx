@@ -6,18 +6,17 @@ import { cn } from "@/lib/utils";
 
 export interface ButtonProps
   extends Omit<HTMLMotionProps<"button">, "children"> {
-  variant?: "primary" | "secondary" | "outline" | "ghost" | "whatsapp" | "charcoal";
+  variant?: "primary" | "secondary" | "gold" | "outline" | "ghost" | "link" | "whatsapp";
   size?: "sm" | "md" | "lg";
   isLoading?: boolean;
   children?: React.ReactNode;
 }
 
 /**
- * Button component powered by Motion for React
- * Implements tactile spring micro-interactions:
- * whileHover={{ scale: 1.02, y: -1 }}
- * whileTap={{ scale: 0.98 }}
- * Uses official Pinciara Gold (#FFBB00) for primary & WhatsApp conversion
+ * Button component aligned with Thirdway & ERA Residence guidelines:
+ * - Rectangular / minimal radius (rounded-none or 2px)
+ * - Clear typographic hierarchy, comfortable padding
+ * - Discreet, slow hover transitions without SaaS bounce
  */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -33,38 +32,40 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const baseStyles =
-      "relative inline-flex items-center justify-center font-heading font-semibold transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 cursor-pointer select-none";
+      "relative inline-flex items-center justify-center font-sans font-medium tracking-wide transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFBB00] disabled:pointer-events-none disabled:opacity-40 cursor-pointer select-none rounded-[2px]";
 
     const variantStyles = {
-      // Signature Pinciara Gold (Pilar 1: Replaces green buttons with official gold)
+      // Primary in vibrant brand gold (#FFBB00) - clean architectural matte styling without glow
       primary:
-        "bg-primary text-black font-bold shadow-[0_4px_20px_rgba(255,187,0,0.25)] hover:bg-primary-hover hover:shadow-[0_6px_28px_rgba(255,187,0,0.4)]",
+        "bg-[#FFBB00] text-[#121212] font-semibold hover:bg-[#FFC82C] active:bg-[#E6A800] border border-[#FFBB00]",
+      gold:
+        "bg-[#FFBB00] text-[#121212] font-semibold hover:bg-[#FFC82C] active:bg-[#E6A800] border border-[#FFBB00]",
       whatsapp:
-        "bg-primary text-black font-bold shadow-[0_4px_22px_rgba(255,187,0,0.28)] hover:bg-primary-hover hover:shadow-[0_6px_30px_rgba(255,187,0,0.45)] border border-primary-hover/40",
+        "bg-[#FFBB00] text-[#121212] font-semibold hover:bg-[#FFC82C] active:bg-[#E6A800] border border-[#FFBB00]",
       secondary:
-        "bg-charcoal text-foreground border border-charcoal-border hover:bg-charcoal-surface hover:border-primary/50",
-      charcoal:
-        "bg-charcoal text-foreground hover:bg-charcoal-surface border border-charcoal-border shadow-sm",
+        "bg-transparent text-[#FAF9F6] border border-white/30 hover:border-[#FFBB00] hover:text-[#FFBB00] hover:bg-[#FFBB00]/10",
       outline:
-        "border border-primary/60 text-primary bg-transparent hover:bg-primary/10 hover:border-primary shadow-sm",
+        "bg-transparent text-[#141414] border-2 border-[#141414] hover:bg-[#141414] hover:text-[#FAF9F6]",
       ghost:
-        "text-foreground-muted hover:text-foreground hover:bg-charcoal-surface/60",
+        "text-inherit hover:text-[#FFBB00] hover:bg-white/5",
+      link:
+        "text-inherit hover:text-[#FFBB00] p-0 h-auto font-normal underline-offset-4 hover:underline",
     };
 
     const sizeStyles = {
-      sm: "h-9 px-4 text-xs rounded-lg gap-1.5",
-      md: "h-11 px-5 text-sm rounded-xl gap-2",
-      lg: "h-12 px-7 text-base rounded-xl gap-2.5",
+      sm: "h-9 px-4 text-xs tracking-wider uppercase gap-2 font-mono",
+      md: "h-11 px-6 text-xs sm:text-sm tracking-wider uppercase gap-2.5 font-mono",
+      lg: "h-13 px-8 text-sm tracking-wider uppercase gap-3 font-mono",
     };
 
     return (
       <motion.button
         ref={ref}
         disabled={disabled || isLoading}
-        whileHover={{ scale: 1.02, y: -1 }}
-        whileTap={{ scale: 0.98 }}
-        transition={{ type: "spring", stiffness: 400, damping: 25 }}
-        className={cn(baseStyles, variantStyles[variant], sizeStyles[size], className)}
+        whileHover={{ scale: 1.025 }}
+        whileTap={{ scale: 0.975 }}
+        transition={{ type: "spring", stiffness: 450, damping: 24 }}
+        className={cn(baseStyles, variantStyles[variant], variant !== "link" ? sizeStyles[size] : "", className)}
         {...props}
       >
         {isLoading && (

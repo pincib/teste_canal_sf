@@ -1,85 +1,92 @@
 "use client";
 
 import * as React from "react";
-import { ShieldCheck, Award, Handshake, CheckCircle2 } from "lucide-react";
 import { motion } from "motion/react";
-import { Section, SectionHeader } from "@/components/ui/section";
+import { Container } from "@/components/ui/container";
+import { SectionHeader } from "@/components/ui/section";
 import { siteConfig } from "@/config/site";
 
-/**
- * DifferentialsSection component communicating the authority and trust of Pinciara Imóveis Exclusivos
- * Styled with warm alabaster (#FAF9F6) background, motion scroll entry, and gold accents.
- */
 export function DifferentialsSection() {
-  const differentials = [
+  const pillars = [
     {
-      icon: Award,
-      badge: "Curadoria",
-      title: "Curadoria Exclusiva na Região",
-      description:
-        "Foco estrito em imóveis comerciais nobres na Avenida Presidente Roosevelt e orla de São Francisco, garantindo os melhores pontos para quem busca máxima visibilidade comercial.",
-      highlight: "Foco 100% comercial em São Francisco",
+      num: "01",
+      tag: "Curadoria Territorial",
+      headline: "Filtro Rigoroso & Vocação Comercial",
+      thesis:
+        "Não operamos catálogo genérico de classificados. Nossa atuação no Canal de São Francisco é restrita a ativos comerciais selecionados com testada nobre, visibilidade de esquina ou recuo frontal para clientes, adequados para clínicas, gastronomia e operações de alto valor.",
+      indicator: "EXCLUSIVIDADE TERRITORIAL",
     },
     {
-      icon: ShieldCheck,
-      badge: "Segurança",
-      title: "Assessoria Jurídica Especializada",
-      description:
-        "Suporte completo na elaboração de contratos comerciais seguros, negociação de prazos de carência para reformas, licenças de fachada e adaptação de infraestrutura.",
-      highlight: "Carência para obras e contratos blindados",
+      num: "02",
+      tag: "Rigor Técnico & Jurídico",
+      headline: "Contratos Blindados de 36 a 60 Meses",
+      thesis:
+        "Diagnóstico documental prévio, viabilidade de fachada e conformidade estrutural. Contratos comerciais estruturados sob a Lei do Inquilinato, garantindo a amortização dos investimentos de reforma e a perenidade do ponto comercial para a sua empresa.",
+      indicator: "SEGURANÇA JURÍDICA BILATERAL",
     },
     {
-      icon: Handshake,
-      badge: "Diretoria",
-      title: "Condução Direta com a Diretoria",
-      description:
-        `Negociações conduzidas diretamente com ${siteConfig.broker.name}, proporcionando velocidade decisória, transparência e flexibilidade comercial para o seu negócio.`,
-      highlight: "Agilidade sem intermediários burocráticos",
+      num: "03",
+      tag: "Interlocução Direta",
+      headline: "Carência de Obras & Condução Executiva",
+      thesis:
+        `Negociações conduzidas diretamente com ${siteConfig.broker.name}. Agilidade decisória na formalização de prazos de carência proporcionais ao cronograma de obras e flexibilidade na composição de garantias locatícias corporativas.`,
+      indicator: "VELOCIDADE DECISÓRIA",
     },
   ];
 
   return (
-    <Section id="diferenciais" variant="alabaster">
-      <SectionHeader
-        theme="light"
-        badge="Credibilidade Institucional"
-        title="Por que fechar sua locação comercial com a Pinciara?"
-        description="Especialização de mercado, segurança contratual e condução direta com a diretoria para viabilizar a expansão da sua operação comercial."
-      />
+    <section id="diferenciais" className="py-14 sm:py-18 lg:py-22 bg-[#FAF9F6] text-[#141414] border-b border-black/10">
+      <Container size="wide">
+        {/* Editorial Section Header */}
+        <SectionHeader
+          theme="light"
+          sectionNumber="03"
+          category="Processo Consultivo"
+          title="Intermediação Comercial Estruturada"
+          description="Atuação consultiva de alto padrão no mercado de São Francisco, conectando franquias e empresas aos proprietários com agilidade decisória e segurança contratual."
+        />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-        {differentials.map((item, idx) => {
-          const Icon = item.icon;
-          return (
+        {/* 3 Pillars in Commanding Institutional Rows (Item 4) */}
+        <div className="space-y-0 border-t border-black/15">
+          {pillars.map((pillar, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.45, delay: idx * 0.1, ease: "easeOut" }}
-              className="rounded-3xl bg-white p-8 border border-[#e6e2d8] shadow-[0_4px_20px_rgba(0,0,0,0.02)] flex flex-col justify-between"
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.45, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              className="py-8 sm:py-10 border-b border-black/15 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-baseline"
             >
-              <div>
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FFBB00]/15 text-[#9e7400] mb-6">
-                  <Icon className="h-6 w-6" />
-                </div>
+              {/* Massive Institutional Number & Tag (3 Cols) */}
+              <div className="lg:col-span-3 space-y-1">
+                <span className="font-heading text-5xl sm:text-6xl lg:text-7xl font-extralight text-[#141414] tracking-[-0.04em] leading-none block">
+                  {pillar.num}
+                </span>
+                <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#88857E] block pt-0.5">
+                  {pillar.tag}
+                </span>
+              </div>
 
-                <h3 className="text-xl font-bold text-[#1a1a1a] font-heading mb-3 tracking-tight">
-                  {item.title}
+              {/* Institutional Headline & Thesis (6 Cols) */}
+              <div className="lg:col-span-6 space-y-3.5">
+                <h3 className="font-heading text-2xl sm:text-3xl font-medium text-[#141414] tracking-tight leading-snug">
+                  {pillar.headline}
                 </h3>
-                <p className="text-sm text-[#5a574f] leading-relaxed mb-6">
-                  {item.description}
+                <p className="text-sm sm:text-base text-[#55524A] leading-relaxed font-light">
+                  {pillar.thesis}
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-[#f0ede4] flex items-center gap-2 text-xs font-semibold text-[#8a6500]">
-                <CheckCircle2 className="h-4 w-4 text-[#FFBB00] shrink-0" />
-                <span>{item.highlight}</span>
+              {/* Indicator Stamp (3 Cols) */}
+              <div className="lg:col-span-3 lg:text-right pt-2 lg:pt-0">
+                <span className="inline-block font-mono text-[11px] uppercase tracking-[0.2em] text-[#141414] border-l-2 lg:border-l-0 lg:border-r-2 border-[#141414] pl-3 lg:pl-0 lg:pr-3 py-1 font-semibold">
+                  {pillar.indicator}
+                </span>
               </div>
             </motion.div>
-          );
-        })}
-      </div>
-    </Section>
+          ))}
+        </div>
+      </Container>
+    </section>
   );
 }

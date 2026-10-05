@@ -79,26 +79,24 @@ export function Dialog({
           <motion.div
             ref={dialogRef}
             tabIndex={-1}
-            initial={{ opacity: 0, scale: 0.95, y: 14 }}
+            initial={{ opacity: 0, scale: 0.98, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: 10 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            exit={{ opacity: 0, scale: 0.98, y: 8 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             className={cn(
-              "relative z-10 w-full max-w-lg rounded-2xl border border-white/15 bg-[#262626] p-6 sm:p-8 shadow-[0_24px_70px_rgba(0,0,0,0.95)] outline-none text-[#faf9f6]",
+              "relative z-10 w-full max-w-lg rounded-[2px] border border-white/10 bg-[#171717] p-6 sm:p-8 shadow-[0_24px_70px_rgba(0,0,0,0.95)] outline-none text-[#FAF9F6]",
               className
             )}
           >
             {/* Close Button */}
-            <motion.button
+            <button
               type="button"
               onClick={onClose}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
               aria-label="Fechar janela"
-              className="absolute right-4 top-4 rounded-xl p-2 text-white/60 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFBB00] cursor-pointer"
+              className="absolute right-4 top-4 p-2 text-white/50 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none cursor-pointer"
             >
               <X className="h-5 w-5" />
-            </motion.button>
+            </button>
 
             {title && (
               <div className="mb-6 pr-6">

@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Phone, Menu, X } from "lucide-react";
+import { Phone, Menu, X, ArrowUpRight } from "lucide-react";
 import { motion, useScroll, useMotionValueEvent } from "motion/react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
@@ -23,32 +23,32 @@ export function Navbar({ onContactClick }: NavbarProps) {
   });
 
   const navLinks = [
-    { label: "A Região", href: "/#regiao" },
-    { label: "5 Imóveis", href: "/#imoveis" },
-    { label: "Diferenciais", href: "/#diferenciais" },
-    { label: "FAQ", href: "/#faq" },
+    { num: "01", label: "Ativos Comerciais", href: "/#imoveis" },
+    { num: "02", label: "Região", href: "/#regiao" },
+    { num: "03", label: "Consultoria", href: "/#diferenciais" },
+    { num: "04", label: "FAQ", href: "/#faq" },
   ];
 
   return (
     <motion.header
-      initial={{ y: -20, opacity: 0 }}
+      initial={{ y: -15, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-[#222222]/95 backdrop-blur-md border-b border-[#444444] shadow-[0_8px_32px_rgba(0,0,0,0.6)] py-3"
-          : "bg-gradient-to-b from-black/80 via-black/40 to-transparent py-4 border-b border-white/5"
+          ? "bg-[#141414]/95 backdrop-blur-md border-b border-white/10 py-3.5"
+          : "bg-[#141414]/80 backdrop-blur-sm py-4 sm:py-5 border-b border-white/5"
       }`}
     >
-      <Container>
-        <div className="flex items-center justify-between h-12">
+      <Container size="wide">
+        <div className="flex items-center justify-between h-11">
           {/* Logo Pinciara */}
           <Link
             href="/"
             className="group flex items-center gap-3 focus:outline-none"
             aria-label="Pinciara Imóveis Exclusivos"
           >
-            <div className="relative h-9 w-40 sm:h-10 sm:w-44 transition-transform duration-200 group-hover:scale-102">
+            <div className="relative h-8 w-36 sm:h-9 sm:w-44 transition-opacity duration-200 group-hover:opacity-90">
               <Image
                 src="/images/logo-pinciara.svg"
                 alt="Pinciara Imóveis Exclusivos"
@@ -59,72 +59,76 @@ export function Navbar({ onContactClick }: NavbarProps) {
             </div>
           </Link>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-8">
+          {/* Desktop Navigation Links — Thirdway Editorial Style */}
+          <nav className="hidden lg:flex items-center gap-8 xl:gap-10">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="text-xs font-semibold tracking-wider uppercase text-foreground-muted hover:text-primary transition-colors duration-200"
+                className="group inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-[#C7C4BC] hover:text-[#FAF9F6] transition-colors py-1 font-mono"
               >
-                {link.label}
+                <span className="text-[#FFBB00] text-[10px] opacity-75 group-hover:opacity-100 transition-opacity">
+                  {link.num}
+                </span>
+                <span>{link.label}</span>
               </a>
             ))}
           </nav>
 
-          {/* Desktop Action */}
-          <div className="hidden sm:flex items-center gap-3">
+          {/* Desktop Action — Clean & Controlled */}
+          <div className="hidden sm:flex items-center gap-4">
             <Button
-              variant="whatsapp"
+              variant="primary"
               size="sm"
               onClick={onContactClick}
-              className="text-xs uppercase tracking-wider"
+              className="text-[11px] font-mono tracking-widest uppercase"
             >
-              <Phone className="h-3.5 w-3.5" />
               <span>Falar com Luiz Pinciara</span>
+              <ArrowUpRight className="h-3.5 w-3.5 ml-1 text-black/70" />
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex md:hidden items-center gap-2">
+          <div className="flex lg:hidden items-center gap-2">
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="rounded-lg p-2 text-foreground-muted hover:text-foreground focus:outline-none cursor-pointer"
+              className="p-2 text-[#C7C4BC] hover:text-[#FAF9F6] focus:outline-none cursor-pointer"
               aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
             >
-              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Dropdown */}
+        {/* Mobile Dropdown — Minimalist Architectural Panel */}
         {mobileMenuOpen && (
-          <div className="md:hidden mt-3 pt-4 pb-6 border-t border-[#444444] bg-[#222222]/98 backdrop-blur-2xl rounded-2xl p-5 space-y-4 shadow-2xl">
+          <div className="lg:hidden mt-3 pt-5 pb-6 border-t border-white/10 bg-[#171717] px-5 space-y-5">
             <nav className="flex flex-col space-y-3">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-sm font-semibold uppercase tracking-wider text-foreground hover:text-primary py-1.5 transition-colors"
+                  className="flex items-center justify-between text-xs font-mono uppercase tracking-[0.2em] text-[#C7C4BC] hover:text-[#FAF9F6] py-2 border-b border-white/5 transition-colors"
                 >
-                  {link.label}
+                  <span>{link.label}</span>
+                  <span className="text-[#FFBB00]">{link.num}</span>
                 </a>
               ))}
             </nav>
-            <div className="pt-2 border-t border-[#444444]">
+            <div className="pt-2">
               <Button
-                variant="whatsapp"
+                variant="primary"
                 size="md"
                 onClick={() => {
                   setMobileMenuOpen(false);
                   onContactClick();
                 }}
-                className="w-full text-xs"
+                className="w-full text-xs font-mono"
               >
-                <Phone className="h-4 w-4" />
-                Falar com Luiz Pinciara ({siteConfig.broker.phoneDisplay})
+                <Phone className="h-3.5 w-3.5 mr-2" />
+                Falar com Corretor ({siteConfig.broker.phoneDisplay})
               </Button>
             </div>
           </div>

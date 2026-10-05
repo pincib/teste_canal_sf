@@ -7,6 +7,7 @@ import { RegionSection } from "@/components/home/region-section";
 import { PropertiesSection } from "@/components/home/properties-section";
 import { DifferentialsSection } from "@/components/home/differentials-section";
 import { FAQSection } from "@/components/home/faq-section";
+import { CTASection } from "@/components/home/cta-section";
 import { Footer } from "@/components/home/footer";
 import { WhatsAppFloat } from "@/components/ui/whatsapp-float";
 import { LeadModal, LeadModalTarget } from "@/components/conversion/lead-modal";
@@ -26,28 +27,31 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground selection:bg-primary/25 selection:text-primary">
+    <div className="min-h-screen flex flex-col bg-[#141414] text-[#FAF9F6] selection:bg-[#FFBB00]/30 selection:text-[#FFBB00]">
       {/* Header Navigation */}
       <Navbar onContactClick={() => handleOpenLeadModal()} />
 
       {/* Main Content Sections */}
       <main className="flex-1">
-        {/* 1. Hero */}
+        {/* Hero & Google Maps Corridor Showcase */}
         <HeroSection onContactClick={() => handleOpenLeadModal()} />
 
-        {/* 2. Sobre a Região (São Francisco em Expansão) */}
-        <RegionSection />
-
-        {/* 3. Vitrine dos 5 Imóveis Comerciais */}
+        {/* 01. Vitrine dos 5 Imóveis Comerciais (ERA Residence Linear Style) */}
         <PropertiesSection
           onPropertySelect={(target) => handleOpenLeadModal(target)}
         />
 
-        {/* 4. Diferenciais da Imobiliária */}
+        {/* 02. Sobre a Região (Driessen Grid - São Francisco em Expansão) */}
+        <RegionSection />
+
+        {/* 03. Processo Consultivo e Credibilidade */}
         <DifferentialsSection />
 
-        {/* 5. FAQ */}
+        {/* 04. FAQ Linear Minimalista */}
         <FAQSection />
+
+        {/* 05. CTA Final de Fechamento */}
+        <CTASection onContactClick={() => handleOpenLeadModal()} />
       </main>
 
       {/* Footer */}
