@@ -37,8 +37,14 @@
   --color-foreground-muted: #C7C4BC;
   --color-foreground-dim: #88857E;
 
+  /* Tipografia Exclusiva do Projeto */
+  /* TÍTULOS / CAMPANHAS: Montserrat */
   --font-heading: var(--font-montserrat), sans-serif;
-  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* APOIO / CAMPANHAS: Lucida Sans Unicode */
+  --font-support: "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Geneva, Verdana, sans-serif;
+  --font-mono: "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Geneva, Verdana, sans-serif;
+  /* TEXTO: Calibri */
+  --font-sans: Calibri, "Segoe UI", Candara, Arial, sans-serif;
 }
 
 :root {
@@ -57,10 +63,22 @@ html {
 body {
   background-color: #141414;
   color: #FAF9F6;
-  font-family: var(--font-sans);
+  font-family: Calibri, "Segoe UI", Candara, Arial, sans-serif;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-mono, .font-support {
+  font-family: var(--font-support);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
 }
 
 /* Hairline utilities */

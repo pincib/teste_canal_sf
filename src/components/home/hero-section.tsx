@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowDownRight, ExternalLink, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { Container } from "@/components/ui/container";
@@ -141,11 +140,11 @@ export function HeroSection({ onContactClick }: HeroSectionProps) {
               </h1>
 
               {/* Positioning Narrative */}
-              <p className="font-heading text-lg sm:text-xl lg:text-2xl font-light tracking-[-0.02em] text-[#C7C4BC] leading-snug pt-2">
+              <p className="font-heading text-lg sm:text-xl lg:text-2xl tracking-[-0.02em] text-[#C7C4BC] leading-snug pt-2">
                 Imóveis comerciais de testada ampla e recuo frontal na principal artéria de fluxo e valorização da Zona Sul.
               </p>
 
-              <p className="text-xs sm:text-sm text-[#88857E] font-light leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#88857E]">
                 Curadoria restrita de {commercialProperties.length} casas e lojas comerciais de 225 m² a 500 m² para clínicas, sedes corporativas, gastronomia e redes de varejo.
               </p>
             </div>
@@ -348,12 +347,9 @@ export function HeroSection({ onContactClick }: HeroSectionProps) {
                             {selectedPoint.id}
                           </span>
                         </div>
-                        <Link
-                          href={`/imoveis/${selectedProperty.slug}`}
-                          className="font-heading text-sm text-[#FAF9F6] font-medium truncate max-w-xs hover:text-[#FFBB00] transition-colors block"
-                        >
+                        <p className="font-heading text-sm text-[#FAF9F6] font-medium truncate max-w-xs block">
                           {selectedProperty.title}
-                        </Link>
+                        </p>
                         <p className="font-mono text-[11px] text-[#88857E]">
                           {selectedPoint.specs} · <span className="text-[#FAF9F6] font-semibold">{selectedPoint.rent}</span>
                         </p>
@@ -361,13 +357,13 @@ export function HeroSection({ onContactClick }: HeroSectionProps) {
                     </div>
 
                     <div className="flex items-center gap-2.5 shrink-0">
-                      <Link
-                        href={`/imoveis/${selectedProperty.slug}`}
+                      <a
+                        href={`#imovel-${selectedPoint.id.toLowerCase()}`}
                         className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#FFBB00] hover:bg-[#FFC82C] text-[#121212] text-xs font-mono uppercase tracking-wider font-bold transition-colors rounded-[2px]"
                       >
-                        <span>Ver Ficha Completa</span>
+                        <span>Ver no Portfólio</span>
                         <ArrowDownRight className="h-3.5 w-3.5 text-[#121212]" />
-                      </Link>
+                      </a>
                       <motion.button
                         type="button"
                         onClick={() =>
@@ -400,7 +396,7 @@ export function HeroSection({ onContactClick }: HeroSectionProps) {
                       <span className="h-1.5 w-1.5 rounded-full bg-[#FFBB00]" />
                       {PROPERTY_POINTS.length} Ativos Disponíveis para Locação no Canal
                     </p>
-                    <p className="text-[11px] text-[#88857E] font-light">
+                    <p className="text-[11px] text-[#88857E]">
                       Selecione um dos botões numerados acima para visualizar o ponto exato no mapa e a ficha do imóvel.
                     </p>
                   </div>

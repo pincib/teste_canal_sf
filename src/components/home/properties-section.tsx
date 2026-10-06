@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowUpRight, MessageCircle, ExternalLink } from "lucide-react";
+import * as React from "react";
+import { ArrowUpRight, MessageCircle } from "lucide-react";
 import { motion } from "motion/react";
 import { Container } from "@/components/ui/container";
 import { SectionHeader } from "@/components/ui/section";
@@ -66,10 +66,10 @@ export function PropertiesSection({ onPropertySelect }: PropertiesSectionProps) 
                   {/* Right Column (5 Cols): Anchored, High-Contrast Architectural Spec Ledger */}
                   <div className="lg:col-span-5 flex flex-col justify-between py-1 space-y-5 sm:space-y-6 max-w-xl">
                     {/* Header: Number + Code + Title */}
-                    <div className="space-y-3">
+                    <div className="space-y-4">
                       <div className="flex items-baseline justify-between border-b border-black/10 pb-2.5">
                         <div className="flex items-baseline gap-2.5">
-                          <span className="font-mono text-3xl sm:text-4xl font-light text-[#FFBB00]">
+                          <span className="font-mono text-3xl sm:text-4xl text-[#FFBB00]">
                             {formattedIndex}
                           </span>
                           <span className="font-mono text-xs uppercase tracking-widest text-[#88857E]">
@@ -81,28 +81,27 @@ export function PropertiesSection({ onPropertySelect }: PropertiesSectionProps) 
                         </span>
                       </div>
 
-                      {/* Main Title & Address with High Contrast */}
-                      <div className="space-y-1.5">
+                      {/* 1. TÍTULO */}
+                      <div>
                         <h3 className="font-heading text-xl sm:text-2xl lg:text-3xl font-medium text-[#141414] tracking-tight leading-snug">
-                          <Link
-                            href={`/imoveis/${property.slug}`}
-                            className="hover:text-[#D46E00] transition-colors focus:outline-none focus:underline"
+                          <a
+                            href={property.externalUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-[#D46E00] transition-colors"
                           >
                             {property.title}
-                          </Link>
+                          </a>
                         </h3>
-                        <p className="font-mono text-xs uppercase tracking-widest text-[#66635D]">
-                          {property.address}
-                        </p>
                       </div>
 
-                      {/* Technical Specs Metric Bar */}
-                      <div className="grid grid-cols-3 gap-3 py-3 border-y border-black/10">
+                      {/* 2. ÁREA TOTAL / VAGAS */}
+                      <div className="grid grid-cols-2 gap-4 py-3.5 border-y border-black/10">
                         <div>
                           <span className="text-[10px] font-mono uppercase tracking-widest text-[#88857E] block mb-0.5">
                             Área Total
                           </span>
-                          <p className="font-heading text-xl sm:text-2xl font-light text-[#141414]">
+                          <p className="font-heading text-xl sm:text-2xl font-normal text-[#141414]">
                             {property.specs.totalArea} <span className="text-xs font-mono">m²</span>
                           </p>
                         </div>
@@ -110,35 +109,22 @@ export function PropertiesSection({ onPropertySelect }: PropertiesSectionProps) 
                           <span className="text-[10px] font-mono uppercase tracking-widest text-[#88857E] block mb-0.5">
                             Vagas
                           </span>
-                          <p className="font-heading text-xl sm:text-2xl font-light text-[#141414]">
-                            {property.specs.parkingSpaces}
-                          </p>
-                        </div>
-                        <div>
-                          <span className="text-[10px] font-mono uppercase tracking-widest text-[#88857E] block mb-0.5">
-                            {property.specs.frontage ? "Testada" : "Pavimentos"}
-                          </span>
-                          <p className="font-heading text-lg sm:text-xl font-light text-[#141414] truncate">
-                            {property.specs.frontage || (property.specs.floors ? `${property.specs.floors} Pav.` : "Ponto Nobre")}
+                          <p className="font-heading text-xl sm:text-2xl font-normal text-[#141414]">
+                            {property.specs.parkingSpaces} {property.specs.parkingSpaces === 1 ? "vaga" : "vagas"}
                           </p>
                         </div>
                       </div>
 
-                      {/* Descriptive Summary (Width Controlled) */}
-                      <p className="text-xs sm:text-sm text-[#55524A] leading-relaxed font-light max-w-md">
-                        {property.shortDescription}
-                      </p>
-
-                      {/* Highlights Minimalist List */}
+                      {/* 3. DIFERENCIAIS OPERACIONAIS */}
                       {property.highlights && property.highlights.length > 0 && (
-                        <div className="space-y-1 pt-0.5">
-                          <p className="text-[10px] font-mono uppercase tracking-widest text-[#88857E]">
+                        <div className="space-y-2 pt-1">
+                          <p className="text-xs sm:text-sm font-mono uppercase tracking-wider font-bold text-[#141414]">
                             Diferenciais Operacionais
                           </p>
-                          <ul className="text-xs text-[#33312B] space-y-0.5 font-sans">
-                            {property.highlights.slice(0, 3).map((feat, fIdx) => (
+                          <ul className="text-sm text-[#33312B] space-y-1.5 font-sans">
+                            {property.highlights.map((feat, fIdx) => (
                               <li key={fIdx} className="flex items-center gap-2">
-                                <span className="h-1 w-1 bg-[#141414] rounded-none shrink-0" />
+                                <span className="h-1.5 w-1.5 bg-[#FFBB00] rounded-none shrink-0" />
                                 <span>{feat}</span>
                               </li>
                             ))}
@@ -164,45 +150,36 @@ export function PropertiesSection({ onPropertySelect }: PropertiesSectionProps) 
                         </div>
                       </div>
 
-                      {/* Conversion CTAs — High Contrast, Prominent & Connected to Internal Route */}
-                      <div className="space-y-2.5 pt-2">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                          <Button
-                            variant="primary"
-                            size="md"
-                            onClick={() =>
-                              onPropertySelect({
-                                id: property.id,
-                                title: property.title,
-                                badge: property.badge,
-                              })
-                            }
-                            className="w-full text-xs font-mono font-bold"
-                          >
-                            <MessageCircle className="h-4 w-4 mr-2 text-[#121212]" />
-                            Falar no WhatsApp
-                          </Button>
+                      {/* Conversion CTAs — WhatsApp + Link do imóvel para o site da imobiliária */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                        <Button
+                          variant="primary"
+                          size="md"
+                          onClick={() =>
+                            onPropertySelect({
+                              id: property.id,
+                              title: property.title,
+                              badge: property.badge,
+                            })
+                          }
+                          className="w-full text-xs font-mono font-bold"
+                        >
+                          <MessageCircle className="h-4 w-4 mr-2 text-[#121212]" />
+                          Falar no WhatsApp
+                        </Button>
 
-                          <Link
-                            href={`/imoveis/${property.slug}`}
-                            className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 border-2 border-[#121212] bg-[#121212] text-[#FAF9F6] hover:bg-[#FFBB00] hover:text-[#121212] hover:border-[#FFBB00] text-xs font-mono uppercase tracking-wider transition-all duration-200 font-bold rounded-[2px]"
-                          >
-                            <span>Ficha Completa</span>
-                            <ArrowUpRight className="h-3.5 w-3.5" />
-                          </Link>
-                        </div>
-
-                        <div className="flex justify-end pt-1">
-                          <a
-                            href={property.externalUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 text-[11px] font-mono text-[#88857E] hover:text-[#141414] transition-colors uppercase tracking-wider"
-                          >
-                            <span>Ver anúncio oficial no portal</span>
-                            <ExternalLink className="h-3 w-3" />
-                          </a>
-                        </div>
+                        <motion.a
+                          href={property.externalUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.025 }}
+                          whileTap={{ scale: 0.975 }}
+                          transition={{ type: "spring", stiffness: 450, damping: 24 }}
+                          className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 border-2 border-[#121212] bg-[#121212] text-[#FAF9F6] hover:bg-[#FFBB00] hover:text-[#121212] hover:border-[#FFBB00] text-xs font-mono uppercase tracking-wider transition-all duration-200 font-bold rounded-[2px]"
+                        >
+                          <span>Ver no Site da Imobiliária</span>
+                          <ArrowUpRight className="h-3.5 w-3.5" />
+                        </motion.a>
                       </div>
                     </div>
                   </div>

@@ -72,7 +72,7 @@ export function DifferentialsSection() {
                 <h3 className="font-heading text-2xl sm:text-3xl font-medium text-[#141414] tracking-tight leading-snug">
                   {pillar.headline}
                 </h3>
-                <p className="text-sm sm:text-base text-[#55524A] leading-relaxed font-light">
+                <p className="text-sm sm:text-base text-[#55524A]">
                   {pillar.thesis}
                 </p>
               </div>

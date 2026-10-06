@@ -90,7 +90,7 @@ export function RegionSection() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 pb-8 sm:pb-12 border-b border-black/15">
               {currentTopic.stats.map((st, sIdx) => (
                 <div key={sIdx} className="space-y-2">
-                  <p className="font-heading text-4xl sm:text-5xl lg:text-[52px] xl:text-[58px] font-light tracking-[-0.04em] leading-none text-[#141414]">
+                  <p className="font-heading text-4xl sm:text-5xl lg:text-[52px] xl:text-[58px] tracking-[-0.04em] leading-none text-[#141414]">
                     {st.value}
                   </p>
                   <div className="pt-2 border-t border-black/10 space-y-0.5">
@@ -120,7 +120,7 @@ export function RegionSection() {
                   </h3>
                 </div>
 
-                <p className="text-xs sm:text-sm text-[#55524A] leading-relaxed font-light">
+                <p className="text-xs sm:text-sm text-[#55524A]">
                   {currentTopic.summary}
                 </p>
 
@@ -168,7 +168,7 @@ export function RegionSection() {
                     <h4 className="font-heading text-base sm:text-lg font-medium tracking-tight text-[#141414] leading-snug">
                       {insight.title}
                     </h4>
-                    <p className="text-xs sm:text-sm text-[#55524A] leading-relaxed font-light">
+                    <p className="text-xs sm:text-sm text-[#55524A]">
                       {insight.description}
                     </p>
                   </div>

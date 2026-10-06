@@ -109,7 +109,7 @@ export function Dialog({
                 {description && (
                   <p
                     id="dialog-description"
-                    className="mt-2 text-sm text-[#b2aca0] leading-relaxed"
+                    className="mt-2 text-sm text-[#b2aca0]"
                   >
                     {description}
                   </p>

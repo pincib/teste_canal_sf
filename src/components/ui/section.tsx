@@ -113,7 +113,7 @@ export function SectionHeader({
       {description && (
         <p
           className={cn(
-            "mt-5 sm:mt-6 text-base sm:text-lg leading-relaxed max-w-2xl font-light",
+            "mt-5 sm:mt-6 text-base sm:text-lg max-w-2xl",
             isLight ? "text-[#66635d]" : "text-[#C7C4BC]"
           )}
         >

@@ -38,12 +38,12 @@ export function CTASection({ onContactClick }: CTASectionProps) {
             <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal tracking-[-0.04em] leading-[1.08] text-[#FAF9F6]">
               Procurando um imóvel nesta região?
             </h2>
-            <p className="font-heading text-lg sm:text-2xl md:text-3xl font-light text-[#C7C4BC] tracking-tight">
+            <p className="font-heading text-lg sm:text-2xl md:text-3xl text-[#C7C4BC] tracking-tight">
               Fale com quem conhece o mercado local e o histórico de cada ponto.
             </p>
           </motion.div>
 
-          <p className="text-xs sm:text-sm text-[#88857E] max-w-xl font-light leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#88857E] max-w-xl">
             Seja para agendar visita aos imóveis do corredor ou consultar oportunidades antes que entrem na vitrine pública.
           </p>
 

@@ -114,7 +114,7 @@ function LeadFormContent({
           <p className="font-heading text-base font-medium text-[#FAF9F6]">
             Redirecionando para o WhatsApp...
           </p>
-          <p className="text-xs text-[#88857E] font-light max-w-xs mx-auto">
+          <p className="text-xs text-[#88857E] max-w-xs mx-auto">
             Se a conversa não abrir automaticamente, clique no botão abaixo para continuar:
           </p>
         </div>
@@ -229,7 +229,7 @@ function LeadFormContent({
       </div>
 
       {/* Short LGPD Notice */}
-      <div className="flex items-start gap-2 pt-1 text-[11px] text-[#88857E] leading-relaxed">
+      <div className="flex items-start gap-2 pt-1 text-[11px] text-[#88857E]">
         <ShieldCheck className="h-4 w-4 shrink-0 text-[#FFBB00]/80 mt-0.5" />
         <span>
           Ao enviar, você será redirecionado ao WhatsApp de {siteConfig.broker.name} com seus dados preenchidos. Seus dados não são armazenados em servidor.

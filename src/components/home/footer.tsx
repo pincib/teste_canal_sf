@@ -75,7 +75,7 @@ export function Footer({ onContactClick }: FooterProps = {}) {
               {siteConfig.tagline}
             </p>
 
-            <p className="text-xs sm:text-sm text-[#88857E] leading-relaxed max-w-sm font-light">
+            <p className="text-xs sm:text-sm text-[#88857E] max-w-sm">
               Intermediação de alto padrão, inteligência territorial e curadoria de ativos no Canal de São Francisco, Niterói/RJ.
             </p>
 
@@ -132,7 +132,7 @@ export function Footer({ onContactClick }: FooterProps = {}) {
               Sede São Francisco
             </p>
 
-            <div className="space-y-3 text-xs text-[#88857E] font-light">
+            <div className="space-y-3 text-xs text-[#88857E]">
               <div className="space-y-1">
                 <p className="font-medium text-[#FAF9F6] font-mono text-xs">
                   {siteConfig.headquarters.address}, {siteConfig.headquarters.complement}
@@ -181,7 +181,7 @@ export function Footer({ onContactClick }: FooterProps = {}) {
               Atendimento Executivo
             </p>
 
-            <div className="space-y-3 text-xs text-[#88857E] font-light">
+            <div className="space-y-3 text-xs text-[#88857E]">
               <div>
                 <p className="font-heading font-medium text-sm text-[#FAF9F6]">
                   {siteConfig.broker.name}

@@ -110,7 +110,7 @@ export function FAQSection() {
                       className="overflow-hidden"
                     >
                       <div className="pl-8 sm:pl-12 pb-5 pt-0.5 max-w-2xl">
-                        <p className="text-xs sm:text-sm text-[#55524A] leading-relaxed font-light">
+                        <p className="text-xs sm:text-sm text-[#55524A]">
                           {faq.answer}
                         </p>
                       </div>
