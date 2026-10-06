@@ -13,7 +13,7 @@ export function Card({
   return (
     <div
       className={cn(
-        "group relative rounded-2xl border border-border bg-surface/90 backdrop-blur-sm transition-all duration-300 ease-out hover:border-border-gold/50 hover:shadow-[0_16px_40px_-12px_rgba(0,0,0,0.8)]",
+        "group relative rounded-[2px] border border-border bg-surface/90 backdrop-blur-sm transition-all duration-300 ease-out hover:border-border-gold/50 hover:shadow-[0_16px_40px_-12px_rgba(0,0,0,0.8)]",
         className
       )}
       {...props}

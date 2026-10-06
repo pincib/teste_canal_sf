@@ -15,6 +15,13 @@
   --color-dark-border-subtle: rgba(255, 255, 255, 0.04);
   --color-dark-border-active: rgba(255, 187, 0, 0.35);
 
+  /* Tokens de superfície e borda para componentes (Card, Badge, PropertyDetailView) */
+  --color-surface: #1a1a1a;
+  --color-surface-elevated: #222222;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-subtle: rgba(255, 255, 255, 0.04);
+  --color-border-gold: rgba(255, 187, 0, 0.35);
+
   /* Claro editorial arquitetônico (ERA / Driessen / Portfólio / Região / FAQ) */
   --color-light-base: #FAF9F6;
   --color-light-surface: #FFFFFF;

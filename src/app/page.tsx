@@ -55,7 +55,7 @@ export default function HomePage() {
       </main>
 
       {/* Footer */}
-      <Footer />
+      <Footer onContactClick={() => handleOpenLeadModal()} />
 
       {/* Global WhatsApp Floating Button */}
       <WhatsAppFloat

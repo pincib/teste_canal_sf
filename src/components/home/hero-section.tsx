@@ -2,13 +2,15 @@
 
 import * as React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowDownRight, ExternalLink, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { Container } from "@/components/ui/container";
 import { commercialProperties } from "@/data/properties";
+import type { LeadModalTarget } from "@/components/conversion/lead-modal";
 
 interface HeroSectionProps {
-  onContactClick: () => void;
+  onContactClick: (target?: LeadModalTarget) => void;
 }
 
 interface PropertyPoint {
@@ -60,7 +62,7 @@ const PROPERTY_POINTS: PropertyPoint[] = commercialProperties.map((prop, idx) =>
     zoom: 17,
     specs,
     rent: prop.pricing.rent,
-    image: prop.images[0]?.src || "/images/properties/ca0339/01-fachada.jpg",
+    image: prop.images[0]?.src || "/images/hero-coastal-avenue.jpg",
   };
 });
 
@@ -193,7 +195,7 @@ export function HeroSection({ onContactClick }: HeroSectionProps) {
               </motion.a>
               <motion.button
                 type="button"
-                onClick={onContactClick}
+                onClick={() => onContactClick()}
                 whileHover={{ scale: 1.03, backgroundColor: "rgba(255,187,0,0.18)" }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ type: "spring", stiffness: 450, damping: 22 }}
@@ -346,9 +348,12 @@ export function HeroSection({ onContactClick }: HeroSectionProps) {
                             {selectedPoint.id}
                           </span>
                         </div>
-                        <p className="font-heading text-sm text-[#FAF9F6] font-medium truncate max-w-xs">
+                        <Link
+                          href={`/imoveis/${selectedProperty.slug}`}
+                          className="font-heading text-sm text-[#FAF9F6] font-medium truncate max-w-xs hover:text-[#FFBB00] transition-colors block"
+                        >
                           {selectedProperty.title}
-                        </p>
+                        </Link>
                         <p className="font-mono text-[11px] text-[#88857E]">
                           {selectedPoint.specs} · <span className="text-[#FAF9F6] font-semibold">{selectedPoint.rent}</span>
                         </p>
@@ -356,19 +361,26 @@ export function HeroSection({ onContactClick }: HeroSectionProps) {
                     </div>
 
                     <div className="flex items-center gap-2.5 shrink-0">
-                      <motion.a
-                        href={`#imovel-${selectedPoint.id.toLowerCase()}`}
-                        whileHover={{ scale: 1.03 }}
-                        whileTap={{ scale: 0.97 }}
-                        transition={{ type: "spring", stiffness: 450, damping: 22 }}
+                      <Link
+                        href={`/imoveis/${selectedProperty.slug}`}
                         className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#FFBB00] hover:bg-[#FFC82C] text-[#121212] text-xs font-mono uppercase tracking-wider font-bold transition-colors rounded-[2px]"
                       >
-                        <span>Ver Ficha</span>
+                        <span>Ver Ficha Completa</span>
                         <ArrowDownRight className="h-3.5 w-3.5 text-[#121212]" />
-                      </motion.a>
+                      </Link>
                       <motion.button
                         type="button"
-                        onClick={onContactClick}
+                        onClick={() =>
+                          onContactClick(
+                            selectedProperty
+                              ? {
+                                  id: selectedProperty.id,
+                                  title: selectedProperty.title,
+                                  badge: selectedProperty.badge,
+                                }
+                              : undefined
+                          )
+                        }
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.97 }}
                         transition={{ type: "spring", stiffness: 450, damping: 22 }}

@@ -8,9 +8,14 @@ import {
   MapPin,
   Clock,
   ExternalLink,
+  MessageCircle,
 } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/config/site";
+
+interface FooterProps {
+  onContactClick?: () => void;
+}
 
 function InstagramIcon({ className = "h-4 w-4" }: { className?: string }) {
   return (
@@ -49,7 +54,7 @@ function YoutubeIcon({ className = "h-4 w-4" }: { className?: string }) {
   );
 }
 
-export function Footer() {
+export function Footer({ onContactClick }: FooterProps = {}) {
   return (
     <footer className="bg-[#0c0c0c] text-[#FAF9F6] border-t border-white/10 pt-16 sm:pt-20 pb-12">
       <Container size="wide">
@@ -186,21 +191,47 @@ export function Footer() {
                 </p>
               </div>
 
-              <div className="space-y-2 pt-1 font-mono text-xs">
-                <a
-                  href={`tel:02138111369`}
-                  className="inline-flex items-center gap-2 text-[#FFBB00] font-semibold hover:underline bg-[#FFBB00]/10 px-3 py-1.5 border border-[#FFBB00]/30 transition-all hover:bg-[#FFBB00]/20"
-                >
-                  <Phone className="h-3.5 w-3.5" />
-                  <span>{siteConfig.contact.phoneDisplay}</span>
-                </a>
-                <a
-                  href={`mailto:${siteConfig.contact.email}`}
-                  className="flex items-center gap-2 text-[#C7C4BC] hover:text-[#FAF9F6] transition-colors pt-1"
-                >
-                  <Mail className="h-3.5 w-3.5 text-[#88857E]" />
-                  <span>{siteConfig.contact.email}</span>
-                </a>
+              <div className="space-y-2.5 pt-1 font-mono text-xs">
+                {/* WhatsApp Action */}
+                <div>
+                  {onContactClick ? (
+                    <button
+                      type="button"
+                      onClick={onContactClick}
+                      className="inline-flex items-center gap-2 px-3.5 py-2 bg-[#FFBB00] hover:bg-[#FFC82C] text-[#121212] font-mono text-xs font-bold uppercase tracking-wider transition-all border border-[#FFBB00] cursor-pointer"
+                    >
+                      <MessageCircle className="h-3.5 w-3.5 text-[#121212]" />
+                      <span>Falar no WhatsApp</span>
+                    </button>
+                  ) : (
+                    <a
+                      href={siteConfig.links.whatsapp}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-3.5 py-2 bg-[#FFBB00] hover:bg-[#FFC82C] text-[#121212] font-mono text-xs font-bold uppercase tracking-wider transition-all border border-[#FFBB00]"
+                    >
+                      <MessageCircle className="h-3.5 w-3.5 text-[#121212]" />
+                      <span>Falar no WhatsApp</span>
+                    </a>
+                  )}
+                </div>
+
+                <div className="pt-1 space-y-1.5">
+                  <a
+                    href={`tel:+${siteConfig.contact.phoneRaw}`}
+                    className="inline-flex items-center gap-2 text-[#C7C4BC] hover:text-[#FAF9F6] transition-colors"
+                  >
+                    <Phone className="h-3.5 w-3.5 text-[#FFBB00]" />
+                    <span>{siteConfig.contact.phoneDisplay}</span>
+                  </a>
+                  <a
+                    href={`mailto:${siteConfig.contact.email}`}
+                    className="flex items-center gap-2 text-[#C7C4BC] hover:text-[#FAF9F6] transition-colors"
+                  >
+                    <Mail className="h-3.5 w-3.5 text-[#88857E]" />
+                    <span>{siteConfig.contact.email}</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>

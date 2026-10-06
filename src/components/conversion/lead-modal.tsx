@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { MessageCircle, User, Phone, ShieldCheck, Building2 } from "lucide-react";
+import { MessageCircle, User, Phone, ShieldCheck, Building2, ExternalLink } from "lucide-react";
 import { Dialog } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
@@ -23,7 +23,8 @@ interface LeadModalProps {
  * LeadModal component meeting all requirements of Section 11.2 & Section 14:
  * - Real-time validation of Name (>= 2 chars) and Phone (BR mask + valid DDD)
  * - Zero persistence: no localStorage, no cookies, no database
- * - Injects data into wa.me link with encoded prefilled message
+ * - Injects data into wa.me / api.whatsapp.com link with encoded prefilled message
+ * - Bulletproof redirect with popup blocker fallback (window.location.href)
  * - Key-based pristine state reset on open/property change (no cascading renders)
  */
 function LeadFormContent({
@@ -37,19 +38,59 @@ function LeadFormContent({
   const [phone, setPhone] = React.useState("");
   const [touchedName, setTouchedName] = React.useState(false);
   const [touchedPhone, setTouchedPhone] = React.useState(false);
+  const [isRedirecting, setIsRedirecting] = React.useState(false);
+  const [redirectUrl, setRedirectUrl] = React.useState<string | null>(null);
+
+  const nameInputRef = React.useRef<HTMLInputElement>(null);
+  const phoneInputRef = React.useRef<HTMLInputElement>(null);
 
   const isNameValid = name.trim().length >= 2;
   const isPhoneValid = isValidBrazilianPhone(phone);
-  const isFormValid = isNameValid && isPhoneValid;
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const formatted = formatBrazilianPhone(e.target.value);
     setPhone(formatted);
   };
 
+  const executeRedirect = (url: string) => {
+    setRedirectUrl(url);
+    setIsRedirecting(true);
+
+    let popupOpened = false;
+    try {
+      const win = window.open(url, "_blank");
+      if (win && !win.closed && typeof win.closed !== "undefined") {
+        popupOpened = true;
+        win.focus();
+      }
+    } catch {
+      popupOpened = false;
+    }
+
+    if (!popupOpened) {
+      // Direct redirection fallback when popup blocker blocks window.open or on mobile devices
+      window.location.href = url;
+    } else {
+      setTimeout(() => {
+        onClose();
+      }, 2000);
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isFormValid) return;
+    setTouchedName(true);
+    setTouchedPhone(true);
+
+    if (!isNameValid) {
+      nameInputRef.current?.focus();
+      return;
+    }
+
+    if (!isPhoneValid) {
+      phoneInputRef.current?.focus();
+      return;
+    }
 
     // Generate WhatsApp prefilled message
     let message = "";
@@ -59,14 +100,40 @@ function LeadFormContent({
       message = `Olá ${siteConfig.broker.name}! Meu nome é ${name.trim()}, meu telefone é ${phone.trim()}.\nTenho interesse em conhecer os imóveis comerciais disponíveis na avenida principal de São Francisco.`;
     }
 
-    const whatsappUrl = `https://wa.me/${siteConfig.broker.phoneRaw}?text=${encodeURIComponent(message)}`;
-
-    // Open WhatsApp in new tab
-    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-
-    // Close modal and clear state from memory (zero persistence)
-    onClose();
+    const targetUrl = `https://api.whatsapp.com/send?phone=${siteConfig.broker.phoneRaw}&text=${encodeURIComponent(message)}`;
+    executeRedirect(targetUrl);
   };
+
+  if (isRedirecting) {
+    return (
+      <div className="py-6 text-center space-y-4">
+        <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#FFBB00]/20 text-[#FFBB00] mx-auto animate-pulse">
+          <MessageCircle className="h-6 w-6" />
+        </div>
+        <div className="space-y-1">
+          <p className="font-heading text-base font-medium text-[#FAF9F6]">
+            Redirecionando para o WhatsApp...
+          </p>
+          <p className="text-xs text-[#88857E] font-light max-w-xs mx-auto">
+            Se a conversa não abrir automaticamente, clique no botão abaixo para continuar:
+          </p>
+        </div>
+        {redirectUrl && (
+          <div className="pt-2">
+            <a
+              href={redirectUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FFBB00] text-[#121212] font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#FFC82C] transition-colors rounded-[2px]"
+            >
+              <span>Abrir WhatsApp Agora</span>
+              <ExternalLink className="h-3.5 w-3.5" />
+            </a>
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -103,6 +170,7 @@ function LeadFormContent({
             <User className="h-4 w-4" />
           </div>
           <input
+            ref={nameInputRef}
             id="lead-name"
             type="text"
             required
@@ -111,7 +179,11 @@ function LeadFormContent({
             value={name}
             onChange={(e) => setName(e.target.value)}
             onBlur={() => setTouchedName(true)}
-            className="w-full rounded-[2px] border border-white/15 bg-[#141414] py-3 pl-10 pr-4 text-sm text-[#FAF9F6] placeholder:text-white/20 focus:border-[#FFBB00] focus:outline-none transition-colors"
+            className={`w-full rounded-[2px] border bg-[#141414] py-3 pl-10 pr-4 text-sm text-[#FAF9F6] placeholder:text-white/20 focus:outline-none transition-colors ${
+              touchedName && !isNameValid
+                ? "border-red-500 focus:border-red-500"
+                : "border-white/15 focus:border-[#FFBB00]"
+            }`}
           />
         </div>
         {touchedName && !isNameValid && (
@@ -134,6 +206,7 @@ function LeadFormContent({
             <Phone className="h-4 w-4" />
           </div>
           <input
+            ref={phoneInputRef}
             id="lead-phone"
             type="tel"
             required
@@ -141,7 +214,11 @@ function LeadFormContent({
             value={phone}
             onChange={handlePhoneChange}
             onBlur={() => setTouchedPhone(true)}
-            className="w-full rounded-[2px] border border-white/15 bg-[#141414] py-3 pl-10 pr-4 text-sm text-[#FAF9F6] placeholder:text-white/20 focus:border-[#FFBB00] focus:outline-none font-mono transition-colors"
+            className={`w-full rounded-[2px] border bg-[#141414] py-3 pl-10 pr-4 text-sm text-[#FAF9F6] placeholder:text-white/20 focus:outline-none font-mono transition-colors ${
+              touchedPhone && !isPhoneValid
+                ? "border-red-500 focus:border-red-500"
+                : "border-white/15 focus:border-[#FFBB00]"
+            }`}
           />
         </div>
         {touchedPhone && !isPhoneValid && (
@@ -165,7 +242,6 @@ function LeadFormContent({
           type="submit"
           variant="gold"
           size="lg"
-          disabled={!isFormValid}
           className="w-full font-mono text-xs tracking-widest uppercase font-semibold"
         >
           <MessageCircle className="h-4 w-4 mr-2" />

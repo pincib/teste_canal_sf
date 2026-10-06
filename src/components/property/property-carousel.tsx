@@ -158,7 +158,9 @@ export function PropertyCarousel({
         aria-label="Foto anterior"
         className={cn(
           "absolute left-3 top-1/2 -translate-y-1/2 z-20 flex h-9 w-9 items-center justify-center border border-white/20 bg-[#141414]/70 text-white backdrop-blur-sm transition-all duration-200 hover:bg-[#141414] hover:border-white/50 active:scale-95 cursor-pointer",
-          isHovered ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2 pointer-events-none sm:opacity-80 sm:translate-x-0"
+          isHovered
+            ? "opacity-100 translate-x-0"
+            : "opacity-0 -translate-x-2 pointer-events-none sm:opacity-80 sm:translate-x-0 sm:pointer-events-auto"
         )}
       >
         <ChevronLeft className="h-4 w-4" />
@@ -173,7 +175,9 @@ export function PropertyCarousel({
         aria-label="Próxima foto"
         className={cn(
           "absolute right-3 top-1/2 -translate-y-1/2 z-20 flex h-9 w-9 items-center justify-center border border-white/20 bg-[#141414]/70 text-white backdrop-blur-sm transition-all duration-200 hover:bg-[#141414] hover:border-white/50 active:scale-95 cursor-pointer",
-          isHovered ? "opacity-100 translate-x-0" : "opacity-0 translate-x-2 pointer-events-none sm:opacity-80 sm:translate-x-0"
+          isHovered
+            ? "opacity-100 translate-x-0"
+            : "opacity-0 translate-x-2 pointer-events-none sm:opacity-80 sm:translate-x-0 sm:pointer-events-auto"
         )}
       >
         <ChevronRight className="h-4 w-4" />

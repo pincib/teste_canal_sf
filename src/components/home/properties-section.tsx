@@ -1,7 +1,7 @@
 "use client";
 
-import * as React from "react";
-import { ArrowUpRight, MessageCircle } from "lucide-react";
+import Link from "next/link";
+import { ArrowUpRight, MessageCircle, ExternalLink } from "lucide-react";
 import { motion } from "motion/react";
 import { Container } from "@/components/ui/container";
 import { SectionHeader } from "@/components/ui/section";
@@ -84,7 +84,12 @@ export function PropertiesSection({ onPropertySelect }: PropertiesSectionProps) 
                       {/* Main Title & Address with High Contrast */}
                       <div className="space-y-1.5">
                         <h3 className="font-heading text-xl sm:text-2xl lg:text-3xl font-medium text-[#141414] tracking-tight leading-snug">
-                          {property.title}
+                          <Link
+                            href={`/imoveis/${property.slug}`}
+                            className="hover:text-[#D46E00] transition-colors focus:outline-none focus:underline"
+                          >
+                            {property.title}
+                          </Link>
                         </h3>
                         <p className="font-mono text-xs uppercase tracking-widest text-[#66635D]">
                           {property.address}
@@ -159,36 +164,45 @@ export function PropertiesSection({ onPropertySelect }: PropertiesSectionProps) 
                         </div>
                       </div>
 
-                      {/* Conversion CTAs — High Contrast, Prominent & Spring Animated */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                        <Button
-                          variant="primary"
-                          size="md"
-                          onClick={() =>
-                            onPropertySelect({
-                              id: property.id,
-                              title: property.title,
-                              badge: property.badge,
-                            })
-                          }
-                          className="w-full text-xs font-mono font-bold"
-                        >
-                          <MessageCircle className="h-4 w-4 mr-2 text-[#121212]" />
-                          Falar no WhatsApp
-                        </Button>
+                      {/* Conversion CTAs — High Contrast, Prominent & Connected to Internal Route */}
+                      <div className="space-y-2.5 pt-2">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <Button
+                            variant="primary"
+                            size="md"
+                            onClick={() =>
+                              onPropertySelect({
+                                id: property.id,
+                                title: property.title,
+                                badge: property.badge,
+                              })
+                            }
+                            className="w-full text-xs font-mono font-bold"
+                          >
+                            <MessageCircle className="h-4 w-4 mr-2 text-[#121212]" />
+                            Falar no WhatsApp
+                          </Button>
 
-                        <motion.a
-                          href={property.externalUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          whileHover={{ scale: 1.025 }}
-                          whileTap={{ scale: 0.975 }}
-                          transition={{ type: "spring", stiffness: 450, damping: 24 }}
-                          className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 border-2 border-[#121212] bg-[#121212] text-[#FAF9F6] hover:bg-[#FFBB00] hover:text-[#121212] hover:border-[#FFBB00] text-xs font-mono uppercase tracking-wider transition-all duration-200 font-bold rounded-[2px]"
-                        >
-                          <span>Ver Anúncio</span>
-                          <ArrowUpRight className="h-3.5 w-3.5" />
-                        </motion.a>
+                          <Link
+                            href={`/imoveis/${property.slug}`}
+                            className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 border-2 border-[#121212] bg-[#121212] text-[#FAF9F6] hover:bg-[#FFBB00] hover:text-[#121212] hover:border-[#FFBB00] text-xs font-mono uppercase tracking-wider transition-all duration-200 font-bold rounded-[2px]"
+                          >
+                            <span>Ficha Completa</span>
+                            <ArrowUpRight className="h-3.5 w-3.5" />
+                          </Link>
+                        </div>
+
+                        <div className="flex justify-end pt-1">
+                          <a
+                            href={property.externalUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 text-[11px] font-mono text-[#88857E] hover:text-[#141414] transition-colors uppercase tracking-wider"
+                          >
+                            <span>Ver anúncio oficial no portal</span>
+                            <ExternalLink className="h-3 w-3" />
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </div>

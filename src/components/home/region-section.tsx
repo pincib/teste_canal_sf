@@ -30,13 +30,18 @@ export function RegionSection() {
 
         {/* Driessen Architectuur Tab Bar — High-Contrast Architectural Plate Index */}
         <div className="mb-8 sm:mb-12 border-b border-black/15">
-          <div className="flex flex-wrap gap-4 sm:gap-8 -mb-px">
+          <div role="tablist" aria-label="Tópicos territoriais de São Francisco" className="flex flex-wrap gap-4 sm:gap-8 -mb-px">
             {tabLabels.map((tab, idx) => {
               const isActive = activeTab === idx;
               return (
                 <button
                   key={idx}
                   type="button"
+                  role="tab"
+                  id={`region-tab-${idx}`}
+                  aria-selected={isActive}
+                  aria-controls={`region-tabpanel-${idx}`}
+                  tabIndex={isActive ? 0 : -1}
                   onClick={() => setActiveTab(idx)}
                   className={`group relative pb-3.5 sm:pb-4 text-left transition-colors cursor-pointer ${
                     isActive ? "text-[#141414]" : "text-[#88857E] hover:text-[#141414]"
@@ -72,6 +77,9 @@ export function RegionSection() {
         <AnimatePresence mode="wait">
           <motion.div
             key={currentTopic.id}
+            role="tabpanel"
+            id={`region-tabpanel-${activeTab}`}
+            aria-labelledby={`region-tab-${activeTab}`}
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -14 }}

@@ -72,8 +72,10 @@ export function FAQSection() {
               <div key={idx} className="border-b border-black/15">
                 <button
                   type="button"
+                  id={`faq-question-${idx}`}
                   onClick={() => toggle(idx)}
                   aria-expanded={isOpen}
+                  aria-controls={`faq-answer-${idx}`}
                   className="flex w-full items-baseline justify-between py-4 sm:py-5 text-left cursor-pointer group focus:outline-none"
                 >
                   <div className="flex items-baseline gap-4 sm:gap-6 pr-6">
@@ -98,6 +100,9 @@ export function FAQSection() {
                 <AnimatePresence initial={false}>
                   {isOpen && (
                     <motion.div
+                      id={`faq-answer-${idx}`}
+                      role="region"
+                      aria-labelledby={`faq-question-${idx}`}
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}

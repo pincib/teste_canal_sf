@@ -64,7 +64,7 @@ export default function RootLayout({
     name: siteConfig.name,
     description: siteConfig.description,
     url: siteConfig.url,
-    telephone: siteConfig.contact.phoneRaw,
+    telephone: `+${siteConfig.contact.phoneRaw}`,
     email: siteConfig.contact.email,
     address: {
       "@type": "PostalAddress",

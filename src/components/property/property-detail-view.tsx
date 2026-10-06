@@ -99,7 +99,7 @@ export function PropertyDetailView({ property }: PropertyDetailViewProps) {
               <Badge variant="gold" className="text-xs font-semibold">
                 {property.badge || property.category}
               </Badge>
-              <span className="text-xs font-mono text-foreground-dim bg-surface px-2.5 py-1 rounded-full border border-border">
+              <span className="text-xs font-mono text-foreground-dim bg-surface px-2.5 py-1 rounded-[2px] border border-border">
                 {property.id}
               </span>
               <span className="text-xs text-primary font-medium">
@@ -122,7 +122,7 @@ export function PropertyDetailView({ property }: PropertyDetailViewProps) {
             {/* Left 2 Columns: Gallery & Content */}
             <div className="lg:col-span-2 space-y-10">
               {/* Expanded 5-Image Carousel */}
-              <div className="rounded-2xl border border-border p-2 bg-surface/60 overflow-hidden shadow-2xl">
+              <div className="rounded-[2px] border border-border p-2 bg-surface/60 overflow-hidden shadow-2xl">
                 <PropertyCarousel
                   images={property.images}
                   propertyTitle={property.title}
@@ -132,14 +132,14 @@ export function PropertyDetailView({ property }: PropertyDetailViewProps) {
               </div>
 
               {/* Technical Specifications Grid */}
-              <div className="rounded-2xl border border-border bg-surface/70 p-6 sm:p-8">
+              <div className="rounded-[2px] border border-border bg-surface/70 p-6 sm:p-8">
                 <h2 className="text-xl font-bold text-foreground font-heading mb-6 flex items-center gap-2">
                   <Building className="h-5 w-5 text-primary" />
                   Especificações Técnicas do Imóvel
                 </h2>
 
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
-                  <div className="p-4 rounded-xl bg-background/70 border border-border-subtle">
+                  <div className="p-4 rounded-[2px] bg-background/70 border border-border-subtle">
                     <div className="flex items-center gap-2 text-primary mb-1">
                       <Maximize2 className="h-4 w-4" />
                       <span className="text-xs uppercase font-mono text-foreground-dim">Área Total</span>
@@ -150,7 +150,7 @@ export function PropertyDetailView({ property }: PropertyDetailViewProps) {
                   </div>
 
                   {property.specs.builtArea && (
-                    <div className="p-4 rounded-xl bg-background/70 border border-border-subtle">
+                    <div className="p-4 rounded-[2px] bg-background/70 border border-border-subtle">
                       <div className="flex items-center gap-2 text-primary mb-1">
                         <Building className="h-4 w-4" />
                         <span className="text-xs uppercase font-mono text-foreground-dim">Área Construída</span>
@@ -162,7 +162,7 @@ export function PropertyDetailView({ property }: PropertyDetailViewProps) {
                   )}
 
                   {property.specs.frontage && (
-                    <div className="p-4 rounded-xl bg-background/70 border border-border-subtle">
+                    <div className="p-4 rounded-[2px] bg-background/70 border border-border-subtle">
                       <div className="flex items-center gap-2 text-primary mb-1">
                         <Maximize2 className="h-4 w-4" />
                         <span className="text-xs uppercase font-mono text-foreground-dim">Testada / Frente</span>
@@ -173,7 +173,7 @@ export function PropertyDetailView({ property }: PropertyDetailViewProps) {
                     </div>
                   )}
 
-                  <div className="p-4 rounded-xl bg-background/70 border border-border-subtle">
+                  <div className="p-4 rounded-[2px] bg-background/70 border border-border-subtle">
                     <div className="flex items-center gap-2 text-primary mb-1">
                       <Car className="h-4 w-4" />
                       <span className="text-xs uppercase font-mono text-foreground-dim">Estacionamento</span>
@@ -184,7 +184,7 @@ export function PropertyDetailView({ property }: PropertyDetailViewProps) {
                   </div>
 
                   {property.specs.bathrooms && (
-                    <div className="p-4 rounded-xl bg-background/70 border border-border-subtle">
+                    <div className="p-4 rounded-[2px] bg-background/70 border border-border-subtle">
                       <div className="flex items-center gap-2 text-primary mb-1">
                         <Building className="h-4 w-4" />
                         <span className="text-xs uppercase font-mono text-foreground-dim">Sanitários</span>
@@ -196,7 +196,7 @@ export function PropertyDetailView({ property }: PropertyDetailViewProps) {
                   )}
 
                   {property.specs.electrical && (
-                    <div className="p-4 rounded-xl bg-background/70 border border-border-subtle">
+                    <div className="p-4 rounded-[2px] bg-background/70 border border-border-subtle">
                       <div className="flex items-center gap-2 text-primary mb-1">
                         <Zap className="h-4 w-4" />
                         <span className="text-xs uppercase font-mono text-foreground-dim">Rede Elétrica</span>
@@ -210,7 +210,7 @@ export function PropertyDetailView({ property }: PropertyDetailViewProps) {
               </div>
 
               {/* Full Description */}
-              <div className="rounded-2xl border border-border bg-surface/70 p-6 sm:p-8 space-y-4">
+              <div className="rounded-[2px] border border-border bg-surface/70 p-6 sm:p-8 space-y-4">
                 <h2 className="text-xl font-bold text-foreground font-heading mb-4">
                   Sobre o Ponto Comercial
                 </h2>
@@ -225,7 +225,7 @@ export function PropertyDetailView({ property }: PropertyDetailViewProps) {
               </div>
 
               {/* Highlights Checklist */}
-              <div className="rounded-2xl border border-border bg-surface/70 p-6 sm:p-8">
+              <div className="rounded-[2px] border border-border bg-surface/70 p-6 sm:p-8">
                 <h2 className="text-xl font-bold text-foreground font-heading mb-4">
                   Diferenciais deste Imóvel
                 </h2>
@@ -240,7 +240,7 @@ export function PropertyDetailView({ property }: PropertyDetailViewProps) {
               </div>
 
               {/* Ideal Business Segments */}
-              <div className="rounded-2xl border border-border bg-surface/70 p-6 sm:p-8">
+              <div className="rounded-[2px] border border-border bg-surface/70 p-6 sm:p-8">
                 <h2 className="text-xl font-bold text-foreground font-heading mb-4 flex items-center gap-2">
                   <Briefcase className="h-5 w-5 text-primary" />
                   Segmentos com Alta Sinergia
@@ -249,7 +249,7 @@ export function PropertyDetailView({ property }: PropertyDetailViewProps) {
                   {property.idealFor.map((seg, sIdx) => (
                     <span
                       key={sIdx}
-                      className="px-3.5 py-1.5 rounded-xl bg-surface border border-border text-xs font-medium text-foreground hover:border-primary/40 transition-colors"
+                      className="px-3.5 py-1.5 rounded-[2px] bg-surface border border-border text-xs font-medium text-foreground hover:border-primary/40 transition-colors"
                     >
                       {seg}
                     </span>
@@ -301,9 +301,9 @@ export function PropertyDetailView({ property }: PropertyDetailViewProps) {
                       className="block w-full"
                     >
                       <Button
-                        variant="outline"
+                        variant="secondary"
                         size="md"
-                        className="w-full text-xs"
+                        className="w-full text-xs font-mono"
                       >
                         <ExternalLink className="h-4 w-4" />
                         Ver Anúncio Oficial no Portal
@@ -342,7 +342,7 @@ export function PropertyDetailView({ property }: PropertyDetailViewProps) {
       </main>
 
       {/* Footer */}
-      <Footer />
+      <Footer onContactClick={() => setIsModalOpen(true)} />
 
       {/* Global WhatsApp Floating Button */}
       <WhatsAppFloat

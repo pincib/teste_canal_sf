@@ -321,7 +321,7 @@ export const commercialProperties: CommercialProperty[] = [
     externalUrl: "https://www.pinciara.com.br/imovel/casa-niteroi-250-m/CA0176-PINC?from=rent",
     images: [
       {
-        src: "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtuwJs3PRttykBmdZEW5-v4yue0Zew6PCfvni8-o7EgLjd88zkf5uOwo5l07DjMVf9sZ9+X-MHDV8iRflefxrkZJi7M0Zroz3QlkPJTpxPZ3F21R0Ipypyzwe4W6meyFE70C+VLcnJkB+SYrHUWlAGF9FHR9ox7ltMqBezU0J8p0oF7J6yoS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdxNnaoEiA2QTecc6B-vwIDAhPeoPk+FMwVpp7+a-PqwOfygSfj3OU-isNRRuI3WKIgXZ5qpHiQfEHU1bHAc+1Ku76vU.jpg",
+        src: "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu2Vm3IJs5U0Uvc1Bfoe5nSOa3aOottmitWKN+8mJvenby5rYa5b6+KQbgI3uKmz96r51R8x7C3xjOflnGTy6DruvFyJMqAHVvUPIcIoeWHBM7g05uTRS6Fu6AbuoskQdyS7-M-Liow-QaZL6JXBFM7hHR9ox7ltMqBezU0J8p0oF7Jq1qTLdaOenJpi9yWxNWAZ8vJq+TqjzwtiOK59nSeUyO3cb51URUaJf1-aKA+9jrwcLou-TCwSW3hrDkec3f8vtBcFKmaIKkBDBSOQbuBy6koLDg6X+axyEMFNroeqY-fa5PfvwSvigIiWLzqlOpNPIIc0Zaci2AnUHCDR0Yn5R5AC24K6ZvQ==.jpg",
         alt: "Fachada comercial nobre na Av. Presidente Roosevelt, 132",
         label: "Foto 1 de 5 — Fachada Comercial Roosevelt 132",
       },
