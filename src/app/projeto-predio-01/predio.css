@@ -1,0 +1,1028 @@
+.predio-page {
+  --black: #050505;
+  --graphite: #333333;
+  --gold: #ffbb00;
+  --gold-deep: #d46e00;
+  --paper: #f3f0e9;
+  --white: #ffffff;
+  --muted: #aaa69e;
+  --line: rgba(5, 5, 5, 0.18);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+
+  box-sizing: border-box;
+  margin: 0;
+  background: var(--paper);
+  color: var(--black);
+  font-family: Calibri, "Segoe UI", sans-serif;
+  font-size: 18px;
+  line-height: 1.55;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+.predio-page * {
+  box-sizing: border-box;
+}
+
+.predio-page a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.predio-page button,
+.predio-page input {
+  font: inherit;
+}
+
+.predio-page button,
+.predio-page a {
+  touch-action: manipulation;
+}
+
+.predio-page button {
+  cursor: pointer;
+}
+
+.predio-page img {
+  object-fit: cover;
+}
+
+.predio-page ::selection {
+  background: var(--gold);
+  color: var(--black);
+}
+
+.predio-page :focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.predio-page .navbar {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  height: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: max(12px, env(safe-area-inset-top)) clamp(22px, 5vw, 80px) 12px;
+  color: white;
+  background: rgba(5, 5, 5, 0.92);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(14px);
+}
+
+.predio-page .brand {
+  width: 142px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  flex: none;
+}
+
+.predio-page .brand img {
+  width: 112px;
+  height: auto;
+}
+
+.predio-page .desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 3vw, 44px);
+  margin-left: auto;
+}
+
+.predio-page .desktop-nav a {
+  font: 500 12px/1 Montserrat, var(--font-heading), sans-serif;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #ddd;
+  position: relative;
+}
+
+.predio-page .desktop-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -10px;
+  height: 1px;
+  background: var(--gold);
+  transition: right 220ms var(--ease-out);
+}
+
+.predio-page .nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.predio-page .language {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  font: 600 12px Montserrat, var(--font-heading), sans-serif;
+}
+
+.predio-page .menu-button {
+  display: none;
+  background: none;
+  color: white;
+  border: 0;
+  padding: 8px;
+}
+
+.predio-page .mobile-nav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--black);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 22px;
+}
+
+.predio-page .mobile-nav > a:not(.button) {
+  display: flex;
+  justify-content: space-between;
+  padding: 17px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  font: 500 15px Montserrat, var(--font-heading), sans-serif;
+}
+
+.predio-page .mobile-nav .button {
+  margin-top: 22px;
+  width: 100%;
+}
+
+.predio-page .button {
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 24px;
+  border: 1px solid var(--gold);
+  background: var(--gold);
+  color: var(--black);
+  font: 600 12px/1 Montserrat, var(--font-heading), sans-serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: transform 140ms var(--ease-out), background-color 180ms ease, color 180ms ease;
+}
+
+.predio-page .button:active {
+  transform: scale(0.97);
+}
+
+.predio-page .button-small {
+  min-height: 42px;
+  padding: 0 17px;
+  font-size: 10px;
+}
+
+.predio-page .button-primary {
+  border-color: var(--gold);
+  background: var(--gold);
+}
+
+.predio-page .hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: 52% 48%;
+  padding-top: 92px;
+  background: var(--black);
+  color: var(--white);
+}
+
+.predio-page .hero-copy {
+  align-self: center;
+  padding: 9vh clamp(28px, 6vw, 100px) 13vh;
+  z-index: 2;
+}
+
+.predio-page .eyebrow,
+.predio-page .kicker {
+  margin: 0 0 28px;
+  color: var(--gold-deep);
+  font: 600 11px/1.2 Montserrat, var(--font-heading), sans-serif;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.predio-page .hero h1,
+.predio-page h2 {
+  font-family: Montserrat, var(--font-heading), sans-serif;
+  letter-spacing: -0.045em;
+  font-weight: 500;
+  line-height: 0.99;
+}
+
+.predio-page .hero h1 {
+  max-width: 790px;
+  margin: 0;
+  font-size: clamp(42px, 5.3vw, 84px);
+}
+
+.predio-page .hero-text {
+  max-width: 680px;
+  margin: 36px 0 42px;
+  color: #c9c6c0;
+  font-size: clamp(17px, 1.35vw, 21px);
+}
+
+.predio-page .hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+
+.predio-page .hero-actions > p {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0 9px;
+  color: #eee;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.predio-page .hero-actions p span {
+  grid-column: 2;
+  color: #999;
+}
+
+.predio-page .hero-media {
+  position: relative;
+  min-height: calc(100svh - 92px);
+  overflow: hidden;
+}
+
+.predio-page .hero-main {
+  filter: saturate(0.82) contrast(1.04);
+}
+
+.predio-page .hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(5, 5, 5, 0.28), transparent 30%);
+}
+
+.predio-page .hero-inset {
+  position: absolute;
+  z-index: 2;
+  left: -56px;
+  bottom: 7vh;
+  width: clamp(180px, 18vw, 300px);
+  aspect-ratio: 4/3;
+  border: 10px solid var(--black);
+}
+
+.predio-page .image-caption {
+  position: absolute;
+  z-index: 3;
+  right: 26px;
+  bottom: 26px;
+  color: white;
+  font: 500 10px Montserrat, var(--font-heading), sans-serif;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+}
+
+.predio-page .scroll-cue {
+  position: absolute;
+  left: clamp(28px, 6vw, 100px);
+  bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #8b8b8b;
+  font: 500 10px Montserrat, var(--font-heading), sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.predio-page .section {
+  padding: clamp(88px, 11vw, 168px) clamp(24px, 7vw, 120px);
+}
+
+.predio-page .split-section {
+  display: grid;
+  grid-template-columns: 1fr 0.86fr;
+  gap: clamp(60px, 10vw, 160px);
+  align-items: center;
+}
+
+.predio-page .section-intro {
+  max-width: 850px;
+}
+
+.predio-page .section h2 {
+  margin: 0 0 38px;
+  max-width: 960px;
+  font-size: clamp(40px, 5.2vw, 78px);
+}
+
+.predio-page .section h2.light {
+  color: var(--white);
+}
+
+.predio-page .body-copy {
+  max-width: 690px;
+  margin: 0 0 22px;
+  color: #46443f;
+  font-size: clamp(17px, 1.45vw, 21px);
+}
+
+.predio-page .light-muted {
+  color: #bcb8b0;
+}
+
+.predio-page .editorial-image {
+  position: relative;
+  margin: 0;
+  min-height: 640px;
+}
+
+.predio-page .editorial-image::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 20px -20px -20px 20px;
+  border: 1px solid var(--gold-deep);
+  pointer-events: none;
+}
+
+.predio-page .editorial-image figcaption {
+  position: absolute;
+  z-index: 3;
+  left: -30px;
+  bottom: 34px;
+  max-width: 260px;
+  padding: 14px 17px;
+  color: white;
+  background: var(--black);
+  font: 500 11px Montserrat, var(--font-heading), sans-serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.predio-page .location {
+  background: #e6e0d5;
+  border-top: 1px solid var(--line);
+}
+
+.predio-page .location-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1fr;
+  gap: 12vw;
+  margin-top: 50px;
+}
+
+.predio-page .location address {
+  display: flex;
+  gap: 15px;
+  margin-top: 44px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.predio-page .location address svg {
+  color: var(--gold-deep);
+  flex: none;
+}
+
+.predio-page .location ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--black);
+}
+
+.predio-page .location li {
+  display: grid;
+  grid-template-columns: 58px 1fr;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+  font: 500 clamp(18px, 2vw, 27px) Montserrat, var(--font-heading), sans-serif;
+}
+
+.predio-page .location li span {
+  color: var(--gold-deep);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+
+.predio-page .dark-section {
+  background: var(--black);
+  color: white;
+}
+
+.predio-page .project-head {
+  display: grid;
+  grid-template-columns: 1.05fr 0.75fr;
+  gap: 10vw;
+  align-items: end;
+}
+
+.predio-page .highlights {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin: 90px 0 110px;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid #444;
+  border-bottom: 1px solid #444;
+}
+
+.predio-page .highlights li {
+  min-height: 160px;
+  padding: 24px 22px;
+  border-right: 1px solid #444;
+  font: 500 15px/1.35 Montserrat, var(--font-heading), sans-serif;
+}
+
+.predio-page .highlights li:last-child {
+  border-right: 0;
+}
+
+.predio-page .highlights span {
+  display: block;
+  margin-bottom: 40px;
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+}
+
+.predio-page .gallery-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.predio-page .gallery-heading h3 {
+  margin: 0;
+  font: 500 clamp(28px, 3vw, 46px) Montserrat, var(--font-heading), sans-serif;
+  letter-spacing: -0.03em;
+}
+
+.predio-page .gallery-heading p {
+  color: #898989;
+  font-size: 13px;
+}
+
+.predio-page .gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(210px, 24vw);
+  gap: 10px;
+}
+
+.predio-page .gallery-item {
+  position: relative;
+  overflow: hidden;
+  border: 0;
+  background: var(--graphite);
+  padding: 0;
+}
+
+.predio-page .gallery-wide {
+  grid-column: span 2;
+}
+
+.predio-page .gallery-item img {
+  transition: transform 600ms var(--ease-out), filter 300ms ease;
+}
+
+.predio-page .gallery-item span {
+  position: absolute;
+  z-index: 2;
+  left: 15px;
+  bottom: 13px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  background: var(--black);
+  color: var(--gold);
+  font: 600 10px Montserrat, var(--font-heading), sans-serif;
+}
+
+.predio-page .softlanding {
+  display: grid;
+  grid-template-columns: 1fr 0.82fr;
+  gap: 11vw;
+  align-items: start;
+}
+
+.predio-page .softlanding-copy .button {
+  margin-top: 28px;
+}
+
+.predio-page .capabilities {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--black);
+}
+
+.predio-page .capabilities li {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  align-items: center;
+  min-height: 78px;
+  border-bottom: 1px solid var(--line);
+}
+
+.predio-page .capabilities li > span {
+  color: var(--gold-deep);
+  font: 600 10px Montserrat, var(--font-heading), sans-serif;
+  letter-spacing: 0.1em;
+}
+
+.predio-page .capabilities strong {
+  font: 500 clamp(17px, 1.7vw, 24px) Montserrat, var(--font-heading), sans-serif;
+}
+
+.predio-page .capabilities svg {
+  color: var(--gold-deep);
+}
+
+.predio-page .impact {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0;
+  background: #e6e0d5;
+}
+
+.predio-page .impact-image {
+  position: relative;
+  min-height: 800px;
+}
+
+.predio-page .impact-copy {
+  padding: clamp(80px, 9vw, 150px) clamp(26px, 7vw, 110px);
+}
+
+.predio-page .impact-list {
+  margin-top: 48px;
+  border-top: 1px solid var(--black);
+}
+
+.predio-page .impact-list p {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  margin: 0;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  font: 500 16px Montserrat, var(--font-heading), sans-serif;
+}
+
+.predio-page .impact-list span {
+  color: var(--gold-deep);
+  font-size: 10px;
+}
+
+.predio-page .partnership {
+  text-align: center;
+  background: var(--gold);
+}
+
+.predio-page .partnership .kicker {
+  color: var(--black);
+}
+
+.predio-page .partnership h2 {
+  max-width: 950px;
+  margin: 0 auto 36px;
+}
+
+.predio-page .partnership > p:not(.kicker) {
+  max-width: 820px;
+  margin: 0 auto 38px;
+}
+
+.predio-page .partnership .button {
+  color: white;
+  background: var(--black);
+  border-color: var(--black);
+}
+
+.predio-page .pinciara {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 10vw;
+  align-items: center;
+}
+
+.predio-page .pinciara-mark {
+  display: grid;
+  place-items: center;
+  min-height: 420px;
+  border: 1px solid #3b3b3b;
+}
+
+.predio-page .pinciara-mark img {
+  width: min(80%, 420px);
+  height: auto;
+  object-fit: contain;
+}
+
+.predio-page .broker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid #404040;
+}
+
+.predio-page .broker span,
+.predio-page .broker small {
+  display: block;
+}
+
+.predio-page .broker span {
+  font: 600 18px Montserrat, var(--font-heading), sans-serif;
+}
+
+.predio-page .broker small {
+  margin-top: 5px;
+  color: var(--gold);
+  letter-spacing: 0.09em;
+}
+
+.predio-page .contact {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 12vw;
+  background: var(--paper);
+}
+
+.predio-page .contact-copy > p:not(.kicker) {
+  max-width: 510px;
+  color: #52504b;
+}
+
+.predio-page .contact-details {
+  display: grid;
+  gap: 7px;
+  margin-top: 46px;
+  font: 600 17px Montserrat, var(--font-heading), sans-serif;
+}
+
+.predio-page .contact form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 28px;
+  align-content: start;
+}
+
+.predio-page .contact label {
+  display: grid;
+  gap: 9px;
+  margin-bottom: 25px;
+}
+
+.predio-page .contact label span {
+  font: 600 10px Montserrat, var(--font-heading), sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.predio-page .contact input {
+  width: 100%;
+  height: 52px;
+  border: 0;
+  border-bottom: 1px solid var(--black);
+  border-radius: 0;
+  background: transparent;
+  color: var(--black);
+  padding: 0 4px;
+  font-size: 18px;
+}
+
+.predio-page .contact input:focus {
+  outline: 0;
+  border-color: var(--gold-deep);
+  box-shadow: 0 1px 0 var(--gold-deep);
+}
+
+.predio-page .form-button,
+.predio-page .privacy-note,
+.predio-page .form-error {
+  grid-column: 1 / -1;
+}
+
+.predio-page .form-button {
+  width: 100%;
+  margin-top: 14px;
+  border: 0;
+}
+
+.predio-page .privacy-note {
+  margin: 14px 0 0;
+  color: #75716b;
+  font-size: 12px;
+}
+
+.predio-page .form-error {
+  color: #9c2c1e;
+  font-size: 14px;
+}
+
+.predio-page footer {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 60px;
+  padding: 45px clamp(24px, 7vw, 120px) max(45px, env(safe-area-inset-bottom));
+  background: var(--black);
+  color: white;
+  border-top: 1px solid #333;
+}
+
+.predio-page footer img {
+  width: 130px;
+  height: auto;
+  object-fit: contain;
+}
+
+.predio-page footer p {
+  color: #aaa;
+  font-size: 14px;
+}
+
+.predio-page footer div {
+  display: grid;
+  gap: 5px;
+  text-align: right;
+  font: 500 13px Montserrat, var(--font-heading), sans-serif;
+}
+
+.predio-page .lightbox {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr) 80px;
+  place-items: center;
+  padding: 5vw;
+  background: rgba(5, 5, 5, 0.96);
+  color: white;
+}
+
+.predio-page .lightbox-image {
+  position: relative;
+  width: min(1120px, 78vw);
+  height: min(76vh, 760px);
+}
+
+.predio-page .lightbox-image img {
+  object-fit: contain;
+}
+
+.predio-page .lightbox-image p {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  margin: 10px 0;
+  color: #aaa;
+  font-size: 13px;
+}
+
+.predio-page .lightbox button {
+  z-index: 2;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #555;
+  background: var(--black);
+  color: white;
+}
+
+.predio-page .lightbox-close {
+  position: absolute;
+  top: max(22px, env(safe-area-inset-top));
+  right: 25px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .predio-page .desktop-nav a:hover::after {
+    right: 0;
+  }
+  .predio-page .button:hover {
+    background: white;
+    color: var(--black);
+  }
+  .predio-page .gallery-item:hover img {
+    transform: scale(1.035);
+    filter: brightness(0.82);
+  }
+  .predio-page .language:hover {
+    color: var(--gold);
+    border-color: var(--gold);
+  }
+}
+
+@media (max-width: 1080px) {
+  .predio-page .desktop-nav {
+    display: none;
+  }
+  .predio-page .menu-button {
+    display: inline-grid;
+  }
+  .predio-page .hero {
+    grid-template-columns: 1fr;
+  }
+  .predio-page .hero-copy {
+    min-height: 74svh;
+    padding-top: 11vh;
+  }
+  .predio-page .hero-media {
+    min-height: 66svh;
+  }
+  .predio-page .hero-inset {
+    left: auto;
+    right: 5vw;
+    bottom: -45px;
+  }
+  .predio-page .scroll-cue {
+    display: none;
+  }
+  .predio-page .split-section,
+  .predio-page .softlanding,
+  .predio-page .pinciara,
+  .predio-page .contact {
+    grid-template-columns: 1fr;
+  }
+  .predio-page .project-head {
+    grid-template-columns: 1fr;
+  }
+  .predio-page .highlights {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .predio-page .highlights li:nth-child(3) {
+    border-right: 0;
+  }
+  .predio-page .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .predio-page .impact {
+    grid-template-columns: 1fr;
+  }
+  .predio-page .impact-image {
+    min-height: 60svh;
+  }
+}
+
+@media (max-width: 680px) {
+  .predio-page {
+    font-size: 16px;
+  }
+  .predio-page .navbar {
+    height: 76px;
+    padding-inline: 18px;
+  }
+  .predio-page .brand {
+    width: 106px;
+    height: 54px;
+  }
+  .predio-page .brand img {
+    width: 105px;
+  }
+  .predio-page .nav-actions .button {
+    display: none;
+  }
+  .predio-page .language {
+    width: 38px;
+    height: 38px;
+  }
+  .predio-page .hero {
+    padding-top: 76px;
+  }
+  .predio-page .hero-copy {
+    min-height: 77svh;
+    padding: 70px 24px 80px;
+  }
+  .predio-page .hero h1 {
+    font-size: clamp(40px, 12.5vw, 58px);
+  }
+  .predio-page .hero-text {
+    margin: 28px 0 34px;
+  }
+  .predio-page .hero-actions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .predio-page .hero-media {
+    min-height: 55svh;
+  }
+  .predio-page .hero-inset {
+    width: 160px;
+    border-width: 6px;
+  }
+  .predio-page .section {
+    padding: 86px 24px;
+  }
+  .predio-page .section h2 {
+    font-size: clamp(37px, 11vw, 52px);
+  }
+  .predio-page .split-section {
+    gap: 70px;
+  }
+  .predio-page .editorial-image {
+    min-height: 480px;
+  }
+  .predio-page .editorial-image::before {
+    inset: 12px -8px -12px 8px;
+  }
+  .predio-page .editorial-image figcaption {
+    left: -8px;
+  }
+  .predio-page .location-grid {
+    grid-template-columns: 1fr;
+    gap: 55px;
+  }
+  .predio-page .project-head {
+    gap: 25px;
+  }
+  .predio-page .highlights {
+    grid-template-columns: 1fr;
+    margin: 60px 0 80px;
+  }
+  .predio-page .highlights li {
+    min-height: auto;
+    border-right: 0;
+    border-bottom: 1px solid #444;
+  }
+  .predio-page .highlights span {
+    display: inline-block;
+    margin: 0 22px 0 0;
+  }
+  .predio-page .gallery-heading {
+    display: block;
+  }
+  .predio-page .gallery {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 310px;
+  }
+  .predio-page .gallery-wide {
+    grid-column: auto;
+  }
+  .predio-page .softlanding {
+    gap: 70px;
+  }
+  .predio-page .impact-image {
+    min-height: 50svh;
+  }
+  .predio-page .impact-copy {
+    padding: 80px 24px;
+  }
+  .predio-page .pinciara-mark {
+    min-height: 300px;
+  }
+  .predio-page .broker {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .predio-page .contact form {
+    grid-template-columns: 1fr;
+  }
+  .predio-page .contact form > * {
+    grid-column: 1;
+  }
+  .predio-page .contact input {
+    font-size: 16px;
+  }
+  .predio-page footer {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .predio-page footer div {
+    text-align: left;
+  }
+  .predio-page .lightbox {
+    grid-template-columns: 44px 1fr 44px;
+    padding: 68px 8px;
+  }
+  .predio-page .lightbox-image {
+    width: 100%;
+    height: 68vh;
+  }
+  .predio-page .lightbox button {
+    width: 40px;
+    height: 46px;
+  }
+}

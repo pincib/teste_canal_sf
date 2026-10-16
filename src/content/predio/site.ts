@@ -1,0 +1,123 @@
+export type Locale = "pt" | "en";
+
+const common = {
+  address: "Largo de São Francisco de Paula, 34",
+  city: "Centro, Rio de Janeiro — RJ",
+  phone: "21 99522-1369",
+  email: "luiz@pinciara.com",
+  creci: "CRECI 052557",
+};
+
+export const content = {
+  pt: {
+    ...common,
+    locale: "pt" as const,
+    languageLabel: "EN",
+    languageHref: "/projeto-predio-01/en",
+    nav: [
+      ["Projeto", "#projeto"], ["Localização", "#localizacao"],
+      ["Softlanding", "#softlanding"], ["Pinciara", "#pinciara"],
+    ],
+    navCta: "Falar no WhatsApp",
+    messages: {
+      nav: "Olá, gostaria de conversar sobre o empreendimento no Largo de São Francisco de Paula, 34.",
+      hero: "Olá, tenho interesse em conhecer melhor o empreendimento no Largo de São Francisco de Paula, 34.",
+      softlanding: "Olá, gostaria de entender melhor a proposta de plataforma internacional de softlanding do empreendimento no Largo de São Francisco de Paula, 34.",
+      partnership: "Olá, gostaria de conversar sobre oportunidades de parceria relacionadas ao empreendimento no Largo de São Francisco de Paula, 34.",
+      pinciara: "Olá, gostaria de falar com Luiz Pinciara sobre o empreendimento no Largo de São Francisco de Paula, 34.",
+    },
+    hero: {
+      eyebrow: "Centro Histórico do Rio de Janeiro",
+      title: "O Centro do Rio ganha um novo ponto de encontro para morar, trabalhar e fazer negócios.",
+      text: "No Largo de São Francisco de Paula, 34, um edifício de uso misto une mall, espaços para eventos, rooftop e 129 studios em uma localização estratégica no Centro Histórico do Rio de Janeiro.",
+      cta: "Falar com um especialista",
+      scroll: "Conheça o projeto",
+    },
+    alignment: {
+      kicker: "01 — Alinhamento estratégico",
+      title: "Um projeto conectado à renovação do Centro.",
+      paragraphs: [
+        "O empreendimento acompanha o movimento de reocupação e revitalização do Centro do Rio de Janeiro. Sua proposta integra uso residencial, comércio, experiências e infraestrutura para negócios em uma região marcada por cultura, mobilidade e atividade econômica.",
+        "Com 129 studios, espaços comerciais e áreas destinadas a eventos, o projeto contribui para uma ocupação mais ativa do território ao longo da semana.",
+      ],
+    },
+    location: {
+      kicker: "02 — Localização estratégica",
+      title: "No coração histórico e conectado do Rio.",
+      paragraphs: [
+        "Localizado no Largo de São Francisco de Paula, 34, no Centro do Rio de Janeiro, o empreendimento está cercado por importantes referências culturais, empresariais e comerciais.",
+        "A poucos minutos do Aeroporto Santos Dumont, próximo ao metrô Uruguaiana, à Praça XV e aos principais eixos de mobilidade da região, o endereço conecta pessoas, empresas e oportunidades.",
+      ],
+      places: ["Metrô Uruguaiana", "Praça XV", "Aeroporto Santos Dumont", "Centro Histórico"],
+    },
+    project: {
+      kicker: "03 — O empreendimento",
+      title: "Um edifício preparado para múltiplas experiências.",
+      text: "O projeto foi redesenhado para uso misto. Nos pavimentos inferiores, o mall concentra áreas comerciais e espaços voltados a ativações, encontros e eventos. A torre reúne 129 unidades residenciais do tipo studio. O edifício também conta com áreas comuns, terraços e rooftop, criando uma estrutura integrada para diferentes formas de ocupação.",
+      highlights: ["129 studios residenciais", "Mall e espaços comerciais", "Áreas para eventos e convenções", "Rooftop e terraços", "Centro Histórico do Rio"],
+      galleryTitle: "Ambientes do projeto",
+      galleryHint: "Selecione uma imagem para ampliar",
+    },
+    softlanding: {
+      kicker: "04 — Plataforma internacional",
+      title: "Uma base para novas conexões no mercado brasileiro.",
+      text: "O Flowin.Rio foi concebido como uma plataforma de softlanding para empresas, marcas e missões de negócios que buscam se conectar ao mercado brasileiro. A proposta reúne infraestrutura física e digital, residência, showrooms, apoio de mercado, serviços, concierge corporativo e networking em um único endereço no Centro do Rio.",
+      items: ["Infraestrutura física e digital", "Residência", "Showrooms", "Apoio de mercado", "Concierge corporativo", "Networking"],
+      cta: "Falar com um especialista",
+    },
+    impact: {
+      kicker: "05 — Impacto para a cidade",
+      title: "Ativação urbana que gera movimento.",
+      text: "Ao reunir moradores, visitantes, negócios e comércio, o empreendimento amplia a circulação de pessoas na região e fortalece a dinâmica urbana do Centro. A proposta contribui para estimular o comércio local, apoiar a criação de empregos diretos e indiretos e reforçar a presença do Rio de Janeiro como destino para negócios, cultura e novas conexões.",
+      items: ["Moradia e permanência", "Comércio local", "Negócios e conexões", "Cultura e experiências"],
+    },
+    partnership: {
+      kicker: "06 — Proposta de parceria",
+      title: "Uma oportunidade conectada ao futuro do Centro.",
+      text: "O projeto combina transformação imobiliária, uso residencial, comércio, eventos e uma visão de internacionalização para o Centro Histórico do Rio de Janeiro. A Pinciara Imóveis apresenta esta oportunidade para proprietários, parceiros e interessados que buscam uma atuação especializada em imóveis comerciais e industriais.",
+      cta: "Converse com a Pinciara Imóveis",
+    },
+    pinciara: {
+      kicker: "07 — Pinciara Imóveis",
+      title: "Especialistas em imóveis comerciais e industriais.",
+      text: "A Pinciara Imóveis atua com foco em imóveis comerciais e industriais, oferecendo atendimento direto para quem busca negociar ativos imobiliários com acompanhamento especializado. Para conhecer melhor este empreendimento e conversar sobre oportunidades na região, fale com Luiz Pinciara.",
+      cta: "Falar com Luiz Pinciara",
+    },
+    form: {
+      kicker: "Contato direto",
+      title: "Vamos conversar sobre esta oportunidade?",
+      text: "Preencha seus dados e fale diretamente com um especialista da Pinciara Imóveis pelo WhatsApp.",
+      fields: { name: "Nome", company: "Empresa", phone: "Telefone", email: "E-mail" },
+      button: "Iniciar conversa no WhatsApp",
+      required: "Preencha este campo.",
+      message: (v: Record<string, string>) => `Olá, meu nome é ${v.name}. Represento ${v.company}. Gostaria de conversar sobre o empreendimento no Largo de São Francisco de Paula, 34. Meu telefone é ${v.phone} e meu e-mail é ${v.email}.`,
+      privacy: "Seus dados não são armazenados. Eles são usados apenas para montar a mensagem no seu dispositivo.",
+    },
+    footer: "Imóveis comerciais e industriais no Rio de Janeiro.",
+  },
+  en: {
+    ...common,
+    locale: "en" as const,
+    languageLabel: "PT",
+    languageHref: "/projeto-predio-01",
+    nav: [["Project", "#projeto"], ["Location", "#localizacao"], ["Softlanding", "#softlanding"], ["Pinciara", "#pinciara"]],
+    navCta: "Talk on WhatsApp",
+    messages: {
+      nav: "Hello, I would like to discuss the development at Largo de São Francisco de Paula, 34.",
+      hero: "Hello, I am interested in learning more about the development at Largo de São Francisco de Paula, 34.",
+      softlanding: "Hello, I would like to understand the development's international softlanding platform at Largo de São Francisco de Paula, 34.",
+      partnership: "Hello, I would like to discuss partnership opportunities related to the development at Largo de São Francisco de Paula, 34.",
+      pinciara: "Hello, I would like to speak with Luiz Pinciara about the development at Largo de São Francisco de Paula, 34.",
+    },
+    hero: { eyebrow: "Historic Center of Rio de Janeiro", title: "A new meeting point in Downtown Rio for living, working and doing business.", text: "At Largo de São Francisco de Paula, 34, a mixed-use building brings together a mall, event spaces, rooftop and 129 studios in a strategic location in Rio de Janeiro's Historic Center.", cta: "Talk to a specialist", scroll: "Discover the project" },
+    alignment: { kicker: "01 — Strategic alignment", title: "A project connected to Downtown's renewal.", paragraphs: ["The development follows the movement to reoccupy and revitalize Downtown Rio. Its proposal integrates residential use, retail, experiences and business infrastructure in an area shaped by culture, mobility and economic activity.", "With 129 studios, commercial spaces and areas designed for events, the project contributes to more active occupation throughout the week."] },
+    location: { kicker: "02 — Strategic location", title: "At the historic and connected heart of Rio.", paragraphs: ["Located at Largo de São Francisco de Paula, 34, in Downtown Rio, the development is surrounded by important cultural, business and commercial landmarks.", "Minutes from Santos Dumont Airport, close to Uruguaiana metro station, Praça XV and the area's main transport corridors, the address connects people, companies and opportunities."], places: ["Uruguaiana metro", "Praça XV", "Santos Dumont Airport", "Historic Center"] },
+    project: { kicker: "03 — The development", title: "A building designed for multiple experiences.", text: "The project was redesigned for mixed use. On the lower floors, the mall brings together commercial areas and spaces for activations, meetings and events. The tower includes 129 studio residences. The building also features common areas, terraces and a rooftop, creating an integrated structure for different forms of occupation.", highlights: ["129 studio residences", "Mall and commercial spaces", "Event and convention areas", "Rooftop and terraces", "Rio's Historic Center"], galleryTitle: "Project environments", galleryHint: "Select an image to enlarge" },
+    softlanding: { kicker: "04 — International platform", title: "A base for new connections in the Brazilian market.", text: "Flowin.Rio was conceived as a softlanding platform for companies, brands and business missions seeking to connect with the Brazilian market. The proposal brings together physical and digital infrastructure, residences, showrooms, market support, services, corporate concierge and networking at one address in Downtown Rio.", items: ["Physical and digital infrastructure", "Residences", "Showrooms", "Market support", "Corporate concierge", "Networking"], cta: "Talk to a specialist" },
+    impact: { kicker: "05 — Impact on the city", title: "Urban activation that creates movement.", text: "By bringing together residents, visitors, businesses and retail, the development increases circulation in the area and strengthens Downtown's urban dynamics. The proposal helps stimulate local commerce, supports direct and indirect job creation, and reinforces Rio de Janeiro as a destination for business, culture and new connections.", items: ["Living and permanence", "Local commerce", "Business and connections", "Culture and experiences"] },
+    partnership: { kicker: "06 — Partnership proposal", title: "An opportunity connected to Downtown's future.", text: "The project combines real estate transformation, residential use, retail, events and an international outlook for Rio's Historic Center. Pinciara Imóveis presents this opportunity to owners, partners and interested parties seeking specialized work in commercial and industrial real estate.", cta: "Talk to Pinciara Imóveis" },
+    pinciara: { kicker: "07 — Pinciara Imóveis", title: "Specialists in commercial and industrial real estate.", text: "Pinciara Imóveis focuses on commercial and industrial properties, offering direct service to those seeking to negotiate real estate assets with specialized support. To learn more about this development and discuss opportunities in the area, speak with Luiz Pinciara.", cta: "Talk to Luiz Pinciara" },
+    form: { kicker: "Direct contact", title: "Shall we discuss this opportunity?", text: "Fill in your details and speak directly with a Pinciara Imóveis specialist on WhatsApp.", fields: { name: "Name", company: "Company", phone: "Phone", email: "Email" }, button: "Start a WhatsApp conversation", required: "Complete this field.", message: (v: Record<string, string>) => `Hello, my name is ${v.name}. I represent ${v.company}. I would like to discuss the development at Largo de São Francisco de Paula, 34. My phone number is ${v.phone} and my email is ${v.email}.`, privacy: "Your details are not stored. They are only used to compose the message on your device." },
+    footer: "Commercial and industrial real estate in Rio de Janeiro.",
+  },
+};

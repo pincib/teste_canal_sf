@@ -1,0 +1,2 @@
+import { ViewOnMap } from './watermelon/view-on-map';
+export default function LocationSection(){const address='Av. Pres. Franklin Roosevelt, esquina com Rua Guajianases, São Francisco, Niterói - RJ';const coordinates='-22.91413177147381, -43.083452312015005';return <section id="localizacao" className="location"><div><p className="label">São Francisco · Niterói</p><h2>Onde a cidade<br/>encontra a sua marca.</h2><p>{address}. Uma localização nobre, consolidada e feita para ser vista.</p></div><ViewOnMap coordinates={coordinates}/></section>}

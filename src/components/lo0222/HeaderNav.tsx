@@ -1,0 +1,4 @@
+'use client';
+import Image from 'next/image';
+import { useState } from 'react';
+export default function HeaderNav() { const [open,setOpen]=useState(false); return <header className="nav"><a href="#inicio" className="brand"><Image src="/lo0222/assets/brand/pinciara.svg" width={228} height={57} alt="Pinciara Imóveis Exclusivos" priority /></a><button className="menu" onClick={()=>setOpen(!open)} aria-label="Abrir menu"><i/><i/></button><nav className={open?'open':''}><a href="#conceito" onClick={()=>setOpen(false)}>O espaço</a><a href="#planta" onClick={()=>setOpen(false)}>Planta</a><a href="#materiais" onClick={()=>setOpen(false)}>Especificações</a><a href="#localizacao" onClick={()=>setOpen(false)}>Localização</a><a className="nav-cta" href="#contato" onClick={()=>setOpen(false)}>Agendar visita</a></nav></header> }
