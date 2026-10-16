@@ -1,0 +1,21 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/projeto-predio-01",
+      "destination": "https://projeto-predio-01.vercel.app/projeto-predio-01/"
+    },
+    {
+      "source": "/projeto-predio-01/:path*",
+      "destination": "https://projeto-predio-01.vercel.app/projeto-predio-01/:path*"
+    },
+    {
+      "source": "/lo0222",
+      "destination": "https://lo0222-teste.vercel.app/lo0222"
+    },
+    {
+      "source": "/lo0222/:path*",
+      "destination": "https://lo0222-teste.vercel.app/lo0222/:path*"
+    }
+  ]
+}
