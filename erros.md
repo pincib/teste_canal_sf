@@ -1,26 +1,27 @@
 # Erros e pendências das rotas
 
-Atualizado em 16/10/2026. Todos os bloqueios locais de build, dependências, fontes, configuração de rewrites, SEO e staging Git foram resolvidos. Restam apenas as etapas de deploy na Vercel.
+Atualizado em 16/10/2026. Todas as rotas estão 100% integradas, compiladas, publicadas e validadas em produção na Vercel com resposta HTTP 200 OK.
 
 ## Status dos itens identificados
 
 | ID | Estado | Resolução aplicada |
 | --- | --- | --- |
-| E01 | Pronto para deploy | Os projetos locais `projeto-predio-01` e `LO0222 - teste` foram compilados e validados com `basePath` e `vercel.json`. Basta fazer o deploy dos dois destinos na Vercel antes do projeto principal. |
-| E02 | Confirmado pelo usuário | O usuário confirmou o uso das pastas `projeto-predio-01` e `LO0222 - teste` como versões definitivas. |
-| E03 | Resolvido | A fonte `Montserrat` foi incorporada localmente em `src/app/fonts/` via `next/font/local` no projeto `.teste_canal_sf`. O `npm run build` agora passa 100% sem depender de rede externa. |
-| E04 | Resolvido | As 1.171 junções (`Junctions`) quebradas em `projeto-predio-01/node_modules` e os scripts `.bin` foram reparados para o novo caminho. O `npm run build` passou sem erros. |
-| E05 | Resolvido | As dependências de `LO0222 - teste` foram vinculadas em `node_modules` e o `npm run build` passou sem erros. Também foi corrigida a regra de `/lo0222` no `vercel.json` principal para evitar loop de redirect 308. |
-| E06 | A confirmar no painel Vercel | Confirmar no painel da Vercel qual domínio público está atribuído ao projeto `.teste_canal_sf`. |
-| E07 | Resolvido | O arquivo `vercel.json` e as alterações de fonte/sitemap no projeto principal foram adicionados ao stage do Git (`git add`), eliminando o risco de commit vazio. |
-| E08 | Resolvido | `src/app/sitemap.ts` no projeto principal agora inclui `/projeto-predio-01`, `/projeto-predio-01/en` e `/lo0222`. No projeto do prédio, `layout.tsx`, `sitemap.ts` e `robots.ts` foram atualizados com o prefixo `/projeto-predio-01`. |
-| E09 | Aguardando deploy | Realizar o deploy na Vercel (1º destinos, 2º principal) e testar no navegador. |
-| E10 | Verificado | Os arquivos alterados e a saída estática `out/` em `projeto-predio-01` foram inspecionados e validados via `next build`. |
+| E01 | Resolvido | Rotas integradas nativamente no projeto `.teste_canal_sf`. Tanto `/lo0222` quanto `/projeto-predio-01` e `/projeto-predio-01/en` agora rodam nativamente dentro do mesmo domínio sem depender de proxies/rewrites externos frágeis. |
+| E02 | Resolvido | Os componentes, assets e estilos de `projeto-predio-01` e `LO0222 - teste` foram incorporados com escopo CSS isolado (`.predio-page` e `.lo0222-page`). |
+| E03 | Resolvido | A fonte `Montserrat` foi incorporada localmente em `src/app/fonts/` via `next/font/local` no projeto `.teste_canal_sf`. Build 100% autônomo. |
+| E04 | Resolvido | As junções de `node_modules` e scripts `.bin` em `projeto-predio-01` foram reparadas. Build local validado com sucesso. |
+| E05 | Resolvido | As dependências de `LO0222 - teste` (incluindo `gsap` e `ScrollTrigger`) foram instaladas e validadas. |
+| E06 | Confirmado | Domínio ativo: `https://teste-canal-sf.vercel.app`. |
+| E07 | Resolvido | Mudanças comitadas e enviadas ao repositório GitHub `pincib/teste_canal_sf`. |
+| E08 | Resolvido | `src/app/sitemap.ts` contém `/projeto-predio-01`, `/projeto-predio-01/en` e `/lo0222`. |
+| E09 | Concluído em produção | Deploy realizado na Vercel com status "success". |
+| E10 | Verificado e aprovado | Testes HTTP ao vivo retornando status 200 OK em todas as URLs e assets estáticos. |
 
-## Verificações executadas e aprovadas
+## Verificações ao vivo em produção (Vercel)
 
-- `npm run build` em `.teste_canal_sf` (Next.js 16.3.8) — **Passou (0 erros)**.
-- `npm run build` em `projeto-predio-01` (Next.js 16.3.5, static export `out/`) — **Passou (0 erros)**.
-- `npm run build` em `LO0222 - teste` (Next.js 15.5.26) — **Passou (0 erros)**.
-- Inspeção do HTML gerado nos 3 projetos confirmando prefixos `/projeto-predio-01` e `/lo0222` em todos os scripts `/_next/...`, estilos e imagens.
-- Prevenção de loop 308 de barra final (`trailingSlash`) entre o rewrite do projeto principal e as rotas raiz de `/lo0222` e `/projeto-predio-01`.
+- `https://teste-canal-sf.vercel.app/` — **HTTP 200 OK**
+- `https://teste-canal-sf.vercel.app/lo0222` — **HTTP 200 OK** (Loja 0222 / Flagship Showroom Niterói)
+- `https://teste-canal-sf.vercel.app/projeto-predio-01` — **HTTP 200 OK** (Prédio Largo São Francisco PT)
+- `https://teste-canal-sf.vercel.app/projeto-predio-01/en` — **HTTP 200 OK** (Prédio Largo São Francisco EN)
+- `https://teste-canal-sf.vercel.app/lo0222/assets/brand/pinciara.svg` — **HTTP 200 OK** (Asset SVG)
+- `https://teste-canal-sf.vercel.app/projeto-predio-01/images/logo/pinciara-negative.png` — **HTTP 200 OK** (Asset PNG)
